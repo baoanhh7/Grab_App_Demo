@@ -56,12 +56,12 @@ public class HomeActivity extends AppCompatActivity {
 
     private void filter(String text) {
         filterProduct.clear();
-        for (Product product : productListOderAgain) {
+        for (Product product : productList) {
             if (product.getName().toLowerCase().contains(text.toLowerCase())) {
                 filterProduct.add(product);
             }
         }
-        orderAgainAdapter.filterList(filterProduct);
+        homeAdapter.filterList(filterProduct);
     }
 
     private void createData() {

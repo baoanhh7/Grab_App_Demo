@@ -24,11 +24,6 @@ public class OrderAgainAdapter extends RecyclerView.Adapter<OrderAgainAdapter.Ho
         this.productList = productList;
     }
 
-    public void filterList(List<Product> productList) {
-        this.productList = productList;
-        notifyDataSetChanged();
-    }
-
     @NonNull
     @Override
     public HomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

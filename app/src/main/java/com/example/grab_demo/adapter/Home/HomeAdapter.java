@@ -25,6 +25,11 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
         this.productList = productList;
     }
 
+    public void filterList(List<Product> productList) {
+        this.productList = productList;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public HomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
