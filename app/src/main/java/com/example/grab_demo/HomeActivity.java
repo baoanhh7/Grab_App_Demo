@@ -64,6 +64,11 @@ public class HomeActivity extends AppCompatActivity {
         productListOderAgain.add(new Product("Japan noodle", "Bột mì, sup, egg", R.drawable.noodle, 20000));
         productListOderAgain.add(new Product("Kimbap", "Rice, carot, egg", R.drawable.food, 50000));
         productListOderAgain.add(new Product("Salad", "Rau, trái cây, hạt", R.drawable.healthy, 23456));
+        productListOderAgain.add(new Product("Pizza", "Bột pizza, sốt cà chua, phô mai", R.drawable.pizza, 10000));
+        productListOderAgain.add(new Product("Japan noodle", "Bột mì, sup, egg", R.drawable.noodle, 20000));
+        productListOderAgain.add(new Product("Kimbap", "Rice, carot, egg", R.drawable.food, 50000));
+        productListOderAgain.add(new Product("Salad", "Rau, trái cây, hạt", R.drawable.healthy, 23456));
+        productListOderAgain.add(new Product("Pizza", "Bột pizza, sốt cà chua, phô mai", R.drawable.pizza, 10000));
         orderAgainAdapter.notifyDataSetChanged();
 
     }
