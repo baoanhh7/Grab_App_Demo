@@ -20,7 +20,7 @@ import java.util.List;
 public class HomeActivity extends AppCompatActivity {
 
     RecyclerView rcv_header, rcv_second, rcv_voucher, rcv_orderAgain;
-    List<Product> productList, productList2, productListVoucher, productListOderAgain;
+    List<Product> filterProduct, productList, productList2, productListVoucher, productListOderAgain;
     HomeAdapter homeAdapter;
     HomeSecondAdapter homeSecondAdapter;
     HomeVoucherAdapter homeVoucherAdapter;
@@ -33,8 +33,35 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         addControls();
+        addEvents();
+
         createData();
 
+    }
+
+    private void addEvents() {
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                filter(newText);
+                return false;
+            }
+        });
+    }
+
+    private void filter(String text) {
+        filterProduct.clear();
+        for (Product product : productListOderAgain) {
+            if (product.getName().toLowerCase().contains(text.toLowerCase())) {
+                filterProduct.add(product);
+            }
+        }
+        orderAgainAdapter.filterList(filterProduct);
     }
 
     private void createData() {
@@ -74,6 +101,7 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void addControls() {
+        filterProduct = new ArrayList<>();
         productList = new ArrayList<>();
         productList2 = new ArrayList<>();
         productListVoucher = new ArrayList<>();
