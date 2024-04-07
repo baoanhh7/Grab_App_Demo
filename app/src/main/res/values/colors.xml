@@ -2,4 +2,9 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="hongNhat">#FFC0CB</color>
+    <color name="lavender">#E6E6FA</color>
+    <color name="vangNhat">#FAFAD2</color>
+    <color name="xanhNhat">#B0E0E6</color>
 </resources>

@@ -6,15 +6,30 @@ public class Product implements Serializable {
     private String name;
     private byte[] image;
     private int img;
+    private String describe;
 
     public Product(String name, int img) {
         this.name = name;
         this.img = img;
     }
 
+    public Product(String name, String describe, int img) {
+        this.name = name;
+        this.img = img;
+        this.describe = describe;
+    }
+
     public Product(String name, byte[] image) {
         this.name = name;
         this.image = image;
+    }
+
+    public String getDescribe() {
+        return describe;
+    }
+
+    public void setDescribe(String describe) {
+        this.describe = describe;
     }
 
     public int getImg() {
