@@ -4,9 +4,9 @@ import java.io.Serializable;
 
 public class Product implements Serializable {
     private String name;
-    private byte[] image;
     private int img;
     private String describe;
+    private double price;
 
     public Product(String name, int img) {
         this.name = name;
@@ -19,9 +19,19 @@ public class Product implements Serializable {
         this.describe = describe;
     }
 
-    public Product(String name, byte[] image) {
+    public Product(String name, String describe, int img, double price) {
         this.name = name;
-        this.image = image;
+        this.img = img;
+        this.describe = describe;
+        this.price = price;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public String getDescribe() {
@@ -46,13 +56,5 @@ public class Product implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public byte[] getImage() {
-        return image;
-    }
-
-    public void setImage(byte[] image) {
-        this.image = image;
     }
 }
