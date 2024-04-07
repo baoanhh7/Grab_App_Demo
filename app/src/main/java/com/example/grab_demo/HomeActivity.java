@@ -8,8 +8,9 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.grab_demo.adapter.HomeAdapter;
-import com.example.grab_demo.adapter.HomeSecondAdapter;
+import com.example.grab_demo.adapter.Home.HomeAdapter;
+import com.example.grab_demo.adapter.Home.HomeSecondAdapter;
+import com.example.grab_demo.adapter.Home.HomeVoucherAdapter;
 import com.example.grab_demo.model.Product;
 
 import java.util.ArrayList;
@@ -17,10 +18,11 @@ import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
-    RecyclerView rcv_header, rcv_second;
-    List<Product> productList, productList2;
+    RecyclerView rcv_header, rcv_second, rcv_voucher;
+    List<Product> productList, productList2, productListVoucher;
     HomeAdapter homeAdapter;
     HomeSecondAdapter homeSecondAdapter;
+    HomeVoucherAdapter homeVoucherAdapter;
     SearchView searchView;
 
     @Override
@@ -48,27 +50,42 @@ public class HomeActivity extends AppCompatActivity {
         productList2.add(new Product("Tuần lễ món cơm", "Tặng món 0đ", R.color.xanhNhat));
         homeSecondAdapter.notifyDataSetChanged();
 
+        productListVoucher.clear();
+        productListVoucher.add(new Product("Voucher 1", "Get it quick", R.drawable.voucher4));
+        productListVoucher.add(new Product("Voucher 2", "Chốt deal ngay!", R.drawable.voucher3));
+        productListVoucher.add(new Product("Voucher 3", "Bao tiết kiệm", R.drawable.voucher2));
+        productListVoucher.add(new Product("Voucher 4", "Tặng món 0đ", R.drawable.voucher1));
+        homeVoucherAdapter.notifyDataSetChanged();
+
     }
 
     private void addControls() {
         productList = new ArrayList<>();
         productList2 = new ArrayList<>();
+        productListVoucher = new ArrayList<>();
 
         rcv_header = findViewById(R.id.rcv_header);
         rcv_second = findViewById(R.id.rcv_second);
+        rcv_voucher = findViewById(R.id.rcv_voucher);
 
         homeAdapter = new HomeAdapter(this, productList);
         homeSecondAdapter = new HomeSecondAdapter(this, productList2);
+        homeVoucherAdapter = new HomeVoucherAdapter(this, productListVoucher);
 
         rcv_header.setAdapter(homeAdapter);
         rcv_second.setAdapter(homeSecondAdapter);
+        rcv_voucher.setAdapter(homeVoucherAdapter);
 
         searchView = findViewById(R.id.searchView);
         searchView.setIconifiedByDefault(false);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
         rcv_header.setLayoutManager(linearLayoutManager);
+
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         rcv_second.setLayoutManager(gridLayoutManager);
+
+        LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(this, RecyclerView.HORIZONTAL, false);
+        rcv_voucher.setLayoutManager(linearLayoutManager1);
     }
 }
