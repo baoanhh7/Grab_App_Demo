@@ -1,5 +1,6 @@
 package com.example.grab_demo;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -33,10 +34,9 @@ public class HomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_home);
 
         addControls();
-        addEvents();
-
         createData();
 
+        addEvents();
     }
 
     private void addEvents() {
@@ -50,6 +50,14 @@ public class HomeActivity extends AppCompatActivity {
             public boolean onQueryTextChange(String newText) {
                 filter(newText);
                 return false;
+            }
+        });
+
+        homeSecondAdapter.setOnClickItemListener(new IClickItem() {
+            @Override
+            public void onClickItem(String data) {
+                Intent intent = new Intent(HomeActivity.this, ProductListActivity.class);
+                startActivity(intent);
             }
         });
     }

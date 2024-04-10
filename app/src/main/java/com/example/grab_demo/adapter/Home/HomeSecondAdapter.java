@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.grab_demo.IClickItem;
 import com.example.grab_demo.R;
 import com.example.grab_demo.model.Product;
 
@@ -19,9 +20,15 @@ public class HomeSecondAdapter extends RecyclerView.Adapter<HomeSecondAdapter.Ho
     Context context;
     List<Product> productList;
 
+    private IClickItem iClickItem;
+
     public HomeSecondAdapter(Context context, List<Product> productList) {
         this.context = context;
         this.productList = productList;
+    }
+
+    public void setOnClickItemListener(IClickItem listener) {
+        this.iClickItem = listener;
     }
 
     @NonNull
@@ -38,6 +45,15 @@ public class HomeSecondAdapter extends RecyclerView.Adapter<HomeSecondAdapter.Ho
         holder.txt_name.setText(product.getName());
         holder.txt_describe.setText(product.getDescribe());
         holder.img_bg.setImageResource(product.getImg());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (iClickItem != null) {
+                    iClickItem.onClickItem(productList.get(position).getName());
+                }
+            }
+        });
     }
 
     @Override
