@@ -2,6 +2,8 @@ package com.example.grab_demo;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -17,7 +19,7 @@ public class ProductListActivity extends AppCompatActivity {
     RecyclerView rcv_productList;
     List<Product> productList;
     OrderAgainAdapter orderAgainAdapter;
-
+    ImageButton btn_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +33,12 @@ public class ProductListActivity extends AppCompatActivity {
     }
 
     private void addEvents() {
+        btn_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         orderAgainAdapter.setOnClickItemListener(new IClickItem() {
             @Override
             public void onClickItem(String data) {
@@ -50,6 +58,8 @@ public class ProductListActivity extends AppCompatActivity {
     }
 
     private void addControls() {
+        btn_back = findViewById(R.id.btn_back);
+
         rcv_productList = findViewById(R.id.rcv_productList);
         productList = new ArrayList<>();
         orderAgainAdapter = new OrderAgainAdapter(this, productList);
