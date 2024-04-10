@@ -53,6 +53,14 @@ public class HomeActivity extends AppCompatActivity {
             }
         });
 
+        homeAdapter.setOnItemClick(new IClickItem() {
+            @Override
+            public void onClickItem(String data) {
+                Intent intent = new Intent(HomeActivity.this, ProductListActivity.class);
+                startActivity(intent);
+            }
+        });
+
         homeSecondAdapter.setOnClickItemListener(new IClickItem() {
             @Override
             public void onClickItem(String data) {
