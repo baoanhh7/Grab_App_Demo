@@ -1,5 +1,6 @@
 package com.example.grab_demo;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +26,18 @@ public class ProductListActivity extends AppCompatActivity {
 
         addControls();
         createData();
+
+        addEvents();
+    }
+
+    private void addEvents() {
+        orderAgainAdapter.setOnClickItemListener(new IClickItem() {
+            @Override
+            public void onClickItem(String data) {
+                Intent intent = new Intent(ProductListActivity.this, MenuActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void createData() {

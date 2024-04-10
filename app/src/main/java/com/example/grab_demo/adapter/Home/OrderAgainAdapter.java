@@ -10,18 +10,24 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.grab_demo.IClickItem;
 import com.example.grab_demo.R;
 import com.example.grab_demo.model.Product;
 
 import java.util.List;
 
 public class OrderAgainAdapter extends RecyclerView.Adapter<OrderAgainAdapter.HomeViewHolder> {
-    private Context context;
-    private List<Product> productList;
+    Context context;
+    List<Product> productList;
+    private IClickItem iClickItem;
 
     public OrderAgainAdapter(Context context, List<Product> productList) {
         this.context = context;
         this.productList = productList;
+    }
+
+    public void setOnClickItemListener(IClickItem iClickItem) {
+        this.iClickItem = iClickItem;
     }
 
     @NonNull
@@ -40,6 +46,15 @@ public class OrderAgainAdapter extends RecyclerView.Adapter<OrderAgainAdapter.Ho
         holder.txt_price.setText(product.getPrice() + "");
 
         holder.img.setImageResource(product.getImg());
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (iClickItem != null) {
+                    iClickItem.onClickItem(productList.get(position).getName());
+                }
+            }
+        });
     }
 
     @Override
