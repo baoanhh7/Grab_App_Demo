@@ -7,4 +7,17 @@
     <color name="lavender">#E6E6FA</color>
     <color name="vangNhat">#FAFAD2</color>
     <color name="xanhNhat">#B0E0E6</color>
+    <color name="cam">#e6903b</color>
+    <color name="xam">#e5e5e5</color>
+    <color name="red">#f25f72</color>
+    <color name="xanhdatroi">#77a5cf</color>
+    <color name="xamnhe">#a7a7a7</color>
+    #e6903b : cam (Background menu)
+    #f0f0f0: xám (Nền sau)
+    #ffffff: trắng (Nền trước)
+    #f25f72: đỏ (màu giá tiền, icon mặc định bottom navi)
+    #77a5cf: xanh da trời (màu giá tiền lúc thanh toán)
+    #050302: đen (màu chữ)
+    #ee9c40: cam (màu hover lên icon bottom navi)
+    #f5f5f5: xám nhẹ (nền thanh bottom navi)
 </resources>

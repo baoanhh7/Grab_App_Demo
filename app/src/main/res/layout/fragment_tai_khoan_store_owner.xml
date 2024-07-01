@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".store_owner.fragment.TaiKhoanStoreOwnerFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:background="@color/xam"
+        android:padding="16dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chào: "
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:paddingBottom="16dp"/>
+            <TextView
+                android:id="@+id/tv_name_storeowner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tài Khoản"
+                android:textSize="24sp"
+                android:textStyle="bold"
+                android:layout_gravity="center"
+                android:textColor="@color/black"
+                android:paddingBottom="16dp"/>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_edit_profile_storeowner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/cam"
+            android:textColor="@color/white"
+            android:text="Chỉnh sửa thông tin cá nhân"
+            android:layout_marginBottom="8dp"/>
+
+        <Button
+            android:id="@+id/btn_register_store_storeowner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Đăng ký cửa hàng"
+            android:backgroundTint="@color/cam"
+            android:textColor="@color/white"
+            android:layout_marginBottom="8dp"/>
+
+        <Button
+            android:id="@+id/btn_logout_storeowner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Đăng xuất"
+            android:backgroundTint="@color/cam"
+            android:textColor="@color/white"
+            android:layout_marginBottom="8dp"/>
+
+    </LinearLayout>
+
+
+</FrameLayout>
