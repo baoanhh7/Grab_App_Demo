@@ -13,8 +13,9 @@ import com.example.grab_demo.store_owner.adapter.ViewPagerAdapter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class StoreOwnerActivity extends AppCompatActivity {
-private ViewPager viewPager;
-private BottomNavigationView bottomNavigationView;
+    private ViewPager viewPager;
+    private BottomNavigationView bottomNavigationView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,7 +40,7 @@ private BottomNavigationView bottomNavigationView;
             public void onPageSelected(int position) {
                 // Được gọi khi trang mới đã được chọn
                 // Cập nhật trạng thái của BottomNavigationView dựa trên trang hiện tại của ViewPager
-                switch (position){
+                switch (position) {
                     case 0:
                         bottomNavigationView.getMenu().findItem(R.id.menu_home_storeowner).setChecked(true);
                         break;
@@ -60,10 +61,10 @@ private BottomNavigationView bottomNavigationView;
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-                int itemID =menuItem.getItemId();
-                if(itemID == R.id.menu_home_storeowner){
+                int itemID = menuItem.getItemId();
+                if (itemID == R.id.menu_home_storeowner) {
                     viewPager.setCurrentItem(0);
-                }else if(itemID == R.id.menu_taikhoan_storeowner){
+                } else if (itemID == R.id.menu_taikhoan_storeowner) {
                     viewPager.setCurrentItem(1);
                 }
                 return true;

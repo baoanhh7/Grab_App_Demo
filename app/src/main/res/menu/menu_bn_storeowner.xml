@@ -1,5 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-<item android:id="@+id/menu_home_storeowner" android:title="Trang chủ" android:icon="@drawable/home"/>
-    <item android:id="@+id/menu_taikhoan_storeowner" android:title="Tài khoản" android:icon="@drawable/user"/>
+    <item
+        android:id="@+id/menu_home_storeowner"
+        android:icon="@drawable/home"
+        android:title="Trang chủ" />
+    <item
+        android:id="@+id/menu_taikhoan_storeowner"
+        android:icon="@drawable/user"
+        android:title="Tài khoản" />
 </menu>
