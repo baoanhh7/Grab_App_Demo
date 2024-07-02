@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/xam"
+    android:orientation="vertical"
+    tools:context=".store_owner.activity.StoreOwnerActivity">
+
+    <androidx.viewpager.widget.ViewPager
+        android:id="@+id/viewpager_StoreOwner"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/BN_StoreOwner"
+        android:layout_marginBottom="1dp" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/BN_StoreOwner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="@color/xam"
+        app:itemTextColor="@color/custom_color_navigation_storeowner"
+        app:itemIconTint="@color/custom_color_navigation_storeowner"
+        app:menu="@menu/menu_bn_storeowner"/>
+</RelativeLayout>
