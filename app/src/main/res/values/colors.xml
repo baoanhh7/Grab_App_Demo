@@ -12,6 +12,9 @@
     <color name="red">#f25f72</color>
     <color name="xanhdatroi">#77a5cf</color>
     <color name="xamnhe">#a7a7a7</color>
+    <color name="colorPrimary">#FFFFFF</color>
+    <color name="colorPrimaryDark">#FFFFFF</color>
+    <color name="colorAccent">#FFFFFF</color>
     #e6903b : cam (Background menu)
     #f0f0f0: xám (Nền sau)
     #ffffff: trắng (Nền trước)
