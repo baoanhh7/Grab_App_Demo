@@ -2,31 +2,34 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:scrollbars="none"
+    android:background="@color/white"
     android:fillViewport="true"
-    android:background="@color/white">
+    android:scrollbars="none">
+
     <LinearLayout
         android:id="@+id/LinearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
+
         <fragment
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
             android:layout_height="300dp" />
+
         <Button
             android:id="@+id/btnOpenMap"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Open Maps"
-            android:onClick="openMapsActivity" />
-<!--        <fragment-->
-<!--            android:layout_marginTop="40dp"-->
-<!--            android:id="@+id/DonHangNew"-->
-<!--            android:name="com.example.grab_demo.driver.Fragment.NewDHFragment"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="350dp"/>-->
+            android:onClick="openMapsActivity"
+            android:text="Open Maps" />
+        <!--        <fragment-->
+        <!--            android:layout_marginTop="40dp"-->
+        <!--            android:id="@+id/DonHangNew"-->
+        <!--            android:name="com.example.grab_demo.driver.Fragment.NewDHFragment"-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="350dp"/>-->
         <Button
             android:id="@+id/btnDHNew"
             android:layout_width="wrap_content"

@@ -6,9 +6,9 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
-import androidx.appcompat.widget.SearchView;
 import android.widget.Toast;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentActivity;
 
@@ -36,16 +36,13 @@ import java.util.List;
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
     private GoogleMap mMap;
     private SearchView searchView;
     private ActivityMapsBinding binding;
     private LatLng currentLocation;
     private FusedLocationProviderClient fusedLocationClient;
     private GeoApiContext geoApiContext;
-
-    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1;
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -13,7 +13,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.grab_demo.Activity.MapsActivity;
 import com.example.grab_demo.R;
-import com.example.grab_demo.Activity.MapsActivity;
 import com.google.android.gms.maps.SupportMapFragment;
 
 public class HomeFragment extends Fragment {
