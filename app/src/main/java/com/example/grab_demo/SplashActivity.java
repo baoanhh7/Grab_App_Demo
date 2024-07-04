@@ -6,8 +6,6 @@ import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.grab_demo.customer.HomeActivity;
-
 public class SplashActivity extends AppCompatActivity {
 
     @Override

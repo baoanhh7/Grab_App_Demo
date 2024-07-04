@@ -35,7 +35,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/cam"
+        android:backgroundTint="@color/xanhdatroi"
         android:text="Khách hàng"
         android:textStyle="bold" />
 
@@ -58,9 +58,38 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginBottom="10dp"
-        android:backgroundTint="@color/cam"
+        android:layout_marginBottom="20dp"
+        android:backgroundTint="#2196F3"
         android:text="Chủ cửa hàng"
         android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:text="Đã có tài khoản..? "
+            android:textColor="#000000"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txt_haveAccount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="monospace"
+            android:gravity="center"
+            android:text="Sign in"
+            android:textColor="#B46F2B"
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -1,24 +1,63 @@
 package com.example.grab_demo;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class RoleRegisterActivity extends AppCompatActivity {
+    Button btn_customer, btn_owner, btn_deliver;
+    TextView txt_haveAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_role_register);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        addControls();
+        addEvents();
+    }
+
+    private void addControls() {
+        btn_customer = findViewById(R.id.btn_customer);
+        btn_owner = findViewById(R.id.btn_ownerStore);
+        btn_deliver = findViewById(R.id.btn_deliver);
+
+        txt_haveAccount = findViewById(R.id.txt_haveAccount);
+    }
+
+    private void addEvents() {
+        btn_customer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RoleRegisterActivity.this, RegisterCustomerActivity.class));
+                finish();
+            }
+        });
+        btn_owner.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RoleRegisterActivity.this, RegisterOwnerStoreActivity.class));
+                finish();
+            }
+        });
+        btn_deliver.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RoleRegisterActivity.this, RegisterDeliverActivity.class));
+                finish();
+            }
+        });
+
+        txt_haveAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RoleRegisterActivity.this, LoginActivity.class));
+                finish();
+            }
         });
     }
 }
