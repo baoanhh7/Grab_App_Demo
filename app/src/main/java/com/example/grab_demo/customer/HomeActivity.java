@@ -1,7 +1,8 @@
-package com.example.grab_demo;
+package com.example.grab_demo.customer;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
@@ -9,14 +10,18 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.grab_demo.R;
 import com.example.grab_demo.adapter.Home.HomeAdapter;
 import com.example.grab_demo.adapter.Home.HomeSecondAdapter;
 import com.example.grab_demo.adapter.Home.HomeVoucherAdapter;
 import com.example.grab_demo.adapter.Home.OrderAgainAdapter;
+import com.example.grab_demo.m_interface.IClickItem;
 import com.example.grab_demo.model.Product;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -27,6 +32,8 @@ public class HomeActivity extends AppCompatActivity {
     HomeVoucherAdapter homeVoucherAdapter;
     OrderAgainAdapter orderAgainAdapter;
     SearchView searchView;
+    private int currentPage = 0;
+    private Timer timer;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +44,28 @@ public class HomeActivity extends AppCompatActivity {
         createData();
 
         addEvents();
+
+        startAutoSlide();
+    }
+
+    private void startAutoSlide() {
+        final Handler handler = new Handler();
+        final Runnable update = new Runnable() {
+            public void run() {
+                if (currentPage == homeVoucherAdapter.getItemCount()) {
+                    currentPage = 0;
+                }
+                rcv_voucher.smoothScrollToPosition(currentPage++);
+            }
+        };
+
+        timer = new Timer(); // This will create a new Thread
+        timer.schedule(new TimerTask() { // task to be scheduled
+            @Override
+            public void run() {
+                handler.post(update);
+            }
+        }, 1000, 3000); // Delay 1 sec, repeat every 3 sec
     }
 
     private void addEvents() {

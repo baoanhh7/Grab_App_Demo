@@ -13,13 +13,25 @@
     <!-- Customize ActionBar style -->
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar">
         <item name="android:background">#FFFFFF</item> <!-- Set ActionBar background to white -->
-        <item name="android:textColorPrimary">#000000</item> <!-- Set ActionBar text color to black -->
+        <item name="android:textColorPrimary">#000000
+        </item> <!-- Set ActionBar text color to black -->
         <item name="elevation">0dp</item> <!-- Remove shadow -->
     </style>
 
     <style name="AppTheme.NoActionBar">
         <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
+    </style>
+
+    <!-- Fullscreen theme -->
+    <style name="FullscreenTheme">
+        <item name="fullscreenBackgroundColor">@color/black_overlay</item>
+        <item name="fullscreenTextColor">@color/white</item>
+    </style>
+
+    <style name="Widget.Theme.Grab_Demo.ButtonBar.Fullscreen" parent="">
+        <item name="android:background">@color/black_overlay</item>
+        <item name="android:buttonBarStyle">?android:attr/buttonBarStyle</item>
     </style>
 
 </resources>

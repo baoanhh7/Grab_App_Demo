@@ -1,4 +1,4 @@
-package com.example.grab_demo;
+package com.example.grab_demo.customer;
 
 import android.os.Bundle;
 import android.view.View;
@@ -7,6 +7,8 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.grab_demo.R;
 
 public class OderActivity extends AppCompatActivity {
 
