@@ -17,6 +17,16 @@
         android:theme="@style/Theme.Grab_Demo"
         tools:targetApi="31">
         <activity
+            android:name=".ChatActivity"
+
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
             android:name=".RegisterOwnerStoreActivity"
             android:exported="false" />
         <activity
@@ -33,9 +43,7 @@
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".deliver.activity.DriverHomeActivity"
             android:exported="true" />
@@ -79,11 +87,7 @@
         <activity
             android:name=".customer.HomeActivity"
             android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
     </application>
 
