@@ -3,6 +3,8 @@ package com.example.grab_demo;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +13,8 @@ import com.example.grab_demo.customer.HomeActivity;
 
 public class RegisterOwnerStoreActivity extends AppCompatActivity {
     TextView txt_haveAccount;
+    Button btn_createAcount;
+    ImageView img_back;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,6 +25,12 @@ public class RegisterOwnerStoreActivity extends AppCompatActivity {
         addEvents();
     }
 
+    private void addControls() {
+        txt_haveAccount = findViewById(R.id.txt_haveAccount);
+        btn_createAcount = findViewById(R.id.btn_createAcount);
+        img_back = findViewById(R.id.img_back);
+    }
+
     private void addEvents() {
         txt_haveAccount.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -29,9 +39,12 @@ public class RegisterOwnerStoreActivity extends AppCompatActivity {
                 finish();
             }
         });
-    }
-
-    private void addControls() {
-        txt_haveAccount = findViewById(R.id.txt_haveAccount);
+        img_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(RegisterOwnerStoreActivity.this, RoleRegisterActivity.class));
+                finish();
+            }
+        });
     }
 }
