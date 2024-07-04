@@ -42,9 +42,12 @@ public class HomeActivity extends AppCompatActivity {
 
         addControls();
         createData();
-        startAutoSlide();
+
         addEvents();
+
+        startAutoSlide();
     }
+
     private void startAutoSlide() {
         final Handler handler = new Handler();
         final Runnable update = new Runnable() {
@@ -64,6 +67,7 @@ public class HomeActivity extends AppCompatActivity {
             }
         }, 1000, 3000); // Delay 1 sec, repeat every 3 sec
     }
+
     private void addEvents() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
