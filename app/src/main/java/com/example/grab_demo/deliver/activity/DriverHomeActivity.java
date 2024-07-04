@@ -1,4 +1,4 @@
-package com.example.grab_demo.Activity;
+package com.example.grab_demo.deliver.activity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -7,10 +7,10 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
-import com.example.grab_demo.Fragment.DashboardFragment;
-import com.example.grab_demo.Fragment.HomeFragment;
-import com.example.grab_demo.Fragment.NotificationsFragment;
 import com.example.grab_demo.R;
+import com.example.grab_demo.deliver.fragment.DashboardFragment;
+import com.example.grab_demo.deliver.fragment.HomeFragment;
+import com.example.grab_demo.deliver.fragment.NotificationsFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class DriverHomeActivity extends AppCompatActivity {

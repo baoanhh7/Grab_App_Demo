@@ -1,4 +1,4 @@
-package com.example.grab_demo.Activity;
+package com.example.grab_demo.deliver.activity;
 
 import android.Manifest;
 import android.content.pm.PackageManager;

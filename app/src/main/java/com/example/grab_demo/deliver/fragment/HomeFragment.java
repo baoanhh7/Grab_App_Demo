@@ -1,4 +1,4 @@
-package com.example.grab_demo.Fragment;
+package com.example.grab_demo.deliver.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.example.grab_demo.Activity.MapsActivity;
 import com.example.grab_demo.R;
+import com.example.grab_demo.deliver.activity.MapsActivity;
 import com.google.android.gms.maps.SupportMapFragment;
 
 public class HomeFragment extends Fragment {
