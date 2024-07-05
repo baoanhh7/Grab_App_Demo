@@ -69,7 +69,7 @@ public class StoreOwnerActivity extends AppCompatActivity {
                     viewPager.setCurrentItem(0);
                 } else if (itemID == R.id.menu_message_storeowner) {
                     viewPager.setCurrentItem(1);
-                }else if (itemID == R.id.menu_taikhoan_storeowner) {
+                } else if (itemID == R.id.menu_taikhoan_storeowner) {
                     viewPager.setCurrentItem(2);
                 }
                 return true;
