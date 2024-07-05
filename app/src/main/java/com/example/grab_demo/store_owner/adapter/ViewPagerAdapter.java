@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.example.grab_demo.store_owner.fragment.HomeStoreOwnerFragment;
+import com.example.grab_demo.store_owner.fragment.MessageStoreOwnerFragment;
 import com.example.grab_demo.store_owner.fragment.TaiKhoanStoreOwnerFragment;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
@@ -20,6 +21,8 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new HomeStoreOwnerFragment();
             case 1:
+                return new MessageStoreOwnerFragment();
+            case 2:
                 return new TaiKhoanStoreOwnerFragment();
             default:
                 return new HomeStoreOwnerFragment();
@@ -28,6 +31,6 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 }

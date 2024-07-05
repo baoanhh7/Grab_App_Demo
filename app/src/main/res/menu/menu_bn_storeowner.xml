@@ -5,6 +5,10 @@
         android:icon="@drawable/home"
         android:title="Trang chủ" />
     <item
+        android:id="@+id/menu_message_storeowner"
+        android:icon="@drawable/messenger"
+        android:title="Nhan tin" />
+    <item
         android:id="@+id/menu_taikhoan_storeowner"
         android:icon="@drawable/user"
         android:title="Tài khoản" />

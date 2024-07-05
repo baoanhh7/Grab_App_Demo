@@ -45,6 +45,9 @@ public class StoreOwnerActivity extends AppCompatActivity {
                         bottomNavigationView.getMenu().findItem(R.id.menu_home_storeowner).setChecked(true);
                         break;
                     case 1:
+                        bottomNavigationView.getMenu().findItem(R.id.menu_message_storeowner).setChecked(true);
+                        break;
+                    case 2:
                         bottomNavigationView.getMenu().findItem(R.id.menu_taikhoan_storeowner).setChecked(true);
                         break;
                 }
@@ -64,8 +67,10 @@ public class StoreOwnerActivity extends AppCompatActivity {
                 int itemID = menuItem.getItemId();
                 if (itemID == R.id.menu_home_storeowner) {
                     viewPager.setCurrentItem(0);
-                } else if (itemID == R.id.menu_taikhoan_storeowner) {
+                } else if (itemID == R.id.menu_message_storeowner) {
                     viewPager.setCurrentItem(1);
+                }else if (itemID == R.id.menu_taikhoan_storeowner) {
+                    viewPager.setCurrentItem(2);
                 }
                 return true;
             }
