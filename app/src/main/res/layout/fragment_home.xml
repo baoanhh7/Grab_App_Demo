@@ -24,12 +24,13 @@
             android:layout_height="wrap_content"
             android:onClick="openMapsActivity"
             android:text="Open Maps" />
-        <!--        <fragment-->
-        <!--            android:layout_marginTop="40dp"-->
-        <!--            android:id="@+id/DonHangNew"-->
-        <!--            android:name="com.example.grab_demo.driver.Fragment.NewDHFragment"-->
-        <!--            android:layout_width="match_parent"-->
-        <!--            android:layout_height="350dp"/>-->
+
+        <FrameLayout
+            android:id="@+id/fragment_container"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_marginTop="40dp" />
+
         <Button
             android:id="@+id/btnDHNew"
             android:layout_width="wrap_content"

@@ -10,6 +10,7 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.deliver.activity.MapsActivity;
@@ -41,7 +42,19 @@ public class HomeFragment extends Fragment {
                 startActivity(intent);
             }
         });
-
+        Button btnDHNew = view.findViewById(R.id.btnDHNew);
+        btnDHNew.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openNewDHFragment(v);
+            }
+        });
         return view;
+    }
+    public void openNewDHFragment(View view) {
+        FragmentTransaction transaction = getFragmentManager().beginTransaction();
+        transaction.replace(R.id.fragment_container, NewDHFragment.newInstance());
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }
