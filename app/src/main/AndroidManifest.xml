@@ -17,6 +17,9 @@
         android:theme="@style/Theme.Grab_Demo"
         tools:targetApi="31">
         <activity
+            android:name=".store_owner.activity.RegisterStoreActivity"
+            android:exported="false" />
+        <activity
             android:name=".store_owner.activity.MenuHomeStoreOwnerActivity"
             android:exported="false" />
         <activity

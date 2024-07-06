@@ -1,5 +1,6 @@
 package com.example.grab_demo.store_owner.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.Button;
 import androidx.fragment.app.Fragment;
 
 import com.example.grab_demo.R;
+import com.example.grab_demo.store_owner.activity.MenuHomeStoreOwnerActivity;
+import com.example.grab_demo.store_owner.activity.RegisterStoreActivity;
 
 
 public class TaiKhoanStoreOwnerFragment extends Fragment {
@@ -39,6 +42,8 @@ public class TaiKhoanStoreOwnerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 // Xử lý sự kiện đăng ký cửa hàng
+                Intent intent = new Intent(getActivity(), RegisterStoreActivity.class);
+                startActivity(intent);
             }
         });
 
