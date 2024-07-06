@@ -17,10 +17,16 @@
         android:theme="@style/Theme.Grab_Demo"
         tools:targetApi="31">
         <activity
+            android:name=".deliver.activity.ChiTietDonHangActivity"
+            android:exported="false" />
+        <activity
             android:name=".store_owner.activity.MenuHomeStoreOwnerActivity"
             android:exported="false" />
         <activity
             android:name=".ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".deliver.activity.EditProfileActivity"
             android:exported="false" />
         <activity
             android:name=".ChatActivity"
@@ -42,6 +48,9 @@
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
+            android:exported="true" />
+        <activity
+            android:name=".deliver.activity.DriverHomeActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,9 +58,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".deliver.activity.DriverHomeActivity"
-            android:exported="true" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 
