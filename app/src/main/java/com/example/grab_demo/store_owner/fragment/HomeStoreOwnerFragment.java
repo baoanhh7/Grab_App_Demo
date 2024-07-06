@@ -1,16 +1,19 @@
 package com.example.grab_demo.store_owner.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.grab_demo.R;
+import com.example.grab_demo.store_owner.activity.MenuHomeStoreOwnerActivity;
 import com.example.grab_demo.store_owner.adapter.ImageSliderAdapter_Home;
 
 import java.util.Timer;
@@ -24,6 +27,7 @@ public class HomeStoreOwnerFragment extends Fragment {
     private ViewPager viewPager;
     private View view;
     private int[] images = { R.drawable.voucher2, R.drawable.voucher3,R.drawable.voucher4};
+    private CardView cardview_menuHSO;
 
     @Override
 
@@ -56,10 +60,18 @@ public class HomeStoreOwnerFragment extends Fragment {
         }, 1000, 3000); // Delay 1 sec, repeat every 3 sec
     }
     private void addEvents() {
+        cardview_menuHSO.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), MenuHomeStoreOwnerActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void addControls() {
         viewPager = view.findViewById(R.id.viewPager_HomeStoreOwner);
+        cardview_menuHSO = view.findViewById(R.id.cardview_menuHSO);
         ImageSliderAdapter_Home imageSliderAdapterHome = new ImageSliderAdapter_Home(getContext(), images);
         viewPager.setAdapter(imageSliderAdapterHome);
     }

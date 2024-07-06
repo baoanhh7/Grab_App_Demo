@@ -115,6 +115,7 @@
                 android:gravity="center">
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardview_orderHSO"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -144,6 +145,7 @@
                 <!-- Repeat for other buttons... -->
                 <!-- Example for "Quảng cáo" button -->
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardview_menuHSO"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -160,17 +162,18 @@
                         <ImageView
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:src="@drawable/shoppingbag_storeowner" />
+                            android:src="@drawable/menu_homestoreowner" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Đơn hàng"
+                            android:text="Thực đơn"
                             android:textSize="14sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardview_messageHSO"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -187,17 +190,18 @@
                         <ImageView
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:src="@drawable/shoppingbag_storeowner" />
+                            android:src="@drawable/message_homestoreowner" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Đơn hàng"
+                            android:text="Phản hồi"
                             android:textSize="14sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
+                    android:id="@+id/cardview_shopHSO"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_margin="10dp"
@@ -214,12 +218,12 @@
                         <ImageView
                             android:layout_width="32dp"
                             android:layout_height="32dp"
-                            android:src="@drawable/shoppingbag_storeowner" />
+                            android:src="@drawable/shop_homestoreowner" />
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Đơn hàng"
+                            android:text="Quán"
                             android:textSize="14sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
