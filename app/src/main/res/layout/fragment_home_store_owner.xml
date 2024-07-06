@@ -135,7 +135,8 @@
                             android:src="@drawable/shoppingbag_storeowner" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="60dp"
+                            android:gravity="center"
                             android:layout_height="wrap_content"
                             android:text="Đơn hàng"
                             android:textSize="14sp" />
@@ -165,13 +166,13 @@
                             android:src="@drawable/menu_homestoreowner" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="60dp"
+                            android:gravity="center"
                             android:layout_height="wrap_content"
                             android:text="Thực đơn"
                             android:textSize="14sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardview_messageHSO"
                     android:layout_width="wrap_content"
@@ -193,13 +194,13 @@
                             android:src="@drawable/message_homestoreowner" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="60dp"
+                            android:gravity="center"
                             android:layout_height="wrap_content"
                             android:text="Phản hồi"
                             android:textSize="14sp" />
                     </LinearLayout>
                 </androidx.cardview.widget.CardView>
-
                 <androidx.cardview.widget.CardView
                     android:id="@+id/cardview_shopHSO"
                     android:layout_width="wrap_content"
@@ -221,7 +222,8 @@
                             android:src="@drawable/shop_homestoreowner" />
 
                         <TextView
-                            android:layout_width="wrap_content"
+                            android:layout_width="60dp"
+                            android:gravity="center"
                             android:layout_height="wrap_content"
                             android:text="Quán"
                             android:textSize="14sp" />

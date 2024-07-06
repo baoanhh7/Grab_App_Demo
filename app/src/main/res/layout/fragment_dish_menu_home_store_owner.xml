@@ -30,8 +30,8 @@
             android:textStyle="bold"
             android:textSize="25dp"
             android:layout_margin="20dp" />
-        <ListView
-            android:id="@+id/lv_DishMenuHSO"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_DishMenuHSO"
             android:layout_width="match_parent"
             android:layout_height="match_parent"/>
     </LinearLayout>
