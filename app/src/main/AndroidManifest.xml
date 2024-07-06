@@ -17,11 +17,11 @@
         android:theme="@style/Theme.Grab_Demo"
         tools:targetApi="31">
         <activity
+            android:name=".ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
             android:name=".ChatActivity"
-
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
         <activity
             android:name=".RegisterOwnerStoreActivity"
             android:exported="false" />
@@ -88,9 +88,7 @@
             android:exported="false" />
         <activity
             android:name=".customer.HomeActivity"
-            android:exported="true">
-
-        </activity>
+            android:exported="true"></activity>
     </application>
 
 </manifest>

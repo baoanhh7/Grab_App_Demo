@@ -9,8 +9,6 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.grab_demo.customer.HomeActivity;
-
 public class RegisterOwnerStoreActivity extends AppCompatActivity {
     TextView txt_haveAccount;
     Button btn_createAcount;
@@ -35,7 +33,7 @@ public class RegisterOwnerStoreActivity extends AppCompatActivity {
         txt_haveAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RegisterOwnerStoreActivity.this, HomeActivity.class));
+                startActivity(new Intent(RegisterOwnerStoreActivity.this, LoginActivity.class));
                 finish();
             }
         });
