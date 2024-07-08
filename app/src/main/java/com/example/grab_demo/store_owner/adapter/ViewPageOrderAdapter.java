@@ -1,3 +1,4 @@
+
 package com.example.grab_demo.store_owner.adapter;
 
 import androidx.annotation.NonNull;
@@ -16,8 +17,8 @@ import com.example.grab_demo.store_owner.fragment.NewOrderHSOFragment;
 import com.example.grab_demo.store_owner.fragment.TaiKhoanStoreOwnerFragment;
 
 
-public class ViewPageMenuAdapter extends FragmentStatePagerAdapter {
-    public ViewPageMenuAdapter(@NonNull FragmentManager fm, int behavior) {
+public class ViewPageOrderAdapter extends FragmentStatePagerAdapter {
+    public ViewPageOrderAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
     }
 
@@ -26,17 +27,19 @@ public class ViewPageMenuAdapter extends FragmentStatePagerAdapter {
     public Fragment getItem(int position) {
         switch (position) {
             case 0:
-                return new DishMenuHomeStoreOwnerFragment();
+                return new NewOrderHSOFragment();
             case 1:
-                return new GroupDishMenuHSOFragment();
+                return new ConfirmOrderHSOFragment();
+            case 2:
+                return new HistoryOrderHSOFragment();
             default:
-                return new DishMenuHomeStoreOwnerFragment();
+                return new NewOrderHSOFragment();
         }
     }
 
     @Override
     public int getCount() {
-        return 2;
+        return 3;
     }
 
     @Nullable
@@ -45,10 +48,13 @@ public class ViewPageMenuAdapter extends FragmentStatePagerAdapter {
         String title = "";
         switch (position){
             case 0:
-                title =  "Món";
+                title =  "Mới";
                 break;
             case 1:
-                title = " Tuỳ chọn món";
+                title = "Đã xác nhận";
+                break;
+            case 2:
+                title = "Lịch sử";
                 break;
         }
         return title;

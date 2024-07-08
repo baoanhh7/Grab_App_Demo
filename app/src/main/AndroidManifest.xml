@@ -17,6 +17,15 @@
         android:theme="@style/Theme.Grab_Demo"
         tools:targetApi="31">
         <activity
+            android:name=".store_owner.activity.OrderHomeStoreOwnerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".store_owner.activity.UpdateDishMenuActivity"
+            android:exported="false" />
+        <activity
+            android:name=".store_owner.activity.AddDishMenuActivity"
+            android:exported="false" />
+        <activity
             android:name=".store_owner.activity.RegisterStoreActivity"
             android:exported="false" />
         <activity
@@ -51,7 +60,7 @@
             android:exported="false" />
         <activity
             android:name=".SplashActivity"
-            android:exported="true" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -60,8 +69,7 @@
         </activity>
         <activity
             android:name=".deliver.activity.DriverHomeActivity"
-            android:exported="true">
-        </activity>
+            android:exported="true" />
         <!--
              TODO: Before you run your application, you need a Google Maps API key.
 

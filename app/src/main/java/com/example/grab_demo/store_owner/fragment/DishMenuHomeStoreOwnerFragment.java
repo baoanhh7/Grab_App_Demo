@@ -1,5 +1,6 @@
 package com.example.grab_demo.store_owner.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,15 +10,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.store_owner.ImageUtils;
+import com.example.grab_demo.store_owner.activity.AddDishMenuActivity;
+import com.example.grab_demo.store_owner.activity.MenuHomeStoreOwnerActivity;
 import com.example.grab_demo.store_owner.adapter.DishMenuHSOAdapter;
 import com.example.grab_demo.store_owner.model.DishMenuHSO;
 
 import java.util.ArrayList;
 
 public class DishMenuHomeStoreOwnerFragment extends Fragment {
+    ImageButton btn_add_dishmenuHSO;
     View view ;
     RecyclerView rv_DishMenuHSO;
     ArrayList<DishMenuHSO> arr;
@@ -28,8 +33,19 @@ public class DishMenuHomeStoreOwnerFragment extends Fragment {
         // Inflate the layout for this fragment
         view =  inflater.inflate(R.layout.fragment_dish_menu_home_store_owner, container, false);
         addControls();
+        addEvents();
         addDB();
         return  view;
+    }
+
+    private void addEvents() {
+        btn_add_dishmenuHSO.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), AddDishMenuActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private void addDB() {
@@ -48,6 +64,7 @@ public class DishMenuHomeStoreOwnerFragment extends Fragment {
 
     private void addControls() {
         rv_DishMenuHSO = view.findViewById(R.id.rv_DishMenuHSO);
+        btn_add_dishmenuHSO = view.findViewById(R.id.btn_add_dishmenuHSO);
         arr = new ArrayList<>();
         dishMenuHSOAdapter = new DishMenuHSOAdapter(getActivity(),arr);
         rv_DishMenuHSO.setAdapter(dishMenuHSOAdapter);

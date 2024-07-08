@@ -6,8 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-
-    tools:context=".store_owner.activity.RegisterStoreActivity">
+    tools:context=".store_owner.activity.AddDishMenuActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -17,7 +16,7 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:id="@+id/img_back_registerstore"
+            android:id="@+id/img_back_addDishMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -46,19 +45,19 @@
             android:gravity="center"
             android:orientation="vertical">
             <ImageView
-                android:id="@+id/img_registerstore"
+                android:id="@+id/img_addDishMenu"
                 android:layout_width="180dp"
                 android:layout_height="180dp"
                 android:scaleType="centerCrop"
                 android:src="@drawable/avt_owner" />
             <Button
-                android:id="@+id/btn_choose_image_registerstore"
+                android:id="@+id/btn_choose_image_addDishMenu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Choose image" />
 
             <ImageButton
-                android:id="@+id/btn_camera_registerstore"
+                android:id="@+id/btn_camera_addDishMenu"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
@@ -80,11 +79,11 @@
             android:layout_marginBottom="15dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_namestore_registerstore"
+                android:id="@+id/edt_name_addDishMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_button"
-                android:hint="Ten Cua Hang"
+                android:hint="Ten Mon An"
                 android:inputType="text"
                 android:padding="15dp"
                 android:textColor="@color/black"
@@ -98,11 +97,11 @@
             android:layout_marginBottom="15dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_address_registerstore"
+                android:id="@+id/edt_description_addDishMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_button"
-                android:hint="Dia chi"
+                android:hint="Mo ta"
                 android:inputType="text"
                 android:padding="15dp"
                 android:textColor="@color/black"
@@ -115,49 +114,28 @@
             android:layout_marginBottom="15dp">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/edt_opened_registerstore"
+                android:id="@+id/edt_price_addDishMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_button"
-                android:hint="Gio hoat dong"
+                android:hint="Gia"
                 android:inputType="text"
                 android:padding="15dp"
                 android:textColor="@color/black"
                 android:textStyle="bold" />
 
         </com.google.android.material.textfield.TextInputLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="15dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="Loai hinh kinh doanh: "
-                android:textSize="18sp"
-                android:textStyle="bold" />
-
-
-            <Spinner
-                android:id="@+id/sp_idCate_registerstore"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-        </LinearLayout>
-
 
     </LinearLayout>
 
     <Button
-        android:id="@+id/btn_registerstore"
+        android:id="@+id/btn_addDishMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         android:layout_marginBottom="10dp"
         android:backgroundTint="@color/light_blue_600"
-        android:text="Dang ky Cua Hang"
+        android:text="Tao mon an"
         android:textStyle="bold" />
 </LinearLayout>

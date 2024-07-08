@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:background="@color/xam"
-android:orientation="vertical"
-tools:context=".store_owner.activity.MenuHomeStoreOwnerActivity">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/xam"
+    android:orientation="vertical"
+    tools:context=".store_owner.activity.OrderHomeStoreOwnerActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -15,7 +15,7 @@ tools:context=".store_owner.activity.MenuHomeStoreOwnerActivity">
         android:orientation="horizontal">
 
         <ImageButton
-            android:id="@+id/img_back_menuHSO"
+            android:id="@+id/img_back_orderHSO"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
@@ -26,20 +26,20 @@ tools:context=".store_owner.activity.MenuHomeStoreOwnerActivity">
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:fontFamily="monospace"
-            android:text="Thực đơn"
+            android:text="Đơn hàng"
             android:textColor="@color/black"
             android:textSize="20sp"
             android:textStyle="bold" />
 
     </LinearLayout>
-<com.google.android.material.tabs.TabLayout
-    android:id="@+id/tablayout_MenuHSO"
-    android:layout_width="match_parent"
-    app:tabSelectedTextColor="@color/cam"
-    app:tabIndicatorColor="@color/cam"
-    android:layout_height="wrap_content" />
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tablayout_OrderHSO"
+        android:layout_width="match_parent"
+        app:tabSelectedTextColor="@color/cam"
+        app:tabIndicatorColor="@color/cam"
+        android:layout_height="wrap_content" />
     <androidx.viewpager.widget.ViewPager
-        android:id="@+id/viewpager_MenuHSO"
+        android:id="@+id/viewpager_OrderHSO"
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
