@@ -35,13 +35,14 @@
                 android:textColor="@color/black"
                 android:textSize="25dp"
                 android:textStyle="bold" />
+
             <ImageButton
+                android:id="@+id/btn_add_dishmenuHSO"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/btn_add_dishmenuHSO"
-                android:layout_marginStart="150dp"
                 android:layout_gravity="center"
-                android:background="@drawable/baseline_add_24"/>
+                android:layout_marginStart="150dp"
+                android:background="@drawable/baseline_add_24" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

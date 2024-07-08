@@ -11,9 +11,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.grab_demo.R;
 import com.example.grab_demo.deliver.activity.ChiTietDonHangActivity;
 import com.example.grab_demo.model.DonHangModel;
-import com.example.grab_demo.R;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;

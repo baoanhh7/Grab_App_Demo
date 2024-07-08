@@ -23,7 +23,7 @@ public class EditProfileActivity extends AppCompatActivity {
         birthdayEditText = findViewById(R.id.birthdayEditText);
         phoneEditText = findViewById(R.id.phoneEditText);
         emailEditText = findViewById(R.id.emailEditText);
-       passwordEditText = findViewById(R.id.passwordEditText);
+        passwordEditText = findViewById(R.id.passwordEditText);
         acceptButton = findViewById(R.id.acceptButton);
 
         // Get the data from the intent and set it to the EditTexts

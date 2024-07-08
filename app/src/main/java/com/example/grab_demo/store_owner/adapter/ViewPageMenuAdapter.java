@@ -6,14 +6,8 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.grab_demo.store_owner.fragment.ConfirmOrderHSOFragment;
 import com.example.grab_demo.store_owner.fragment.DishMenuHomeStoreOwnerFragment;
 import com.example.grab_demo.store_owner.fragment.GroupDishMenuHSOFragment;
-import com.example.grab_demo.store_owner.fragment.HistoryOrderHSOFragment;
-import com.example.grab_demo.store_owner.fragment.HomeStoreOwnerFragment;
-import com.example.grab_demo.store_owner.fragment.MessageStoreOwnerFragment;
-import com.example.grab_demo.store_owner.fragment.NewOrderHSOFragment;
-import com.example.grab_demo.store_owner.fragment.TaiKhoanStoreOwnerFragment;
 
 
 public class ViewPageMenuAdapter extends FragmentStatePagerAdapter {
@@ -43,9 +37,9 @@ public class ViewPageMenuAdapter extends FragmentStatePagerAdapter {
     @Override
     public CharSequence getPageTitle(int position) {
         String title = "";
-        switch (position){
+        switch (position) {
             case 0:
-                title =  "Món";
+                title = "Món";
                 break;
             case 1:
                 title = " Tuỳ chọn món";

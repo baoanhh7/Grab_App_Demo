@@ -16,9 +16,9 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/profile_background"
         android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Name EditText -->
     <EditText
@@ -27,9 +27,9 @@
         android:layout_height="wrap_content"
         android:hint="Name"
         android:inputType="textPersonName"
-        app:layout_constraintTop_toBottomOf="@id/profilePicture"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/profilePicture" />
 
     <!-- Birthday EditText -->
     <EditText
@@ -38,9 +38,9 @@
         android:layout_height="wrap_content"
         android:hint="Birthday"
         android:inputType="date"
-        app:layout_constraintTop_toBottomOf="@id/nameEditText"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/nameEditText" />
 
     <!-- Phone EditText -->
     <EditText
@@ -49,9 +49,9 @@
         android:layout_height="wrap_content"
         android:hint="Phone"
         android:inputType="phone"
-        app:layout_constraintTop_toBottomOf="@id/birthdayEditText"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/birthdayEditText" />
 
     <!-- Email EditText -->
     <EditText
@@ -60,9 +60,9 @@
         android:layout_height="wrap_content"
         android:hint="Email"
         android:inputType="textEmailAddress"
-        app:layout_constraintTop_toBottomOf="@id/phoneEditText"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/phoneEditText" />
 
     <!-- Accept Button -->
 

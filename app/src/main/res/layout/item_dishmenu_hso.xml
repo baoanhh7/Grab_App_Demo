@@ -2,22 +2,22 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
     android:layout_marginHorizontal="15dp"
-    android:layout_marginBottom="10dp">
+    android:layout_marginBottom="10dp"
+    android:orientation="horizontal">
 
     <ImageView
-        android:layout_gravity="center"
         android:id="@+id/ImageView_item_dishmenuHSO"
         android:layout_width="64dp"
         android:layout_height="64dp"
+        android:layout_gravity="center"
         android:layout_marginEnd="8dp"
         android:src="@drawable/burger" />
 
     <LinearLayout
-        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_weight="1"
         android:orientation="vertical">
 
@@ -40,8 +40,8 @@
     <Switch
         android:id="@+id/switchToggle_dishmenuHSO"
         android:layout_width="wrap_content"
-        android:layout_gravity="center"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
 
     <LinearLayout
         android:layout_width="wrap_content"
