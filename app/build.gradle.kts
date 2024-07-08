@@ -68,5 +68,6 @@ dependencies {
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
 
     implementation("com.squareup.picasso:picasso:2.8")
-
+    implementation("net.sourceforge.jtds:jtds:1.3.1")
+//    implementation("com.microsoft.sqlserver:mssql-jdbc:12.6.0.jre8")  // Sử dụng phiên bản mới nhất nếu có
 }
