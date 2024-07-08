@@ -19,6 +19,6 @@ public class MessageStoreOwnerFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_message_store_owner, container, false);
-        return  view;
+        return view;
     }
 }

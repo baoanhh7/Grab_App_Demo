@@ -36,10 +36,11 @@ public class DishMenuHSO {
         this.giasp = giasp;
     }
 
-    public void setChecked(boolean checked) {
-        isChecked = checked;
-    }
     public boolean isChecked() {
         return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
     }
 }

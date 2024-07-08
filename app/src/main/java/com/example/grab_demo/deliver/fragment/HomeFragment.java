@@ -51,6 +51,7 @@ public class HomeFragment extends Fragment {
         });
         return view;
     }
+
     public void openNewDHFragment(View view) {
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
         transaction.replace(R.id.fragment_container, NewDHFragment.newInstance());

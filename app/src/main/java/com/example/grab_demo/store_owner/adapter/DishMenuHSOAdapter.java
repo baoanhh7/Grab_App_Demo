@@ -9,7 +9,6 @@ import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -25,17 +24,18 @@ import com.example.grab_demo.store_owner.model.DishMenuHSO;
 
 import java.util.ArrayList;
 
-public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.ViewHolder>{
+public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.ViewHolder> {
 
     Context context;
     ArrayList<DishMenuHSO> arr;
-    private OnItemClickListener onItemClickListener;
     boolean flag = false;
+    private OnItemClickListener onItemClickListener;
 
     public DishMenuHSOAdapter(Context context, ArrayList<DishMenuHSO> arr) {
         this.context = context;
         this.arr = arr;
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -108,6 +108,7 @@ public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.
     public int getItemCount() {
         return arr.size();
     }
+
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.onItemClickListener = listener;
     }

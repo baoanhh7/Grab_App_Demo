@@ -13,9 +13,9 @@
         android:layout_height="wrap_content"
         android:background="?attr/selectableItemBackgroundBorderless"
         android:src="@drawable/ic_back"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/profilePicture"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/profilePicture" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <!-- Profile Picture -->
     <ImageView
@@ -27,9 +27,9 @@
         android:background="@drawable/profile_background"
 
         android:scaleType="centerCrop"
-        app:layout_constraintTop_toBottomOf="@id/backButton"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/backButton" />
 
     <!-- Name Text -->
     <TextView
@@ -41,9 +41,9 @@
         android:textColor="@color/black"
         android:textSize="24sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/profilePicture"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintTop_toBottomOf="@id/profilePicture" />
 
 
     <LinearLayout

@@ -14,10 +14,12 @@ import com.example.grab_demo.R;
 public class ImageSliderAdapter_Home extends PagerAdapter {
     private Context context;
     private int[] images;
+
     public ImageSliderAdapter_Home(Context context, int[] images) {
         this.context = context;
         this.images = images;
     }
+
     @Override
     public int getCount() {
         return images.length;
@@ -27,6 +29,7 @@ public class ImageSliderAdapter_Home extends PagerAdapter {
     public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
         return view == object;
     }
+
     @NonNull
     @Override
     public Object instantiateItem(@NonNull ViewGroup container, int position) {

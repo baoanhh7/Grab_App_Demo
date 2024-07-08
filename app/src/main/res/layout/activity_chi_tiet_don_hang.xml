@@ -14,9 +14,9 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:scaleType="centerCrop"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:src="@tools:sample/backgrounds/scenic" />
 
     <TextView
@@ -24,35 +24,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Tên đơn hàng"
-        android:textSize="24sp"
         android:textColor="#000"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewHinhMonAn"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5" />
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewHinhMonAn" />
 
     <TextView
         android:id="@+id/textViewMaDonHang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:text="Mã đơn hàng"
-        android:textSize="18sp"
         android:textColor="#666"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTenDonHang"
-        app:layout_constraintStart_toStartOf="parent"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        android:layout_marginTop="8dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewTenDonHang" />
 
     <Button
         android:id="@+id/buttonBack"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:text="Quay lại"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMaDonHang"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        android:layout_marginTop="16dp" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewMaDonHang" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

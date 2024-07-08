@@ -1,6 +1,5 @@
 package com.example.grab_demo.store_owner.fragment;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,8 +26,8 @@ public class HomeStoreOwnerFragment extends Fragment {
     private Timer timer;
     private ViewPager viewPager;
     private View view;
-    private int[] images = { R.drawable.voucher2, R.drawable.voucher3,R.drawable.voucher4};
-    private CardView cardview_menuHSO,cardview_orderHSO;
+    private int[] images = {R.drawable.voucher2, R.drawable.voucher3, R.drawable.voucher4};
+    private CardView cardview_menuHSO, cardview_orderHSO;
 
     @Override
 
@@ -41,6 +40,7 @@ public class HomeStoreOwnerFragment extends Fragment {
         startAutoSlide();
         return view;
     }
+
     private void startAutoSlide() {
         final Handler handler = new Handler();
         final Runnable update = new Runnable() {
@@ -60,6 +60,7 @@ public class HomeStoreOwnerFragment extends Fragment {
             }
         }, 1000, 3000); // Delay 1 sec, repeat every 3 sec
     }
+
     private void addEvents() {
         cardview_menuHSO.setOnClickListener(new View.OnClickListener() {
             @Override
