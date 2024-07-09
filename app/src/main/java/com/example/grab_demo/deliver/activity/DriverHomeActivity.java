@@ -28,7 +28,6 @@ public class DriverHomeActivity extends AppCompatActivity {
                     } else if (item.getItemId() == R.id.navigation_notifications) {
                         selectedFragment = new NotificationsFragment();
                     }
-
                     if (selectedFragment != null) {
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,
                                 selectedFragment).commit();

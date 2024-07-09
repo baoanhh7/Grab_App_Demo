@@ -12,7 +12,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
-import com.example.grab_demo.deliver.Adapter.DanhSachDonHangAdapter;
+import com.example.grab_demo.deliver.Adapter.DanhSachDonHangnewAdapter;
+import com.example.grab_demo.deliver.Adapter.DanhSachDonHangoldAdapter;
 import com.example.grab_demo.model.DonHangModel;
 
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ import java.util.ArrayList;
 public class NewDHFragment extends Fragment {
 
     private RecyclerView recyclerView;
-    private DanhSachDonHangAdapter adapter;
+    private DanhSachDonHangnewAdapter adapter;
     private ArrayList<DonHangModel> mangDonHang;
 
     public static NewDHFragment newInstance() {
@@ -37,12 +38,9 @@ public class NewDHFragment extends Fragment {
 
         // Dummy data for testing
         mangDonHang = new ArrayList<>();
-        mangDonHang.add(new DonHangModel("Đơn hàng 1", "Mã đơn 1", "https://via.placeholder.com/65"));
-        mangDonHang.add(new DonHangModel("Đơn hàng 2", "Mã đơn 2", "https://via.placeholder.com/65"));
-        mangDonHang.add(new DonHangModel("Đơn hàng 2", "Mã đơn 2", "https://via.placeholder.com/65"));
-        mangDonHang.add(new DonHangModel("Đơn hàng 2", "Mã đơn 2", "https://via.placeholder.com/65"));
-        mangDonHang.add(new DonHangModel("Đơn hàng 2", "Mã đơn 2", "https://via.placeholder.com/65"));
-        adapter = new DanhSachDonHangAdapter(getContext(), mangDonHang);
+        mangDonHang.add(new DonHangModel("Đơn hàng 1", "Mã đơn 1", "https://beptueu.vn/hinhanh/tintuc/top-15-hinh-anh-mon-an-ngon-viet-nam-khien-ban-khong-the-roi-mat.jpeg"));
+        mangDonHang.add(new DonHangModel("Đơn hàng 2", "Mã đơn 2", "https://beptueu.vn/hinhanh/tintuc/top-15-hinh-anh-mon-an-ngon-viet-nam-khien-ban-khong-the-roi-mat.jpeg"));
+        adapter = new DanhSachDonHangnewAdapter(getContext(), mangDonHang);
         recyclerView.setAdapter(adapter);
 
         return view;

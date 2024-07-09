@@ -6,11 +6,13 @@ public class DonHangModel implements Serializable {
     private String tenDonHang;
     private String maDonHang;
     private String hinhMonAn;
+    private String diaChi;
 
     public DonHangModel(String tenDonHang, String maDonHang, String hinhMonAn) {
         this.tenDonHang = tenDonHang;
         this.maDonHang = maDonHang;
         this.hinhMonAn = hinhMonAn;
+        this.diaChi = diaChi;
     }
 
     public String getTenDonHang() {
@@ -35,5 +37,9 @@ public class DonHangModel implements Serializable {
 
     public void setHinhMonAn(String hinhMonAn) {
         this.hinhMonAn = hinhMonAn;
+    }
+    public String getDiaChi(){ return diaChi;}
+    public void setDiaChi(String diaChi){
+        this.diaChi=diaChi;
     }
 }
