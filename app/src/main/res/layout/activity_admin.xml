@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".AdminActivity">
+
     <FrameLayout
         android:id="@+id/FL_sales"
         android:layout_width="match_parent"
@@ -38,6 +38,7 @@
                 android:backgroundTint="@color/cam"
                 android:text="Voucher"
                 android:textColor="@color/white" />
+
             <Button
                 android:id="@+id/btn_cate_sales"
                 android:layout_width="match_parent"
@@ -46,6 +47,7 @@
                 android:backgroundTint="@color/cam"
                 android:text="loại đồ ăn"
                 android:textColor="@color/white" />
+
             <Button
                 android:id="@+id/btn_duyetdondk_sales"
                 android:layout_width="match_parent"
@@ -54,6 +56,7 @@
                 android:backgroundTint="@color/cam"
                 android:text="duyệt đơn đăng kí cửa hàng"
                 android:textColor="@color/white" />
+
             <Button
                 android:id="@+id/btn_quanlycuahang_sales"
                 android:layout_width="match_parent"
@@ -62,6 +65,7 @@
                 android:backgroundTint="@color/cam"
                 android:text="Quản lý cửa hàng"
                 android:textColor="@color/white" />
+
             <Button
                 android:id="@+id/btn_quanlytkHSO_sales"
                 android:layout_width="match_parent"
@@ -84,81 +88,81 @@
 
 
     </FrameLayout>
-<!--    <FrameLayout-->
-<!--        android:id="@+id/FL_IT"-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="match_parent"-->
-<!--        android:visibility="">-->
+    <!--    <FrameLayout-->
+    <!--        android:id="@+id/FL_IT"-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        android:layout_height="match_parent"-->
+    <!--        android:visibility="">-->
 
-<!--        <LinearLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:gravity="center"-->
-<!--            android:orientation="vertical"-->
-<!--            android:padding="16dp">-->
-
-
-<!--            <Button-->
-<!--                android:id="@+id/btn_edit_profile_storeowner"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="8dp"-->
-<!--                android:backgroundTint="@color/cam"-->
-<!--                android:text="Chỉnh sửa thông tin cá nhân"-->
-<!--                android:textColor="@color/white" />-->
-
-<!--            <Button-->
-<!--                android:id="@+id/btn_voucher_sales"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="8dp"-->
-<!--                android:backgroundTint="@color/cam"-->
-<!--                android:text="Voucher"-->
-<!--                android:textColor="@color/white" />-->
-<!--            <Button-->
-<!--                android:id="@+id/btn_cate_sales"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="8dp"-->
-<!--                android:backgroundTint="@color/cam"-->
-<!--                android:text="loại đồ ăn"-->
-<!--                android:textColor="@color/white" />-->
-<!--            <Button-->
-<!--                android:id="@+id/btn_duyetdondk_sales"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="8dp"-->
-<!--                android:backgroundTint="@color/cam"-->
-<!--                android:text="duyệt đơn đăng kí cửa hàng"-->
-<!--                android:textColor="@color/white" />-->
-<!--            <Button-->
-<!--                android:id="@+id/btn_quanlycuahang_sales"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="8dp"-->
-<!--                android:backgroundTint="@color/cam"-->
-<!--                android:text="Quản lý cửa hàng"-->
-<!--                android:textColor="@color/white" />-->
-<!--            <Button-->
-<!--                android:id="@+id/btn_quanlytkHSO_sales"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="8dp"-->
-<!--                android:backgroundTint="@color/cam"-->
-<!--                android:text="Quản lý tài khoản cửa hàng"-->
-<!--                android:textColor="@color/white" />-->
-
-<!--            <Button-->
-<!--                android:id="@+id/btn_logout_sales"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="8dp"-->
-<!--                android:backgroundTint="@color/cam"-->
-<!--                android:text="Đăng xuất"-->
-<!--                android:textColor="@color/white" />-->
-
-<!--        </LinearLayout>-->
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:gravity="center"-->
+    <!--            android:orientation="vertical"-->
+    <!--            android:padding="16dp">-->
 
 
-<!--    </FrameLayout>-->
+    <!--            <Button-->
+    <!--                android:id="@+id/btn_edit_profile_storeowner"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginBottom="8dp"-->
+    <!--                android:backgroundTint="@color/cam"-->
+    <!--                android:text="Chỉnh sửa thông tin cá nhân"-->
+    <!--                android:textColor="@color/white" />-->
+
+    <!--            <Button-->
+    <!--                android:id="@+id/btn_voucher_sales"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginBottom="8dp"-->
+    <!--                android:backgroundTint="@color/cam"-->
+    <!--                android:text="Voucher"-->
+    <!--                android:textColor="@color/white" />-->
+    <!--            <Button-->
+    <!--                android:id="@+id/btn_cate_sales"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginBottom="8dp"-->
+    <!--                android:backgroundTint="@color/cam"-->
+    <!--                android:text="loại đồ ăn"-->
+    <!--                android:textColor="@color/white" />-->
+    <!--            <Button-->
+    <!--                android:id="@+id/btn_duyetdondk_sales"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginBottom="8dp"-->
+    <!--                android:backgroundTint="@color/cam"-->
+    <!--                android:text="duyệt đơn đăng kí cửa hàng"-->
+    <!--                android:textColor="@color/white" />-->
+    <!--            <Button-->
+    <!--                android:id="@+id/btn_quanlycuahang_sales"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginBottom="8dp"-->
+    <!--                android:backgroundTint="@color/cam"-->
+    <!--                android:text="Quản lý cửa hàng"-->
+    <!--                android:textColor="@color/white" />-->
+    <!--            <Button-->
+    <!--                android:id="@+id/btn_quanlytkHSO_sales"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginBottom="8dp"-->
+    <!--                android:backgroundTint="@color/cam"-->
+    <!--                android:text="Quản lý tài khoản cửa hàng"-->
+    <!--                android:textColor="@color/white" />-->
+
+    <!--            <Button-->
+    <!--                android:id="@+id/btn_logout_sales"-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginBottom="8dp"-->
+    <!--                android:backgroundTint="@color/cam"-->
+    <!--                android:text="Đăng xuất"-->
+    <!--                android:textColor="@color/white" />-->
+
+    <!--        </LinearLayout>-->
+
+
+    <!--    </FrameLayout>-->
 </LinearLayout>

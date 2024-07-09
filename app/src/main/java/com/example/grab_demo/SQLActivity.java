@@ -21,17 +21,17 @@ public class SQLActivity extends AppCompatActivity {
         txt = findViewById(R.id.txt);
         ConnectionClass sql = new ConnectionClass();
         connection = sql.conClass();
-        if(connection!= null){
+        if (connection != null) {
             try {
-                String query  = "Select * from Users";
+                String query = "Select * from Users";
                 Statement smt = connection.createStatement();
                 ResultSet resultSet = smt.executeQuery(query);
-                while (resultSet.next()){
+                while (resultSet.next()) {
                     txt.setText(resultSet.getString(2));
                 }
                 connection.close();
-            }catch (Exception e){
-                Log.e("Error: ",e.getMessage());
+            } catch (Exception e) {
+                Log.e("Error: ", e.getMessage());
             }
         }
     }

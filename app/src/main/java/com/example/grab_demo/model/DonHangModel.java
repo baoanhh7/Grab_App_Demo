@@ -38,8 +38,12 @@ public class DonHangModel implements Serializable {
     public void setHinhMonAn(String hinhMonAn) {
         this.hinhMonAn = hinhMonAn;
     }
-    public String getDiaChi(){ return diaChi;}
-    public void setDiaChi(String diaChi){
-        this.diaChi=diaChi;
+
+    public String getDiaChi() {
+        return diaChi;
+    }
+
+    public void setDiaChi(String diaChi) {
+        this.diaChi = diaChi;
     }
 }

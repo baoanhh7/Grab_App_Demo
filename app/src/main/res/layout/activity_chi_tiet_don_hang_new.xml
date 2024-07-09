@@ -71,21 +71,21 @@
         android:id="@+id/totalAmountLayout"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:layout_marginTop="16dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/buttonConfirm"
         android:gravity="center_vertical"
-        android:padding="16dp">
+        android:orientation="horizontal"
+        android:padding="16dp"
+        app:layout_constraintBottom_toTopOf="@+id/buttonConfirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent">
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:text="Tổng tiền:"
             android:textColor="#000"
-            android:textSize="18sp"
-            android:layout_weight="1"/>
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/textViewTongTien"
@@ -93,7 +93,7 @@
             android:layout_height="wrap_content"
             android:text="0 VND"
             android:textColor="#000"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
     </LinearLayout>
 
     <Button
@@ -102,8 +102,8 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="Xác nhận"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

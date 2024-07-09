@@ -49,7 +49,7 @@ public class DanhSachDonHangnewAdapter extends RecyclerView.Adapter<DanhSachDonH
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtTenDonHang, txtMaDonHang,txtDiaChi;
+        TextView txtTenDonHang, txtMaDonHang, txtDiaChi;
         ImageView hinhMonAn;
 
         public ViewHolder(@NonNull View itemView) {

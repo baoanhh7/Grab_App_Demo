@@ -9,8 +9,8 @@
         android:id="@+id/textViewItemName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Tên món ăn"
         android:layout_weight="1"
+        android:text="Tên món ăn"
         android:textColor="#000"
         android:textSize="18sp" />
 
@@ -18,10 +18,10 @@
         android:id="@+id/textViewQuantity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginEnd="16dp"
         android:text="0"
         android:textColor="#000"
-        android:textSize="18sp"
-        android:layout_marginEnd="16dp" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textViewPrice"
