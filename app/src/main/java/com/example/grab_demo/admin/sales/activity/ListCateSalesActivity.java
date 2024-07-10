@@ -1,4 +1,4 @@
-package com.example.grab_demo.admin.sales;
+package com.example.grab_demo.admin.sales.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.ConnectionClass;
 import com.example.grab_demo.R;
-import com.example.grab_demo.store_owner.adapter.CateAdapter;
+import com.example.grab_demo.admin.sales.adapter.CateAdapter;
 import com.example.grab_demo.store_owner.model.Cate;
 
 import java.sql.Connection;

@@ -11,7 +11,7 @@ import android.widget.ImageButton;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.grab_demo.R;
-import com.example.grab_demo.admin.sales.ListCateSalesActivity;
+import com.example.grab_demo.admin.sales.activity.ListCateSalesActivity;
 
 public class AdminActivity extends AppCompatActivity {
     String userType = "";

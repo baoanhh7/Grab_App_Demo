@@ -1,4 +1,4 @@
-package com.example.grab_demo.admin.sales;
+package com.example.grab_demo.admin.sales.activity;
 
 import android.os.Bundle;
 import android.util.Log;

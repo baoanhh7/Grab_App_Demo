@@ -1,4 +1,4 @@
-package com.example.grab_demo.admin.sales;
+package com.example.grab_demo.admin.sales.activity;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -15,7 +15,6 @@ import com.google.android.material.textfield.TextInputEditText;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 
 public class UpdateCateSalesActivity extends AppCompatActivity {
     ImageButton img_back_updateCateSales;
