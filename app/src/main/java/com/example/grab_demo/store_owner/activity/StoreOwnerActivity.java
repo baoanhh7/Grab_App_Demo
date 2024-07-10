@@ -1,26 +1,56 @@
 package com.example.grab_demo.store_owner.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.grab_demo.ConnectionClass;
+import com.example.grab_demo.LoginActivity;
 import com.example.grab_demo.R;
 import com.example.grab_demo.store_owner.adapter.ViewPagerAdapter;
+import com.example.grab_demo.store_owner.fragment.HomeStoreOwnerFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 public class StoreOwnerActivity extends AppCompatActivity {
     private ViewPager viewPager;
     private BottomNavigationView bottomNavigationView;
-
+    Connection connection;
+    String query ;
+    Statement smt ;
+    ResultSet resultSet;
+    String userId = "";
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_store_owner);
         addControls();
+        // Nhận user_id từ intent
+        userId = getIntent().getStringExtra("user_id");
+        Log.d("StoreOwnerActivity", "Received user_id: " + userId);
+        sendDatatoFragment();
+    }
+
+    private void sendDatatoFragment() {
+        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+        fragmentTransaction.replace(R.id.viewpager_StoreOwner, new HomeStoreOwnerFragment());
+        fragmentTransaction.commit();
+    }
+
+    public String getUserId() {
+        return userId;
     }
 
     private void addControls() {

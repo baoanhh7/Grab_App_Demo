@@ -1,5 +1,7 @@
 package com.example.grab_demo.store_owner.adapter;
 
+import android.os.Bundle;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -10,6 +12,7 @@ import com.example.grab_demo.store_owner.fragment.MessageStoreOwnerFragment;
 import com.example.grab_demo.store_owner.fragment.TaiKhoanStoreOwnerFragment;
 
 public class ViewPagerAdapter extends FragmentStatePagerAdapter {
+
     public ViewPagerAdapter(@NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);
     }
@@ -17,16 +20,22 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @NonNull
     @Override
     public Fragment getItem(int position) {
+        // Tạo fragment và truyền userId qua Bundle
+//        Bundle bundle = new Bundle();
+//        bundle.putString("user_id", userId);
+        Fragment fragment = null;
         switch (position) {
             case 0:
-                return new HomeStoreOwnerFragment();
+                fragment = new HomeStoreOwnerFragment();
             case 1:
-                return new MessageStoreOwnerFragment();
+                fragment = new MessageStoreOwnerFragment();
             case 2:
-                return new TaiKhoanStoreOwnerFragment();
+                fragment = new TaiKhoanStoreOwnerFragment();
             default:
-                return new HomeStoreOwnerFragment();
+                fragment = new HomeStoreOwnerFragment();
         }
+
+        return fragment;
     }
 
     @Override
