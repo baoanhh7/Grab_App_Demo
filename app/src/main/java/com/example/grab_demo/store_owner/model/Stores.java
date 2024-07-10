@@ -1,15 +1,15 @@
 package com.example.grab_demo.store_owner.model;
 
-public class DishMenuHSO {
+public class Stores {
     private byte[] hinh;
     private String tensp;
-    private String giasp;
+    private String giomocua;
     private boolean isChecked;
 
-    public DishMenuHSO(byte[] hinh, String tensp, String giasp) {
+    public Stores(byte[] hinh, String tensp, String giomocua) {
         this.hinh = hinh;
         this.tensp = tensp;
-        this.giasp = giasp;
+        this.giomocua = giomocua;
     }
 
     public byte[] getHinh() {
@@ -28,12 +28,12 @@ public class DishMenuHSO {
         this.tensp = tensp;
     }
 
-    public String getGiasp() {
-        return giasp;
+    public String getGiomocua() {
+        return giomocua;
     }
 
-    public void setGiasp(String giasp) {
-        this.giasp = giasp;
+    public void setGiomocua(String giomocua) {
+        this.giomocua = giomocua;
     }
 
     public boolean isChecked() {
@@ -43,5 +43,4 @@ public class DishMenuHSO {
     public void setChecked(boolean checked) {
         isChecked = checked;
     }
-
 }

@@ -7,16 +7,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.grab_demo.ConnectionClass;
-import com.example.grab_demo.LoginActivity;
 import com.example.grab_demo.R;
+import com.example.grab_demo.store_owner.activity.ListQuanActivity;
 import com.example.grab_demo.store_owner.activity.MenuHomeStoreOwnerActivity;
 import com.example.grab_demo.store_owner.activity.OrderHomeStoreOwnerActivity;
 import com.example.grab_demo.store_owner.activity.StoreOwnerActivity;
@@ -25,6 +27,8 @@ import com.example.grab_demo.store_owner.adapter.ImageSliderAdapter_Home;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -36,14 +40,16 @@ public class HomeStoreOwnerFragment extends Fragment {
     private ViewPager viewPager;
     private View view;
     private int[] images = {R.drawable.voucher2, R.drawable.voucher3, R.drawable.voucher4};
-    private CardView cardview_menuHSO, cardview_orderHSO;
+    private CardView cardview_menuHSO, cardview_orderHSO, cardview_shopHSO, cardview_messageHSO;
     private String userId;
     Connection connection;
-    String query ;
-    Statement smt ;
+    String query;
+    Statement smt;
     ResultSet resultSet;
-    TextView tvGreeting_home_storeowner,tvQuan_home_storeowner,tv_revenue_today,tv_revenue_yesterday;
+    TextView tvGreeting_home_storeowner, tv_revenue_today, tv_revenue_yesterday;
+    Spinner SPQuan_home_storeowner;
     private StoreOwnerActivity storeOwnerActivity;
+    List<String> listNameStore = new ArrayList<>();
 
     @Override
 
@@ -63,6 +69,7 @@ public class HomeStoreOwnerFragment extends Fragment {
         // Ensure userId is not null before using
         if (userId != null) {
             loadData(); // Load data using userId
+            loadDataNameStore();
         } else {
             Log.e("HomeStoreOwnerFragment", "userId is null");
         }
@@ -104,38 +111,81 @@ public class HomeStoreOwnerFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        cardview_shopHSO.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FragmentManager fragmentManager = getParentFragmentManager();
+                Fragment fragment = fragmentManager.findFragmentById(R.id.viewpager_StoreOwner); // Thay R.id.your_fragment_container bằng ID của Fragment container
+                if (fragment != null) {
+                    fragmentManager.beginTransaction().remove(fragment).commit();
+                }
+                // Tạo Intent để chuyển sang Activity mới
+                Intent intent = new Intent(getActivity(), ListQuanActivity.class);
+
+                // Đính kèm dữ liệu vào Intent
+                intent.putExtra("user_id", userId);
+
+                // Chuyển sang Activity mới
+                startActivity(intent);
+
+            }
+        });
     }
 
     private void addControls() {
         viewPager = view.findViewById(R.id.viewPager_HomeStoreOwner);
         cardview_menuHSO = view.findViewById(R.id.cardview_menuHSO);
         cardview_orderHSO = view.findViewById(R.id.cardview_orderHSO);
+        cardview_shopHSO = view.findViewById(R.id.cardview_shopHSO);
+        cardview_messageHSO = view.findViewById(R.id.cardview_messageHSO);
         tvGreeting_home_storeowner = view.findViewById(R.id.tvGreeting_home_storeowner);
-        tvQuan_home_storeowner = view.findViewById(R.id.tvQuan_home_storeowner);
+        SPQuan_home_storeowner = view.findViewById(R.id.SPQuan_home_storeowner);
         tv_revenue_today = view.findViewById(R.id.tv_revenue_today);
         tv_revenue_yesterday = view.findViewById(R.id.tv_revenue_yesterday);
         ImageSliderAdapter_Home imageSliderAdapterHome = new ImageSliderAdapter_Home(getContext(), images);
         viewPager.setAdapter(imageSliderAdapterHome);
     }
-    private void loadData(){
+
+    private void loadData() {
         ConnectionClass sql = new ConnectionClass();
         connection = sql.conClass();
         if (connection != null) {
             try {
-                query = "SELECT store_name, owner_id FROM Stores WHERE owner_id = "  +userId ;
+                query = "SELECT username FROM Users WHERE user_id = " + userId;
                 smt = connection.createStatement();
                 resultSet = smt.executeQuery(query);
                 while (resultSet.next()) {
-                    Log.d("Name HSO", "Checking name: " + resultSet.getString(2));
-
-                        Log.d("Name HSO", "Checking name: " + resultSet.getString(1));
-                        tvGreeting_home_storeowner.setText(resultSet.getString(1));
+                    tvGreeting_home_storeowner.setText(resultSet.getString(1));
                 }
                 connection.close();
             } catch (Exception e) {
                 Log.e("Error: ", e.getMessage());
             }
-        }else {
+        } else {
+            Log.e("Error: ", "Connection null");
+        }
+    }
+
+    private void loadDataNameStore() {
+        ConnectionClass sql = new ConnectionClass();
+        connection = sql.conClass();
+        if (connection != null) {
+            try {
+                query = "SELECT store_name, owner_id FROM Stores WHERE owner_id = " + userId;
+                smt = connection.createStatement();
+                resultSet = smt.executeQuery(query);
+                while (resultSet.next()) {
+                    String storeName = resultSet.getString(1);
+                    listNameStore.add(storeName);
+                }
+                connection.close();
+                ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, listNameStore);
+                adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                SPQuan_home_storeowner.setAdapter(adapter);
+            } catch (Exception e) {
+                Log.e("Error: ", e.getMessage());
+            }
+        } else {
             Log.e("Error: ", "Connection null");
         }
     }

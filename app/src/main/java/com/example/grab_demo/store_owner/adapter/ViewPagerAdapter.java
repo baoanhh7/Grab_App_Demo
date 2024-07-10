@@ -1,7 +1,5 @@
 package com.example.grab_demo.store_owner.adapter;
 
-import android.os.Bundle;
-
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;

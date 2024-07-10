@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.grab_demo.customer.HomeActivity;
+import com.example.grab_demo.admin.AdminActivity;
 import com.example.grab_demo.store_owner.activity.StoreOwnerActivity;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -20,10 +20,11 @@ import java.sql.Statement;
 public class LoginActivity extends AppCompatActivity {
     Button btn_login, btn_createAcount;
     Connection connection;
-    String query ;
-    Statement smt ;
+    String query;
+    Statement smt;
     ResultSet resultSet;
-    TextInputEditText edt_user,edt_password;
+    TextInputEditText edt_user, edt_password;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,21 +57,20 @@ public class LoginActivity extends AppCompatActivity {
         edt_user = findViewById(R.id.edt_user);
         edt_password = findViewById(R.id.edt_password);
     }
-    private void loadData(){
+
+    private void loadData() {
         ConnectionClass sql = new ConnectionClass();
         connection = sql.conClass();
         if (connection != null) {
             try {
-                query = "Select user_id, password, phone_number, user_type  from Users";
-                 smt = connection.createStatement();
-                 resultSet = smt.executeQuery(query);
+                query = "Select user_id, password, phone_number, user_type,email  from Users";
+                smt = connection.createStatement();
+                resultSet = smt.executeQuery(query);
                 while (resultSet.next()) {
 
-                    if(edt_user.getText().toString().equals(resultSet.getString(3)) && edt_password.getText().toString().equals(resultSet.getString(2)))
-                    {
+                    if (edt_user.getText().toString().equals(resultSet.getString(3)) || edt_user.getText().toString().equals(resultSet.getString(5)) && edt_password.getText().toString().equals(resultSet.getString(2))) {
                         Log.d("Login", "Checking user: " + resultSet.getString(3));
-                        if(resultSet.getString(4).equals("store_owner"))
-                        {
+                        if (resultSet.getString(4).equals("store_owner")) {
                             String userId = resultSet.getString(1); // Lấy user_id từ kết quả truy vấn
                             Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                             Log.d("Login", "User is store_owner");
@@ -78,8 +78,24 @@ public class LoginActivity extends AppCompatActivity {
                             intent.putExtra("user_id", userId); // Truyền user_id qua intent
                             startActivity(intent);
                             finish();
+                        } else if (resultSet.getString(4).equals("sales")) {
+                            String userType = resultSet.getString(4);
+                            Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                            Log.d("Login", "User is sales");
+                            Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                            intent.putExtra("user_type", userType);
+                            startActivity(intent);
+                            finish();
+                        } else if (resultSet.getString(4).equals("it")) {
+                            String userType = resultSet.getString(4);
+                            Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                            Log.d("Login", "User is it");
+                            Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                            intent.putExtra("user_type", userType);
+                            startActivity(intent);
+                            finish();
                         }
-                    }else {
+                    } else {
                         Log.e("Error: ", "Failed");
                     }
                 }
@@ -87,7 +103,7 @@ public class LoginActivity extends AppCompatActivity {
             } catch (Exception e) {
                 Log.e("Error: ", e.getMessage());
             }
-        }else {
+        } else {
             Log.e("Error: ", "Connection null");
         }
     }
