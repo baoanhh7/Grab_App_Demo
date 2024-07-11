@@ -114,11 +114,11 @@ public class HomeStoreOwnerFragment extends Fragment {
         cardview_shopHSO.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentManager fragmentManager = getParentFragmentManager();
-                Fragment fragment = fragmentManager.findFragmentById(R.id.viewpager_StoreOwner); // Thay R.id.your_fragment_container bằng ID của Fragment container
-                if (fragment != null) {
-                    fragmentManager.beginTransaction().remove(fragment).commit();
-                }
+//                FragmentManager fragmentManager = getParentFragmentManager();
+//                Fragment fragment = fragmentManager.findFragmentById(R.id.viewpager_StoreOwner); // Thay R.id.your_fragment_container bằng ID của Fragment container
+//                if (fragment != null) {
+//                    fragmentManager.beginTransaction().remove(fragment).commit();
+//                }
                 // Tạo Intent để chuyển sang Activity mới
                 Intent intent = new Intent(getActivity(), ListQuanActivity.class);
 
