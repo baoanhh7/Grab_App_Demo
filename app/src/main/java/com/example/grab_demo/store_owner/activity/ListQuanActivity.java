@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.SearchView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -29,6 +30,7 @@ public class ListQuanActivity extends AppCompatActivity {
     Statement smt;
     ResultSet resultSet;
     String userId = "";
+    androidx.appcompat.widget.SearchView searchView_ShopHSO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +49,19 @@ public class ListQuanActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+        searchView_ShopHSO.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                storeHSOAdapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                storeHSOAdapter.getFilter().filter(newText);
+                return false;
             }
         });
     }
@@ -77,6 +92,7 @@ public class ListQuanActivity extends AppCompatActivity {
     private void addControls() {
         img_back_ShopHSO = findViewById(R.id.img_back_ShopHSO);
         rv_ShopHSO = findViewById(R.id.rv_ShopHSO);
+        searchView_ShopHSO = findViewById(R.id.searchView_ShopHSO);
         arr = new ArrayList<>();
         storeHSOAdapter = new StoreHSOAdapter(this, arr);
         rv_ShopHSO.setAdapter(storeHSOAdapter);

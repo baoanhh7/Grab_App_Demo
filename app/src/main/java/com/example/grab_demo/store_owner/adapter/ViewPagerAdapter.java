@@ -21,19 +21,16 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         // Tạo fragment và truyền userId qua Bundle
 //        Bundle bundle = new Bundle();
 //        bundle.putString("user_id", userId);
-        Fragment fragment = null;
         switch (position) {
             case 0:
-                fragment = new HomeStoreOwnerFragment();
+                return new HomeStoreOwnerFragment();
             case 1:
-                fragment = new MessageStoreOwnerFragment();
+                return new MessageStoreOwnerFragment();
             case 2:
-                fragment = new TaiKhoanStoreOwnerFragment();
+                return new TaiKhoanStoreOwnerFragment();
             default:
-                fragment = new HomeStoreOwnerFragment();
+                return new HomeStoreOwnerFragment();
         }
-
-        return fragment;
     }
 
     @Override

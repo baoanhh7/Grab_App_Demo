@@ -8,9 +8,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
 
 import com.example.grab_demo.R;
+import com.example.grab_demo.store_owner.activity.ListQuanActivity;
 import com.example.grab_demo.store_owner.activity.RegisterStoreActivity;
+import com.example.grab_demo.store_owner.activity.StoreOwnerActivity;
 
 
 public class TaiKhoanStoreOwnerFragment extends Fragment {
@@ -18,12 +21,18 @@ public class TaiKhoanStoreOwnerFragment extends Fragment {
     Button btnRegisterStore;
     Button btnLogout;
     View view;
+    private StoreOwnerActivity storeOwnerActivity;
+    private String userId;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_tai_khoan_store_owner, container, false);
+        if (getActivity() instanceof StoreOwnerActivity) {
+            storeOwnerActivity = (StoreOwnerActivity) getActivity();
+            userId = storeOwnerActivity.getUserId();
+        }
         addControls();
         addEvents();
         return view;
@@ -40,8 +49,13 @@ public class TaiKhoanStoreOwnerFragment extends Fragment {
         btnRegisterStore.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Xử lý sự kiện đăng ký cửa hàng
-                Intent intent = new Intent(getActivity(), RegisterStoreActivity.class);
+                // Tạo Intent để chuyển sang Activity mới
+                Intent intent = new Intent(requireContext(), RegisterStoreActivity.class);
+
+                // Đính kèm dữ liệu vào Intent
+                intent.putExtra("user_id", userId);
+
+                // Chuyển sang Activity mới
                 startActivity(intent);
             }
         });

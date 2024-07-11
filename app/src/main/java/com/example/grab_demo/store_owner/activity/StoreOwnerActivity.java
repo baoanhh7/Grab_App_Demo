@@ -36,6 +36,7 @@ public class StoreOwnerActivity extends AppCompatActivity {
         // Nhận user_id từ intent
         userId = getIntent().getStringExtra("user_id");
         Log.d("StoreOwnerActivity", "Received user_id: " + userId);
+        // Lấy chỉ số fragment từ intent
         sendDatatoFragment();
     }
 
@@ -86,7 +87,10 @@ public class StoreOwnerActivity extends AppCompatActivity {
             }
         });
 
-
+//        int targetFragmentIndex = getIntent().getIntExtra("targetFragmentIndex", 0);
+//        if(targetFragmentIndex >= 0 && targetFragmentIndex <3){
+//            viewPager.setCurrentItem(targetFragmentIndex);
+//        }
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
