@@ -1,64 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-tools:context=".admin.sales.activity.ListCateSalesActivity">
-
-<!-- TODO: Update blank fragment layout -->
-<LinearLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    tools:context=".admin.sales.activity.ListCateSalesActivity">
 
-  <LinearLayout
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_margin="10dp"
-      android:orientation="horizontal">
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-    <ImageButton
-        android:id="@+id/img_back_ListCateSales"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:background="@drawable/ic_back" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:fontFamily="monospace"
-        android:text="Quay về"
-        android:layout_gravity="center"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-    <ImageButton
-        android:id="@+id/btn_add_ListCateSales"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginStart="200dp"
-        android:background="@drawable/baseline_add_24" />
+            <ImageButton
+                android:id="@+id/img_back_ListCateSales"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/ic_back" />
 
-  </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="10dp"
+                android:fontFamily="monospace"
+                android:text="Quay về"
+                android:textColor="@color/black"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
-  <androidx.appcompat.widget.SearchView
-      android:id="@+id/searchView_ListCateSales"
-      android:layout_width="match_parent"
-      android:layout_height="wrap_content"
-      android:layout_marginHorizontal="20dp"
-      android:background="#F5F5F5"
-      app:queryHint="Search..." />
+            <ImageButton
+                android:id="@+id/btn_add_ListCateSales"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="200dp"
+                android:background="@drawable/baseline_add_24" />
 
-  <androidx.recyclerview.widget.RecyclerView
-      android:id="@+id/rv_ListCateSales"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:layout_margin="20dp" />
+        </LinearLayout>
 
-</LinearLayout>
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/searchView_ListCateSales"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="20dp"
+            android:background="#F5F5F5"
+            app:queryHint="Search..." />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_ListCateSales"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp" />
+
+    </LinearLayout>
 
 </LinearLayout>

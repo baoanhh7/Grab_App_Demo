@@ -107,7 +107,7 @@ public class RegisterStoreActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 cateId = listIDCate.get(position);
-                Log.d("RegisterStoreActivity",cateId);
+                Log.d("RegisterStoreActivity", cateId);
             }
 
             @Override
@@ -134,6 +134,7 @@ public class RegisterStoreActivity extends AppCompatActivity {
         edt_opened_registerstore = findViewById(R.id.edt_opened_registerstore);
         sp_idCate_registerstore = findViewById(R.id.sp_idCate_registerstore);
     }
+
     private void insertData() {
         byte[] anh = getByteArrayFromImageView(img_registerstore);
         // Lấy chuỗi tên danh mục từ EditText
@@ -174,6 +175,7 @@ public class RegisterStoreActivity extends AppCompatActivity {
             Log.e("Error: ", "Connection null");
         }
     }
+
     private byte[] getByteArrayFromImageView(ImageView img) {
         BitmapDrawable drawable = (BitmapDrawable) img.getDrawable();
         Bitmap bitmap = drawable.getBitmap();

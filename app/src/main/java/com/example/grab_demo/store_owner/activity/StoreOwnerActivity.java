@@ -20,13 +20,13 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class StoreOwnerActivity extends AppCompatActivity {
-    private ViewPager viewPager;
-    private BottomNavigationView bottomNavigationView;
     Connection connection;
     String query;
     Statement smt;
     ResultSet resultSet;
     String userId = "";
+    private ViewPager viewPager;
+    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

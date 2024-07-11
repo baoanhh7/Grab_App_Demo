@@ -10,6 +10,7 @@ import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.grab_demo.LoginActivity;
 import com.example.grab_demo.R;
 import com.example.grab_demo.admin.sales.activity.ListCateSalesActivity;
 
@@ -17,8 +18,9 @@ public class AdminActivity extends AppCompatActivity {
     String userType = "";
     FrameLayout FL_sales, FL_IT;
     ImageButton img_back_Admin;
-    Button btn_edit_profile_storeowner,btn_voucher_sales,btn_cate_sales,btn_duyetdondk_sales,btn_quanlycuahang_sales,btn_quanlytkHSO_sales,
-            btn_logout_sales,btn_createaccountNVKD_IT,btn_quanlytkNVGH_IT,btn_logout_IT;
+    Button btn_edit_profile_storeowner, btn_voucher_sales, btn_cate_sales, btn_duyetdondk_sales, btn_quanlycuahang_sales, btn_quanlytkHSO_sales,
+            btn_logout_sales, btn_createaccountNVKD_IT, btn_quanlytkNVGH_IT, btn_logout_IT;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +44,7 @@ public class AdminActivity extends AppCompatActivity {
         img_back_Admin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(AdminActivity.this, LoginActivity.class));
                 finish();
             }
         });

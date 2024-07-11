@@ -25,13 +25,12 @@ import java.sql.PreparedStatement;
 import java.util.ArrayList;
 
 
-
 public class CateAdapter extends RecyclerView.Adapter<CateAdapter.ViewHolder> {
 
     Context context;
     ArrayList<Cate> arr;
-    private OnItemClickListener onItemClickListener;
     Connection connection;
+    private OnItemClickListener onItemClickListener;
 
     public CateAdapter(Context context, ArrayList<Cate> arr) {
         this.context = context;
@@ -75,7 +74,7 @@ public class CateAdapter extends RecyclerView.Adapter<CateAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, UpdateCateSalesActivity.class);
-                intent.putExtra("cateName",cate.getTensp());
+                intent.putExtra("cateName", cate.getTensp());
                 context.startActivity(intent);
             }
         });
@@ -102,6 +101,7 @@ public class CateAdapter extends RecyclerView.Adapter<CateAdapter.ViewHolder> {
             }
         });
     }
+
     private void delete(String nameCate, int position) {
         ConnectionClass sql = new ConnectionClass();
         connection = sql.conClass();
@@ -130,6 +130,7 @@ public class CateAdapter extends RecyclerView.Adapter<CateAdapter.ViewHolder> {
         }
         notifyDataSetChanged();
     }
+
     @Override
     public int getItemCount() {
         return arr.size();
@@ -142,6 +143,7 @@ public class CateAdapter extends RecyclerView.Adapter<CateAdapter.ViewHolder> {
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtTen;
         ImageButton btn_update, btn_delete;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtTen = itemView.findViewById(R.id.tv_name_item_CateSale);

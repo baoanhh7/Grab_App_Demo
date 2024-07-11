@@ -28,13 +28,13 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 
 
-public class StoreHSOAdapter extends RecyclerView.Adapter<StoreHSOAdapter.ViewHolder> implements Filterable{
+public class StoreHSOAdapter extends RecyclerView.Adapter<StoreHSOAdapter.ViewHolder> implements Filterable {
 
     Context context;
-    ArrayList<Stores> arr,arr1;
+    ArrayList<Stores> arr, arr1;
     boolean flag = false;
-    private OnItemClickListener onItemClickListener;
     String status;
+    private OnItemClickListener onItemClickListener;
 
     public StoreHSOAdapter(Context context, ArrayList<Stores> arr) {
         this.context = context;
@@ -129,6 +129,7 @@ public class StoreHSOAdapter extends RecyclerView.Adapter<StoreHSOAdapter.ViewHo
             txtOpen = itemView.findViewById(R.id.tv_opened_item_StoreHSO);
             switchToggle_dishmenuHSO = itemView.findViewById(R.id.switchToggle_item_StoreHSO);
         }
+
         private void getCurrentStoreStatus() {
             ConnectionClass sql = new ConnectionClass();
             Connection connection = sql.conClass();
@@ -150,6 +151,7 @@ public class StoreHSOAdapter extends RecyclerView.Adapter<StoreHSOAdapter.ViewHo
                 Log.e("Error: ", "Connection null");
             }
         }
+
         private void updateStoreStatus(String status) {
             ConnectionClass sql = new ConnectionClass();
             Connection connection = sql.conClass();
@@ -159,7 +161,7 @@ public class StoreHSOAdapter extends RecyclerView.Adapter<StoreHSOAdapter.ViewHo
                     PreparedStatement preparedStatement = connection.prepareStatement(query);
                     preparedStatement.setString(1, status);
                     preparedStatement.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));
-                    preparedStatement.setString(3,  txtTen.getText().toString().trim()); // Thay storeId bằng ID của cửa hàng bạn muốn cập nhật
+                    preparedStatement.setString(3, txtTen.getText().toString().trim()); // Thay storeId bằng ID của cửa hàng bạn muốn cập nhật
                     int rowsAffected = preparedStatement.executeUpdate();
                     if (rowsAffected > 0) {
                         Log.d("UpdateStoreStatus", "Update successfully");

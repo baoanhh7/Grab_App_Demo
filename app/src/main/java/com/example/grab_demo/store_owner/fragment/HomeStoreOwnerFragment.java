@@ -35,6 +35,13 @@ import java.util.TimerTask;
 
 public class HomeStoreOwnerFragment extends Fragment {
 
+    Connection connection;
+    String query;
+    Statement smt;
+    ResultSet resultSet;
+    TextView tvGreeting_home_storeowner, tv_revenue_today, tv_revenue_yesterday;
+    Spinner SPQuan_home_storeowner;
+    List<String> listNameStore = new ArrayList<>();
     private int currentPage = 0;
     private Timer timer;
     private ViewPager viewPager;
@@ -42,14 +49,7 @@ public class HomeStoreOwnerFragment extends Fragment {
     private int[] images = {R.drawable.voucher2, R.drawable.voucher3, R.drawable.voucher4};
     private CardView cardview_menuHSO, cardview_orderHSO, cardview_shopHSO, cardview_messageHSO;
     private String userId;
-    Connection connection;
-    String query;
-    Statement smt;
-    ResultSet resultSet;
-    TextView tvGreeting_home_storeowner, tv_revenue_today, tv_revenue_yesterday;
-    Spinner SPQuan_home_storeowner;
     private StoreOwnerActivity storeOwnerActivity;
-    List<String> listNameStore = new ArrayList<>();
 
     @Override
 

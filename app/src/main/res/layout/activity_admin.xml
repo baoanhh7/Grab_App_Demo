@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".admin.AdminActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,6 +32,7 @@
             android:textStyle="bold" />
 
     </LinearLayout>
+
     <FrameLayout
         android:id="@+id/FL_sales"
         android:layout_width="match_parent"

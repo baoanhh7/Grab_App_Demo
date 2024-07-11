@@ -25,6 +25,7 @@ public class AddCateSalesActivity extends AppCompatActivity {
     String query;
     Statement smt;
     ResultSet resultSet;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

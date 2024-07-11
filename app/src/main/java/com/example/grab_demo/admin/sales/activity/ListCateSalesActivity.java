@@ -22,7 +22,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class ListCateSalesActivity extends AppCompatActivity {
-    ImageButton img_back_ListCateSales,btn_add_ListCateSales;
+    ImageButton img_back_ListCateSales, btn_add_ListCateSales;
     SearchView searchView_ListCateSales;
     RecyclerView rv_ListCateSales;
     ArrayList<Cate> arr;
@@ -31,6 +31,7 @@ public class ListCateSalesActivity extends AppCompatActivity {
     String query;
     Statement smt;
     ResultSet resultSet;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,11 +40,13 @@ public class ListCateSalesActivity extends AppCompatActivity {
         addEvents();
         addDB();
     }
+
     @Override
     protected void onResume() {
         super.onResume();
         addDB();
     }
+
     private void addDB() {
         ConnectionClass sql = new ConnectionClass();
         connection = sql.conClass();

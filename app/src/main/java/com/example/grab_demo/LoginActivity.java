@@ -63,7 +63,7 @@ public class LoginActivity extends AppCompatActivity {
         connection = sql.conClass();
         if (connection != null) {
             try {
-                query = "Select user_id, password, phone_number, user_type,email  from Users";
+                query = "Select user_id, password, phone_number, user_type,email from Users";
                 smt = connection.createStatement();
                 resultSet = smt.executeQuery(query);
                 while (resultSet.next()) {
