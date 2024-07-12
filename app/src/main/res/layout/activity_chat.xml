@@ -3,10 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-
     android:orientation="horizontal"
     tools:context=".customer.activity.ChatActivity">
 
@@ -37,7 +35,6 @@
                 android:textColor="@color/black"
                 android:textSize="25sp" />
 
-
         </LinearLayout>
     </androidx.appcompat.widget.Toolbar>
 
@@ -60,7 +57,6 @@
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:hint="Enter message"
-
             android:textSize="13sp" />
 
         <Button
@@ -72,6 +68,5 @@
             android:text="Send"
             android:textSize="13dp" />
     </RelativeLayout>
-
 
 </RelativeLayout>

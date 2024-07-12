@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
+import com.example.grab_demo.customer.activity.CartActivity;
 import com.example.grab_demo.customer.activity.HomeActivity;
 import com.example.grab_demo.customer.activity.ProductListActivity;
 import com.example.grab_demo.customer.adapter.Home.HomeAdapter;
@@ -24,12 +26,19 @@ import com.example.grab_demo.customer.adapter.Home.OrderAgainAdapter;
 import com.example.grab_demo.m_interface.IClickItem;
 import com.example.grab_demo.model.Product;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class HomeFragment extends Fragment {
+    Connection connection;
+    String query;
+    Statement smt;
+    ResultSet resultSet;
     RecyclerView rcv_header, rcv_second, rcv_voucher, rcv_orderAgain;
     List<Product> filterProduct, productList, productList2, productListVoucher, productListOderAgain;
     HomeAdapter homeAdapter;
@@ -37,6 +46,7 @@ public class HomeFragment extends Fragment {
     HomeVoucherAdapter homeVoucherAdapter;
     OrderAgainAdapter orderAgainAdapter;
     SearchView searchView;
+    ImageView img_cart;
     private View view;
     private int currentPage = 0;
     private Timer timer;
@@ -59,7 +69,33 @@ public class HomeFragment extends Fragment {
             userId = homeActivity.getUserId();
         }
         Log.e("HomeFragment", userId);
+
+        if (userId != null) {
+            loadData(); // Load data using userId
+        } else {
+            Log.e("HomeFragment", "userId is null");
+        }
         return view;
+    }
+
+    private void loadData() {
+//        ConnectionClass sql = new ConnectionClass();
+//        connection = sql.conClass();
+//        if (connection != null) {
+//            try {
+//                query = "SELECT username FROM Users WHERE user_id = " + userId;
+//                smt = connection.createStatement();
+//                resultSet = smt.executeQuery(query);
+//                while (resultSet.next()) {
+//                    tvGreeting_home_storeowner.setText(resultSet.getString(1));
+//                }
+//                connection.close();
+//            } catch (Exception e) {
+//                Log.e("Error: ", e.getMessage());
+//            }
+//        } else {
+//            Log.e("Error: ", "Connection null");
+//        }
     }
 
     private void startAutoSlide() {
@@ -118,6 +154,14 @@ public class HomeFragment extends Fragment {
     }
 
     private void addEvents() {
+        img_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), CartActivity.class);
+                startActivity(intent);
+            }
+        });
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -159,6 +203,8 @@ public class HomeFragment extends Fragment {
     }
 
     private void addControls() {
+        img_cart = view.findViewById(R.id.img_cart);
+
         filterProduct = new ArrayList<>();
         productList = new ArrayList<>();
         productList2 = new ArrayList<>();
