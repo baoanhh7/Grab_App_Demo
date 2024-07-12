@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -41,7 +42,6 @@ public class HomeStoreOwnerFragment extends Fragment {
     ResultSet resultSet;
     TextView tvGreeting_home_storeowner, tv_revenue_today, tv_revenue_yesterday;
     Spinner SPQuan_home_storeowner;
-    List<String> listNameStore = new ArrayList<>();
     private int currentPage = 0;
     private Timer timer;
     private ViewPager viewPager;
@@ -50,6 +50,9 @@ public class HomeStoreOwnerFragment extends Fragment {
     private CardView cardview_menuHSO, cardview_orderHSO, cardview_shopHSO, cardview_messageHSO;
     private String userId;
     private StoreOwnerActivity storeOwnerActivity;
+    List<String> listNameStore = new ArrayList<>();
+    List<String> listIDStore = new ArrayList<>();
+    String storeID;
 
     @Override
 
@@ -69,7 +72,7 @@ public class HomeStoreOwnerFragment extends Fragment {
         // Ensure userId is not null before using
         if (userId != null) {
             loadData(); // Load data using userId
-            loadDataNameStore();
+            createDataSpinner();
         } else {
             Log.e("HomeStoreOwnerFragment", "userId is null");
         }
@@ -130,6 +133,17 @@ public class HomeStoreOwnerFragment extends Fragment {
 
             }
         });
+        SPQuan_home_storeowner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                storeID = listIDStore.get(position);
+                Log.d("HomeStoreOwnerFragment", storeID);
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
     private void addControls() {
@@ -165,21 +179,22 @@ public class HomeStoreOwnerFragment extends Fragment {
             Log.e("Error: ", "Connection null");
         }
     }
-
-    private void loadDataNameStore() {
+    private void createDataSpinner() {
         ConnectionClass sql = new ConnectionClass();
         connection = sql.conClass();
         if (connection != null) {
             try {
-                query = "SELECT store_name, owner_id FROM Stores WHERE owner_id = " + userId;
+                String query = "SELECT store_id,store_name FROM Stores WHERE owner_id = " + userId;
                 smt = connection.createStatement();
                 resultSet = smt.executeQuery(query);
                 while (resultSet.next()) {
-                    String storeName = resultSet.getString(1);
-                    listNameStore.add(storeName);
+                    storeID = resultSet.getString(1);
+                    String cateName = resultSet.getString(2);
+                    listNameStore.add(cateName);
+                    listIDStore.add(storeID);
                 }
                 connection.close();
-                ArrayAdapter adapter = new ArrayAdapter(getContext(), android.R.layout.simple_list_item_1, listNameStore);
+                ArrayAdapter adapter = new ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, listNameStore);
                 adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
                 SPQuan_home_storeowner.setAdapter(adapter);
             } catch (Exception e) {
