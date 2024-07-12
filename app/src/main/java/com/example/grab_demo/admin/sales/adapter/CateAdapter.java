@@ -14,9 +14,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.grab_demo.ConnectionClass;
 import com.example.grab_demo.R;
 import com.example.grab_demo.admin.sales.activity.UpdateCateSalesActivity;
+import com.example.grab_demo.database.ConnectionClass;
 import com.example.grab_demo.store_owner.OnItemClickListener;
 import com.example.grab_demo.store_owner.model.Cate;
 

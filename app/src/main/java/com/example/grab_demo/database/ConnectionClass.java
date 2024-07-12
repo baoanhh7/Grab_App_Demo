@@ -1,4 +1,4 @@
-package com.example.grab_demo;
+package com.example.grab_demo.database;
 
 import android.annotation.SuppressLint;
 import android.os.StrictMode;

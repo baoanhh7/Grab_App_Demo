@@ -1,5 +1,5 @@
 // GridAdapter.java
-package com.example.grab_demo.adapter.Home;
+package com.example.grab_demo.customer.adapter.Home;
 
 import android.content.Context;
 import android.view.LayoutInflater;

@@ -1,4 +1,4 @@
-package com.example.grab_demo.customer;
+package com.example.grab_demo.customer.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
-import com.example.grab_demo.adapter.Home.OrderAgainAdapter;
+import com.example.grab_demo.customer.adapter.Home.OrderAgainAdapter;
 import com.example.grab_demo.m_interface.IClickItem;
 import com.example.grab_demo.model.Product;
 

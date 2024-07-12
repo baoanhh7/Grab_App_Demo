@@ -1,4 +1,4 @@
-package com.example.grab_demo.adapter.Home;
+package com.example.grab_demo.customer.adapter.Home;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,12 +16,12 @@ import com.example.grab_demo.model.Product;
 
 import java.util.List;
 
-public class HomeVoucherAdapter extends RecyclerView.Adapter<HomeVoucherAdapter.HomeViewHolder> {
+public class OrderAgainAdapter extends RecyclerView.Adapter<OrderAgainAdapter.HomeViewHolder> {
     Context context;
     List<Product> productList;
     private IClickItem iClickItem;
 
-    public HomeVoucherAdapter(Context context, List<Product> productList) {
+    public OrderAgainAdapter(Context context, List<Product> productList) {
         this.context = context;
         this.productList = productList;
     }
@@ -33,7 +33,7 @@ public class HomeVoucherAdapter extends RecyclerView.Adapter<HomeVoucherAdapter.
     @NonNull
     @Override
     public HomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_voucher_home, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_order_again, parent, false);
         return new HomeViewHolder(view);
     }
 
@@ -43,6 +43,8 @@ public class HomeVoucherAdapter extends RecyclerView.Adapter<HomeVoucherAdapter.
 
         holder.txt_name.setText(product.getName());
         holder.txt_describe.setText(product.getDescribe());
+        holder.txt_price.setText(product.getPrice() + "");
+
         holder.img.setImageResource(product.getImg());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -62,15 +64,16 @@ public class HomeVoucherAdapter extends RecyclerView.Adapter<HomeVoucherAdapter.
     }
 
     public class HomeViewHolder extends RecyclerView.ViewHolder {
-        TextView txt_name, txt_describe;
         ImageView img;
+        TextView txt_name, txt_describe, txt_price;
 
         public HomeViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            img = itemView.findViewById(R.id.img);
             txt_name = itemView.findViewById(R.id.txt_name);
             txt_describe = itemView.findViewById(R.id.txt_describe);
-            img = itemView.findViewById(R.id.img);
+            txt_price = itemView.findViewById(R.id.txt_price);
         }
     }
 }

@@ -46,7 +46,7 @@
             android:name=".deliver.activity.ChiTietDonHangNewActivity"
             android:exported="false" />
         <activity
-            android:name=".SQLActivity"
+            android:name=".database.SQLActivity"
             android:exported="true" />
         <activity
             android:name=".store_owner.activity.OrderHomeStoreOwnerActivity"
@@ -73,7 +73,7 @@
             android:name=".deliver.activity.EditProfileActivity"
             android:exported="false" />
         <activity
-            android:name=".ChatActivity"
+            android:name=".customer.activity.ChatActivity"
             android:exported="true" />
         <activity
             android:name=".RegisterOwnerStoreActivity"
@@ -125,22 +125,22 @@
             android:exported="false"
             android:label="@string/title_activity_maps" />
         <activity
-            android:name=".SearchActivity"
+            android:name=".customer.activity.SearchActivity"
             android:exported="true" />
         <activity
             android:name=".store_owner.activity.StoreOwnerActivity"
             android:exported="true" />
         <activity
-            android:name=".customer.OderActivity"
+            android:name=".customer.activity.OderActivity"
             android:exported="false" />
         <activity
-            android:name=".customer.MenuActivity"
+            android:name=".customer.activity.MenuActivity"
             android:exported="false" />
         <activity
-            android:name=".customer.ProductListActivity"
+            android:name=".customer.activity.ProductListActivity"
             android:exported="false" />
         <activity
-            android:name=".customer.HomeActivity"
+            android:name=".customer.activity.HomeActivity"
             android:exported="true" />
     </application>
 

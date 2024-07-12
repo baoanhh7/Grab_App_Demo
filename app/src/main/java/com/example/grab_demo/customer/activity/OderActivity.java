@@ -1,4 +1,4 @@
-package com.example.grab_demo.customer;
+package com.example.grab_demo.customer.activity;
 
 import android.os.Bundle;
 import android.view.View;

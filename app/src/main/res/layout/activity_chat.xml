@@ -8,7 +8,7 @@
     android:layout_height="match_parent"
 
     android:orientation="horizontal"
-    tools:context=".ChatActivity">
+    tools:context=".customer.activity.ChatActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"

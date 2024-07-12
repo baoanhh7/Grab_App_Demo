@@ -24,8 +24,8 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 
-import com.example.grab_demo.ConnectionClass;
 import com.example.grab_demo.R;
+import com.example.grab_demo.database.ConnectionClass;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.ByteArrayOutputStream;

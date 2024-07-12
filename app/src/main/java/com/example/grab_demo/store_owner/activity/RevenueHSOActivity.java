@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.grab_demo.ConnectionClass;
 import com.example.grab_demo.R;
+import com.example.grab_demo.database.ConnectionClass;
 
 import java.math.BigDecimal;
 import java.sql.Connection;

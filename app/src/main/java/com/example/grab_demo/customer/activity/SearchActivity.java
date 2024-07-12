@@ -1,5 +1,5 @@
 // activity_search.java
-package com.example.grab_demo;
+package com.example.grab_demo.customer.activity;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -12,7 +12,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.grab_demo.adapter.Home.GridAdapter;
+import com.example.grab_demo.R;
+import com.example.grab_demo.customer.adapter.Home.GridAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;

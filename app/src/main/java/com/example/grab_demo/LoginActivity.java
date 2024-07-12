@@ -11,7 +11,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.grab_demo.admin.AdminActivity;
-import com.example.grab_demo.customer.HomeActivity;
+import com.example.grab_demo.customer.activity.HomeActivity;
+import com.example.grab_demo.database.ConnectionClass;
 import com.example.grab_demo.store_owner.activity.StoreOwnerActivity;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -100,6 +101,7 @@ public class LoginActivity extends AppCompatActivity {
                         } else if (resultSet.getString(4).equals("customer")) {
                             String userID = resultSet.getString(1);
                             Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                            Log.d("Login", "User is customer");
                             Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                             intent.putExtra("user_id", userID);
                             startActivity(intent);

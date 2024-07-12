@@ -17,8 +17,8 @@ import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.grab_demo.ConnectionClass;
 import com.example.grab_demo.R;
+import com.example.grab_demo.database.ConnectionClass;
 import com.example.grab_demo.store_owner.activity.ListQuanActivity;
 import com.example.grab_demo.store_owner.activity.MenuHomeStoreOwnerActivity;
 import com.example.grab_demo.store_owner.activity.OrderHomeStoreOwnerActivity;
