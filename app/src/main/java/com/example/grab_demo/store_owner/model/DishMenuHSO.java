@@ -2,18 +2,28 @@ package com.example.grab_demo.store_owner.model;
 
 public class DishMenuHSO {
     private byte[] hinh;
+    private int id;
     private String tensp;
     private  String mota;
     private Double giasp;
     private  int soluong;
     private boolean isChecked;
 
-    public DishMenuHSO(byte[] hinh, String tensp, String mota, Double giasp, int soluong) {
+    public DishMenuHSO(byte[] hinh, int id, String tensp, String mota, Double giasp, int soluong) {
         this.hinh = hinh;
+        this.id = id;
         this.tensp = tensp;
         this.mota = mota;
         this.giasp = giasp;
         this.soluong = soluong;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getSoluong() {

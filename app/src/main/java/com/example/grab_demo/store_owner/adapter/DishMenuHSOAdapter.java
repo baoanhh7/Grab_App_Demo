@@ -6,9 +6,11 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -17,11 +19,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.grab_demo.ConnectionClass;
 import com.example.grab_demo.R;
+import com.example.grab_demo.admin.sales.activity.UpdateCateSalesActivity;
 import com.example.grab_demo.store_owner.OnItemClickListener;
 import com.example.grab_demo.store_owner.activity.UpdateDishMenuActivity;
 import com.example.grab_demo.store_owner.model.DishMenuHSO;
+import com.example.grab_demo.store_owner.model.Stores;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 
 public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.ViewHolder> {
@@ -30,6 +39,8 @@ public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.
     ArrayList<DishMenuHSO> arr;
     boolean flag = false;
     private OnItemClickListener onItemClickListener;
+    Connection connection;
+    String status;
 
     public DishMenuHSOAdapter(Context context, ArrayList<DishMenuHSO> arr) {
         this.context = context;
@@ -55,6 +66,7 @@ public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.
         holder.txtGia.setText(dishMenuHSO.getGiasp()+"");
         holder.txtMoTa.setText(dishMenuHSO.getMota());
         holder.txtSL.setText(dishMenuHSO.getSoluong()+"");
+        holder.getCurrentStoreStatus(dishMenuHSO.getId());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,8 +79,7 @@ public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, UpdateDishMenuActivity.class);
-//                intent.putExtra("id", artists.getArtistID());
-//                intent.putExtra("name", artists.getArtistName());
+                intent.putExtra("item_id", dishMenuHSO.getId());
                 context.startActivity(intent);
             }
         });
@@ -82,7 +93,7 @@ public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.
                 builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-//                        delete(artists.getArtistID());
+                        delete(dishMenuHSO.getId(), position);
                     }
                 });
                 builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {
@@ -92,6 +103,13 @@ public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.
                     }
                 });
                 builder.create().show();
+            }
+        });
+        holder.switchToggle_dishmenuHSO.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                String status = isChecked ? "active" : "inactive";
+                holder.updateDishMenuStatus(status, dishMenuHSO.getId());
             }
         });
     }
@@ -125,5 +143,79 @@ public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.
             btn_delete = itemView.findViewById(R.id.btn_delete_dishmenu);
             btn_update = itemView.findViewById(R.id.btn_update_dishmenu);
         }
+        private void getCurrentStoreStatus(int id) {
+            ConnectionClass sql = new ConnectionClass();
+            Connection connection = sql.conClass();
+            if (connection != null) {
+                try {
+                    String query = "SELECT status FROM Items WHERE item_id = ?";
+                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+                    preparedStatement.setInt(1, id); // Thay storeId bằng ID của cửa hàng bạn muốn lấy trạng thái
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    if (resultSet.next()) {
+                        status = resultSet.getString(1);
+                        switchToggle_dishmenuHSO.setChecked("active".equals(status));
+                    }
+                    connection.close();
+                } catch (Exception e) {
+                    Log.e("Error: ", e.getMessage());
+                }
+            } else {
+                Log.e("Error: ", "Connection null");
+            }
+        }
+        private void updateDishMenuStatus(String status, int id) {
+            ConnectionClass sql = new ConnectionClass();
+            Connection connection = sql.conClass();
+
+            if (connection != null) {
+                try {
+                    String query = "UPDATE Items SET status = ?, updated_at = ? WHERE item_id = ?";
+                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+                    preparedStatement.setString(1, status);
+                    preparedStatement.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));
+                    preparedStatement.setInt(3, id); // Thay storeId bằng ID của cửa hàng bạn muốn cập nhật
+                    int rowsAffected = preparedStatement.executeUpdate();
+                    if (rowsAffected > 0) {
+                        Log.d("UpdateDishMenuStatus", "Update successfully");
+                    } else {
+                        Log.e("UpdateDishMenuStatus", "Update failed");
+                    }
+                    connection.close();
+                } catch (Exception e) {
+                    Log.e("Error: ", e.getMessage());
+                }
+            } else {
+                Log.e("Error: ", "Connection null");
+            }
+        }
+    }
+    private void delete(int idStore, int position) {
+        ConnectionClass sql = new ConnectionClass();
+        connection = sql.conClass();
+        if (connection != null) {
+            try {
+                String query = "DELETE FROM Items WHERE item_id = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, idStore); // Thiết lập điều kiện WHERE để xác định hàng cần xóa
+
+                // Thực thi truy vấn DELETE
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected > 0) {
+                    Log.d("DeleteDishMenuHSO", "Delete successfully");
+                    // Xóa mục khỏi danh sách và thông báo cho adapter
+                    arr.remove(position);
+                    notifyItemRemoved(position);
+                } else {
+                    Log.e("DeleteDishMenuHSO", "Delete failed");
+                }
+                connection.close();
+            } catch (Exception e) {
+                Log.e("Error: ", e.getMessage());
+            }
+        } else {
+            Log.e("Error: ", "Connection null");
+        }
+        notifyDataSetChanged();
     }
 }

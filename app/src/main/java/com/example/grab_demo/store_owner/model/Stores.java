@@ -2,6 +2,7 @@ package com.example.grab_demo.store_owner.model;
 
 public class Stores {
     private byte[] hinh;
+    private  int id;
     private String tensp;
     private String giomocua;
     private boolean isChecked;
