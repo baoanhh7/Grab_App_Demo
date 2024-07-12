@@ -17,7 +17,7 @@ import com.example.grab_demo.adapter.Home.GridAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class activity_search extends AppCompatActivity {
+public class SearchActivity extends AppCompatActivity {
 
     GridView gridView;
     EditText searchBar;

@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.grab_demo.admin.AdminActivity;
+import com.example.grab_demo.customer.HomeActivity;
 import com.example.grab_demo.store_owner.activity.StoreOwnerActivity;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -24,6 +26,7 @@ public class LoginActivity extends AppCompatActivity {
     Statement smt;
     ResultSet resultSet;
     TextInputEditText edt_user, edt_password;
+    TextView txt_forgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +52,14 @@ public class LoginActivity extends AppCompatActivity {
                 loadData();
             }
         });
+
+        txt_forgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
+                finish();
+            }
+        });
     }
 
     private void addControls() {
@@ -56,6 +67,7 @@ public class LoginActivity extends AppCompatActivity {
         btn_createAcount = findViewById(R.id.btn_createAcount);
         edt_user = findViewById(R.id.edt_user);
         edt_password = findViewById(R.id.edt_password);
+        txt_forgotPassword = findViewById(R.id.txt_forgotPassword);
     }
 
     private void loadData() {
@@ -63,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
         connection = sql.conClass();
         if (connection != null) {
             try {
-                query = "Select user_id, password, phone_number, user_type,email from Users";
+                query = "Select user_id, password, phone_number, user_type, email from Users";
                 smt = connection.createStatement();
                 resultSet = smt.executeQuery(query);
                 while (resultSet.next()) {
@@ -83,6 +95,13 @@ public class LoginActivity extends AppCompatActivity {
                             Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
                             intent.putExtra("user_type", userType);
+                            startActivity(intent);
+                            finish();
+                        } else if (resultSet.getString(4).equals("customer")) {
+                            String userID = resultSet.getString(1);
+                            Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                            intent.putExtra("user_id", userID);
                             startActivity(intent);
                             finish();
                         }

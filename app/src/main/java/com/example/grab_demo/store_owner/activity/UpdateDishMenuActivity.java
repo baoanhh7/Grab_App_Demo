@@ -4,7 +4,6 @@ import static android.provider.MediaStore.ACTION_IMAGE_CAPTURE;
 
 import android.Manifest;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -14,7 +13,6 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -36,17 +34,18 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class UpdateDishMenuActivity extends AppCompatActivity {
-    ImageButton img_back_updateDishMenu,btn_camera_updateDishMenu;
+    ImageButton img_back_updateDishMenu, btn_camera_updateDishMenu;
     ImageView img_updateDishMenu;
-    Button btn_choose_image_updateDishMenu,btn_updateDishMenu;
-    TextInputEditText edt_name_updateDishMenu,edt_description_updateDishMenu,edt_price_updateDishMenu,edt_quantity_updateDishMenu;
+    Button btn_choose_image_updateDishMenu, btn_updateDishMenu;
+    TextInputEditText edt_name_updateDishMenu, edt_description_updateDishMenu, edt_price_updateDishMenu, edt_quantity_updateDishMenu;
     Integer itemID;
     Connection connection;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_update_dish_menu);
-        itemID = getIntent().getIntExtra("item_id",0);
+        itemID = getIntent().getIntExtra("item_id", 0);
         Log.d("UpdateDishMenuActivity", "Received itemID: " + itemID);
         addControls();
         addEvents();
@@ -78,7 +77,7 @@ public class UpdateDishMenuActivity extends AppCompatActivity {
                 finish();
             }
         });
-        }
+    }
 
     private void addControls() {
         edt_quantity_updateDishMenu = findViewById(R.id.edt_quantity_updateDishMenu);
@@ -91,7 +90,8 @@ public class UpdateDishMenuActivity extends AppCompatActivity {
         edt_name_updateDishMenu = findViewById(R.id.edt_name_updateDishMenu);
         btn_updateDishMenu = findViewById(R.id.btn_updateDishMenu);
     }
-    private void loadData(){
+
+    private void loadData() {
         ConnectionClass sql = new ConnectionClass();
         connection = sql.conClass();
         if (connection != null) {
@@ -114,6 +114,7 @@ public class UpdateDishMenuActivity extends AppCompatActivity {
             Log.e("Error: ", "Connection null");
         }
     }
+
     private void insertDB() {
         // Lấy chuỗi tên danh mục từ EditText
         String dishName = edt_name_updateDishMenu.getText().toString().trim();
@@ -153,10 +154,12 @@ public class UpdateDishMenuActivity extends AppCompatActivity {
             Log.e("Error: ", "Connection null");
         }
     }
+
     private Bitmap getImageViewFromByteArray(byte[] byteArray) {
-        Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray,0, byteArray.length);
+        Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         return bitmap;
     }
+
     private byte[] getByteArrayFromImageView(ImageView img) {
         BitmapDrawable drawable = (BitmapDrawable) img.getDrawable();
         Bitmap bitmap = drawable.getBitmap();

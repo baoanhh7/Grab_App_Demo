@@ -15,10 +15,6 @@ import com.example.grab_demo.store_owner.adapter.ViewPagerAdapter;
 import com.example.grab_demo.store_owner.fragment.HomeStoreOwnerFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
-
 public class StoreOwnerActivity extends AppCompatActivity {
     String userId = "";
     private ViewPager viewPager;

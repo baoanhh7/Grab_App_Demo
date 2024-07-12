@@ -8,7 +8,6 @@
     tools:context=".admin.AdminActivity">
 
 
-
     <FrameLayout
         android:id="@+id/FL_sales"
         android:layout_width="match_parent"

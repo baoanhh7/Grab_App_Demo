@@ -20,7 +20,6 @@ import com.example.grab_demo.store_owner.activity.AddDishMenuActivity;
 import com.example.grab_demo.store_owner.activity.MenuHomeStoreOwnerActivity;
 import com.example.grab_demo.store_owner.adapter.DishMenuHSOAdapter;
 import com.example.grab_demo.store_owner.model.DishMenuHSO;
-import com.example.grab_demo.store_owner.model.Stores;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -101,7 +100,7 @@ public class DishMenuHomeStoreOwnerFragment extends Fragment {
                     Double gia = resultSet.getDouble(3);
                     Integer SL = resultSet.getInt(5);
                     Integer id = resultSet.getInt(6);
-                    arr.add(new DishMenuHSO(image,id, dishName, description, gia, SL));
+                    arr.add(new DishMenuHSO(image, id, dishName, description, gia, SL));
                 }
                 dishMenuHSOAdapter.notifyDataSetChanged();
                 connection.close();
@@ -123,6 +122,7 @@ public class DishMenuHomeStoreOwnerFragment extends Fragment {
         rv_DishMenuHSO.setAdapter(dishMenuHSOAdapter);
         rv_DishMenuHSO.setLayoutManager(new LinearLayoutManager(getActivity(), LinearLayoutManager.VERTICAL, false));
     }
+
     private void loadData() {
         ConnectionClass sql = new ConnectionClass();
         connection = sql.conClass();

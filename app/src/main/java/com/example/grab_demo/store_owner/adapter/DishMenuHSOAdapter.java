@@ -21,16 +21,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.ConnectionClass;
 import com.example.grab_demo.R;
-import com.example.grab_demo.admin.sales.activity.UpdateCateSalesActivity;
 import com.example.grab_demo.store_owner.OnItemClickListener;
 import com.example.grab_demo.store_owner.activity.UpdateDishMenuActivity;
 import com.example.grab_demo.store_owner.model.DishMenuHSO;
-import com.example.grab_demo.store_owner.model.Stores;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.ArrayList;
 
 public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.ViewHolder> {
@@ -38,9 +35,9 @@ public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.
     Context context;
     ArrayList<DishMenuHSO> arr;
     boolean flag = false;
-    private OnItemClickListener onItemClickListener;
     Connection connection;
     String status;
+    private OnItemClickListener onItemClickListener;
 
     public DishMenuHSOAdapter(Context context, ArrayList<DishMenuHSO> arr) {
         this.context = context;
@@ -63,9 +60,9 @@ public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.
         Bitmap bitmap = BitmapFactory.decodeByteArray(hinhAlbumByteArray, 0, hinhAlbumByteArray.length);
         holder.img.setImageBitmap(bitmap);
         holder.txtTen.setText(dishMenuHSO.getTensp());
-        holder.txtGia.setText(dishMenuHSO.getGiasp()+"");
+        holder.txtGia.setText(dishMenuHSO.getGiasp() + "");
         holder.txtMoTa.setText(dishMenuHSO.getMota());
-        holder.txtSL.setText(dishMenuHSO.getSoluong()+"");
+        holder.txtSL.setText(dishMenuHSO.getSoluong() + "");
         holder.getCurrentStoreStatus(dishMenuHSO.getId());
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,73 +120,6 @@ public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.
         this.onItemClickListener = listener;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView img;
-        TextView txtTen;
-        TextView txtGia;
-        TextView txtMoTa;
-        TextView txtSL;
-        Switch switchToggle_dishmenuHSO;
-        ImageButton btn_update, btn_delete;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            img = itemView.findViewById(R.id.ImageView_item_dishmenuHSO);
-            txtTen = itemView.findViewById(R.id.tv_name_item_dishmenuHSO);
-            txtGia = itemView.findViewById(R.id.tv_price_item_dishmenuHSO);
-            txtMoTa = itemView.findViewById(R.id.tv_description_item_dishmenuHSO);
-            txtSL = itemView.findViewById(R.id.tv_quantity_item_dishmenuHSO);
-            switchToggle_dishmenuHSO = itemView.findViewById(R.id.switchToggle_dishmenuHSO);
-            btn_delete = itemView.findViewById(R.id.btn_delete_dishmenu);
-            btn_update = itemView.findViewById(R.id.btn_update_dishmenu);
-        }
-        private void getCurrentStoreStatus(int id) {
-            ConnectionClass sql = new ConnectionClass();
-            Connection connection = sql.conClass();
-            if (connection != null) {
-                try {
-                    String query = "SELECT status FROM Items WHERE item_id = ?";
-                    PreparedStatement preparedStatement = connection.prepareStatement(query);
-                    preparedStatement.setInt(1, id); // Thay storeId bằng ID của cửa hàng bạn muốn lấy trạng thái
-                    ResultSet resultSet = preparedStatement.executeQuery();
-                    if (resultSet.next()) {
-                        status = resultSet.getString(1);
-                        switchToggle_dishmenuHSO.setChecked("active".equals(status));
-                    }
-                    connection.close();
-                } catch (Exception e) {
-                    Log.e("Error: ", e.getMessage());
-                }
-            } else {
-                Log.e("Error: ", "Connection null");
-            }
-        }
-        private void updateDishMenuStatus(String status, int id) {
-            ConnectionClass sql = new ConnectionClass();
-            Connection connection = sql.conClass();
-
-            if (connection != null) {
-                try {
-                    String query = "UPDATE Items SET status = ?, updated_at = ? WHERE item_id = ?";
-                    PreparedStatement preparedStatement = connection.prepareStatement(query);
-                    preparedStatement.setString(1, status);
-                    preparedStatement.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));
-                    preparedStatement.setInt(3, id); // Thay storeId bằng ID của cửa hàng bạn muốn cập nhật
-                    int rowsAffected = preparedStatement.executeUpdate();
-                    if (rowsAffected > 0) {
-                        Log.d("UpdateDishMenuStatus", "Update successfully");
-                    } else {
-                        Log.e("UpdateDishMenuStatus", "Update failed");
-                    }
-                    connection.close();
-                } catch (Exception e) {
-                    Log.e("Error: ", e.getMessage());
-                }
-            } else {
-                Log.e("Error: ", "Connection null");
-            }
-        }
-    }
     private void delete(int idStore, int position) {
         ConnectionClass sql = new ConnectionClass();
         connection = sql.conClass();
@@ -217,5 +147,75 @@ public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.
             Log.e("Error: ", "Connection null");
         }
         notifyDataSetChanged();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView img;
+        TextView txtTen;
+        TextView txtGia;
+        TextView txtMoTa;
+        TextView txtSL;
+        Switch switchToggle_dishmenuHSO;
+        ImageButton btn_update, btn_delete;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            img = itemView.findViewById(R.id.ImageView_item_dishmenuHSO);
+            txtTen = itemView.findViewById(R.id.tv_name_item_dishmenuHSO);
+            txtGia = itemView.findViewById(R.id.tv_price_item_dishmenuHSO);
+            txtMoTa = itemView.findViewById(R.id.tv_description_item_dishmenuHSO);
+            txtSL = itemView.findViewById(R.id.tv_quantity_item_dishmenuHSO);
+            switchToggle_dishmenuHSO = itemView.findViewById(R.id.switchToggle_dishmenuHSO);
+            btn_delete = itemView.findViewById(R.id.btn_delete_dishmenu);
+            btn_update = itemView.findViewById(R.id.btn_update_dishmenu);
+        }
+
+        private void getCurrentStoreStatus(int id) {
+            ConnectionClass sql = new ConnectionClass();
+            Connection connection = sql.conClass();
+            if (connection != null) {
+                try {
+                    String query = "SELECT status FROM Items WHERE item_id = ?";
+                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+                    preparedStatement.setInt(1, id); // Thay storeId bằng ID của cửa hàng bạn muốn lấy trạng thái
+                    ResultSet resultSet = preparedStatement.executeQuery();
+                    if (resultSet.next()) {
+                        status = resultSet.getString(1);
+                        switchToggle_dishmenuHSO.setChecked("active".equals(status));
+                    }
+                    connection.close();
+                } catch (Exception e) {
+                    Log.e("Error: ", e.getMessage());
+                }
+            } else {
+                Log.e("Error: ", "Connection null");
+            }
+        }
+
+        private void updateDishMenuStatus(String status, int id) {
+            ConnectionClass sql = new ConnectionClass();
+            Connection connection = sql.conClass();
+
+            if (connection != null) {
+                try {
+                    String query = "UPDATE Items SET status = ?, updated_at = ? WHERE item_id = ?";
+                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+                    preparedStatement.setString(1, status);
+                    preparedStatement.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));
+                    preparedStatement.setInt(3, id); // Thay storeId bằng ID của cửa hàng bạn muốn cập nhật
+                    int rowsAffected = preparedStatement.executeUpdate();
+                    if (rowsAffected > 0) {
+                        Log.d("UpdateDishMenuStatus", "Update successfully");
+                    } else {
+                        Log.e("UpdateDishMenuStatus", "Update failed");
+                    }
+                    connection.close();
+                } catch (Exception e) {
+                    Log.e("Error: ", e.getMessage());
+                }
+            } else {
+                Log.e("Error: ", "Connection null");
+            }
+        }
     }
 }

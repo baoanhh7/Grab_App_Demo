@@ -26,16 +26,12 @@ import com.example.grab_demo.store_owner.activity.RevenueHSOActivity;
 import com.example.grab_demo.store_owner.activity.StoreOwnerActivity;
 import com.example.grab_demo.store_owner.adapter.ImageSliderAdapter_Home;
 
-import net.sourceforge.jtds.jdbc.DateTime;
-
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -49,6 +45,12 @@ public class HomeStoreOwnerFragment extends Fragment {
     ResultSet resultSet;
     TextView tvGreeting_home_storeowner, tv_revenue_today, tv_revenue_yesterday, tvaddress_home_storeowner;
     Spinner SPQuan_home_storeowner;
+    List<String> listNameStore = new ArrayList<>();
+    List<String> listIDStore = new ArrayList<>();
+    String storeID;
+    int month, day, year;
+    Double revenueToday = 0.0, revenueYesterday = 0.0;
+    LinearLayout LN_revenue_HSO;
     private int currentPage = 0;
     private Timer timer;
     private ViewPager viewPager;
@@ -57,12 +59,6 @@ public class HomeStoreOwnerFragment extends Fragment {
     private CardView cardview_menuHSO, cardview_orderHSO, cardview_shopHSO, cardview_messageHSO;
     private String userId;
     private StoreOwnerActivity storeOwnerActivity;
-    List<String> listNameStore = new ArrayList<>();
-    List<String> listIDStore = new ArrayList<>();
-    String storeID;
-    int month, day, year;
-    Double revenueToday = 0.0 , revenueYesterday = 0.0;
-    LinearLayout LN_revenue_HSO;
 
     @Override
 
@@ -184,8 +180,8 @@ public class HomeStoreOwnerFragment extends Fragment {
                             tvaddress_home_storeowner.setText(resultSet.getString(1));
                         }
                         connection.close();
-                        revenueYesterday= 0.0;
-                        revenueToday =0.0;
+                        revenueYesterday = 0.0;
+                        revenueToday = 0.0;
                         getRevenueToday();
                         getRevenueYesterday();
                     } catch (Exception e) {
@@ -293,11 +289,11 @@ public class HomeStoreOwnerFragment extends Fragment {
                     Log.d("Day", String.valueOf(dayNew));
                     if (yearNew == 0 && monthNew == 0 && dayNew == 0) {
                         BigDecimal total_price = resultSet.getBigDecimal(3);
-                        BigDecimal  delivery_price = resultSet.getBigDecimal(2);
+                        BigDecimal delivery_price = resultSet.getBigDecimal(2);
                         revenueToday += (total_price.subtract(delivery_price).doubleValue());
                     }
                 }
-                tv_revenue_today.setText(revenueToday+" đ");
+                tv_revenue_today.setText(revenueToday + " đ");
                 connection.close();
             } catch (Exception e) {
                 Log.e("Error: ", e.getMessage());
@@ -306,6 +302,7 @@ public class HomeStoreOwnerFragment extends Fragment {
             Log.e("Error: ", "Connection null");
         }
     }
+
     private void getRevenueYesterday() {
         ConnectionClass sql = new ConnectionClass();
         connection = sql.conClass();
@@ -327,7 +324,7 @@ public class HomeStoreOwnerFragment extends Fragment {
                     Log.d("Day", String.valueOf(dayNew));
                     if (yearNew == 0 && monthNew == 0 && dayNew == 1) {
                         BigDecimal total_price = resultSet.getBigDecimal(3);
-                        BigDecimal  delivery_price = resultSet.getBigDecimal(2);
+                        BigDecimal delivery_price = resultSet.getBigDecimal(2);
                         if (total_price != null && delivery_price != null) {
                             revenueYesterday += (total_price.subtract(delivery_price).doubleValue());
                             Log.d("RevenueYesterday", String.valueOf(revenueYesterday));
@@ -336,7 +333,7 @@ public class HomeStoreOwnerFragment extends Fragment {
                         }
                     }
                 }
-                tv_revenue_yesterday.setText(revenueYesterday+" đ");
+                tv_revenue_yesterday.setText(revenueYesterday + " đ");
                 connection.close();
             } catch (Exception e) {
                 Log.e("Error: ", e.getMessage());

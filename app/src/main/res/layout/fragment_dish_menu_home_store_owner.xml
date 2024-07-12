@@ -46,8 +46,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:translationX="160dp"
-                android:background="@drawable/baseline_add_24" />
+                android:background="@drawable/baseline_add_24"
+                android:translationX="160dp" />
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView

@@ -4,9 +4,9 @@ public class DishMenuHSO {
     private byte[] hinh;
     private int id;
     private String tensp;
-    private  String mota;
+    private String mota;
     private Double giasp;
-    private  int soluong;
+    private int soluong;
     private boolean isChecked;
 
     public DishMenuHSO(byte[] hinh, int id, String tensp, String mota, Double giasp, int soluong) {

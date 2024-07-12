@@ -32,10 +32,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 public class AddDishMenuActivity extends AppCompatActivity {
-    TextInputEditText edt_name_addDishMenu,edt_description_addDishMenu,edt_price_addDishMenu,edt_quantity_addDishMenu;
-    ImageButton img_back_addDishMenu,btn_camera_addDishMenu;
+    TextInputEditText edt_name_addDishMenu, edt_description_addDishMenu, edt_price_addDishMenu, edt_quantity_addDishMenu;
+    ImageButton img_back_addDishMenu, btn_camera_addDishMenu;
     ImageView img_addDishMenu;
-    Button btn_choose_image_addDishMenu,btn_addDishMenu;
+    Button btn_choose_image_addDishMenu, btn_addDishMenu;
     String storeID;
     Connection connection;
 
@@ -71,16 +71,17 @@ public class AddDishMenuActivity extends AppCompatActivity {
     }
 
     private void addControls() {
-        edt_name_addDishMenu =findViewById(R.id.edt_name_addDishMenu);
-        img_back_addDishMenu =findViewById(R.id.img_back_addDishMenu);
-        img_addDishMenu =findViewById(R.id.img_addDishMenu);
-        btn_choose_image_addDishMenu =findViewById(R.id.btn_choose_image_addDishMenu);
-        edt_description_addDishMenu =findViewById(R.id.edt_description_addDishMenu);
-        edt_price_addDishMenu =findViewById(R.id.edt_price_addDishMenu);
-        btn_camera_addDishMenu =findViewById(R.id.btn_camera_addDishMenu);
+        edt_name_addDishMenu = findViewById(R.id.edt_name_addDishMenu);
+        img_back_addDishMenu = findViewById(R.id.img_back_addDishMenu);
+        img_addDishMenu = findViewById(R.id.img_addDishMenu);
+        btn_choose_image_addDishMenu = findViewById(R.id.btn_choose_image_addDishMenu);
+        edt_description_addDishMenu = findViewById(R.id.edt_description_addDishMenu);
+        edt_price_addDishMenu = findViewById(R.id.edt_price_addDishMenu);
+        btn_camera_addDishMenu = findViewById(R.id.btn_camera_addDishMenu);
         btn_addDishMenu = findViewById(R.id.btn_addDishMenu);
-        edt_quantity_addDishMenu =findViewById(R.id.edt_quantity_addDishMenu);
+        edt_quantity_addDishMenu = findViewById(R.id.edt_quantity_addDishMenu);
     }
+
     private void insertDB() {
         // Lấy chuỗi tên danh mục từ EditText
         String dishName = edt_name_addDishMenu.getText().toString().trim();
@@ -120,6 +121,7 @@ public class AddDishMenuActivity extends AppCompatActivity {
             Log.e("Error: ", "Connection null");
         }
     }
+
     private byte[] getByteArrayFromImageView(ImageView img) {
         BitmapDrawable drawable = (BitmapDrawable) img.getDrawable();
         Bitmap bitmap = drawable.getBitmap();

@@ -16,7 +16,6 @@ import com.example.grab_demo.R;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,7 +25,7 @@ public class RevenueHSOActivity extends AppCompatActivity {
     Spinner SP_startDay_revenueHSO, SP_endDay_revenueHSO;
     TextView tv_revenueHSO;
     String storeId;
-    int month,day, daystart, year, dayend;
+    int month, day, daystart, year, dayend;
     Double revenue = 0.0;
     Connection connection;
     Statement smt;
@@ -107,7 +106,7 @@ public class RevenueHSOActivity extends AppCompatActivity {
                     Log.d("DayEnd", String.valueOf(dayend));
                     if (yearNew == 0 && monthNew == 0 && dayend >= dayNew) {
                         BigDecimal total_price = resultSet.getBigDecimal(3);
-                        BigDecimal  delivery_price = resultSet.getBigDecimal(2);
+                        BigDecimal delivery_price = resultSet.getBigDecimal(2);
                         if (total_price != null && delivery_price != null) {
                             revenue += (total_price.subtract(delivery_price).doubleValue());
                             Log.d("RevenueYesterday", String.valueOf(revenue));
@@ -116,7 +115,7 @@ public class RevenueHSOActivity extends AppCompatActivity {
                         }
                     }
                 }
-                tv_revenueHSO.setText(revenue+" đ");
+                tv_revenueHSO.setText(revenue + " đ");
                 connection.close();
             } catch (Exception e) {
                 Log.e("Error: ", e.getMessage());
@@ -125,12 +124,14 @@ public class RevenueHSOActivity extends AppCompatActivity {
             Log.e("Error: ", "Connection null");
         }
     }
+
     private void getYearMonthDay() {
         Calendar calendar = Calendar.getInstance();
         year = calendar.get(Calendar.YEAR);
         month = calendar.get(Calendar.MONTH) + 1; // 0 (January) to 11 (December), so add 1
         day = calendar.get(Calendar.DAY_OF_MONTH);
     }
+
     private void createDataSpinnerDayStart() {
         for (int i = 1; i <= 31; i++) {
             listDayStart.add(i);
@@ -139,9 +140,10 @@ public class RevenueHSOActivity extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         SP_startDay_revenueHSO.setAdapter(adapter);
     }
+
     private void createDataSpinnerDayEnd(int day) {
         listDayEnd.clear();
-        for (int i = day+1; i  <= 31; i++) {
+        for (int i = day + 1; i <= 31; i++) {
             listDayEnd.add(i);
         }
         ArrayAdapter adapter = new ArrayAdapter(this, android.R.layout.simple_list_item_1, listDayEnd);

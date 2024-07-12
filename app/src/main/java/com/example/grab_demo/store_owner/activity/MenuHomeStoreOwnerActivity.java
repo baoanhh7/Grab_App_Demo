@@ -13,15 +13,14 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.grab_demo.R;
 import com.example.grab_demo.store_owner.adapter.ViewPageMenuAdapter;
 import com.example.grab_demo.store_owner.fragment.DishMenuHomeStoreOwnerFragment;
-import com.example.grab_demo.store_owner.fragment.HomeStoreOwnerFragment;
 import com.google.android.material.tabs.TabLayout;
 
 public class MenuHomeStoreOwnerActivity extends AppCompatActivity {
 
-    private TabLayout tabLayout;
-    private ViewPager viewPager;
     ImageButton img_back_menuHSO;
     String storeId;
+    private TabLayout tabLayout;
+    private ViewPager viewPager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +48,7 @@ public class MenuHomeStoreOwnerActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.viewpager_MenuHSO, new DishMenuHomeStoreOwnerFragment());
         fragmentTransaction.commit();
     }
+
     public String getStoreId() {
         return storeId;
     }
