@@ -40,7 +40,7 @@ public class HomeStoreOwnerFragment extends Fragment {
     String query;
     Statement smt;
     ResultSet resultSet;
-    TextView tvGreeting_home_storeowner, tv_revenue_today, tv_revenue_yesterday;
+    TextView tvGreeting_home_storeowner, tv_revenue_today, tv_revenue_yesterday,tvaddress_home_storeowner;
     Spinner SPQuan_home_storeowner;
     private int currentPage = 0;
     private Timer timer;
@@ -103,7 +103,11 @@ public class HomeStoreOwnerFragment extends Fragment {
         cardview_menuHSO.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Tạo Intent để chuyển sang Activity mới
                 Intent intent = new Intent(getActivity(), MenuHomeStoreOwnerActivity.class);
+                // Đính kèm dữ liệu vào Intent
+                intent.putExtra("store_id", storeID);
+                // Chuyển sang Activity mới
                 startActivity(intent);
             }
         });
@@ -138,6 +142,23 @@ public class HomeStoreOwnerFragment extends Fragment {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 storeID = listIDStore.get(position);
                 Log.d("HomeStoreOwnerFragment", storeID);
+                ConnectionClass sql = new ConnectionClass();
+                connection = sql.conClass();
+                if (connection != null) {
+                    try {
+                        query = "SELECT address FROM Stores WHERE store_id = " + storeID;
+                        smt = connection.createStatement();
+                        resultSet = smt.executeQuery(query);
+                        while (resultSet.next()) {
+                            tvaddress_home_storeowner.setText(resultSet.getString(1));
+                        }
+                        connection.close();
+                    } catch (Exception e) {
+                        Log.e("Error: ", e.getMessage());
+                    }
+                } else {
+                    Log.e("Error: ", "Connection null");
+                }
             }
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
@@ -156,6 +177,7 @@ public class HomeStoreOwnerFragment extends Fragment {
         SPQuan_home_storeowner = view.findViewById(R.id.SPQuan_home_storeowner);
         tv_revenue_today = view.findViewById(R.id.tv_revenue_today);
         tv_revenue_yesterday = view.findViewById(R.id.tv_revenue_yesterday);
+        tvaddress_home_storeowner = view.findViewById(R.id.tvaddress_home_storeowner);
         ImageSliderAdapter_Home imageSliderAdapterHome = new ImageSliderAdapter_Home(getContext(), images);
         viewPager.setAdapter(imageSliderAdapterHome);
     }

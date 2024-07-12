@@ -20,10 +20,6 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class StoreOwnerActivity extends AppCompatActivity {
-    Connection connection;
-    String query;
-    Statement smt;
-    ResultSet resultSet;
     String userId = "";
     private ViewPager viewPager;
     private BottomNavigationView bottomNavigationView;

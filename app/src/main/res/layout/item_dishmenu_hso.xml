@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="10dp"
     android:layout_marginHorizontal="15dp"
     android:layout_marginBottom="10dp"
     android:orientation="horizontal">
@@ -25,6 +26,7 @@
             android:id="@+id/tv_name_item_dishmenuHSO"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:text="Cơm Tấm Ốp La"
             android:textSize="18sp"
             android:textStyle="bold" />
@@ -33,7 +35,23 @@
             android:id="@+id/tv_price_item_dishmenuHSO"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:text="40.000đ"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_description_item_dishmenuHSO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:text="40.000đ"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/tv_quantity_item_dishmenuHSO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="40"
             android:textSize="16sp" />
     </LinearLayout>
 

@@ -14,12 +14,12 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <ImageView
+        <ImageButton
             android:id="@+id/img_back_addDishMenu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="10dp"
-            android:src="@drawable/ic_back" />
+            android:background="@drawable/ic_back" />
 
         <TextView
             android:layout_width="match_parent"
@@ -121,6 +121,23 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_button"
                 android:hint="Gia"
+                android:inputType="text"
+                android:padding="15dp"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_quantity_addDishMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_button"
+                android:hint="Số lượng"
                 android:inputType="text"
                 android:padding="15dp"
                 android:textColor="@color/black"

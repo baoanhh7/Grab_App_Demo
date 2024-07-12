@@ -78,18 +78,9 @@ public class LoginActivity extends AppCompatActivity {
                             intent.putExtra("user_id", userId); // Truyền user_id qua intent
                             startActivity(intent);
                             finish();
-                        } else if (resultSet.getString(4).equals("sales")) {
+                        } else if (resultSet.getString(4).equals("sales") || resultSet.getString(4).equals("admin")) {
                             String userType = resultSet.getString(4);
                             Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
-                            Log.d("Login", "User is sales");
-                            Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
-                            intent.putExtra("user_type", userType);
-                            startActivity(intent);
-                            finish();
-                        } else if (resultSet.getString(4).equals("it")) {
-                            String userType = resultSet.getString(4);
-                            Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
-                            Log.d("Login", "User is it");
                             Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
                             intent.putExtra("user_type", userType);
                             startActivity(intent);

@@ -52,17 +52,9 @@ public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.
         Bitmap bitmap = BitmapFactory.decodeByteArray(hinhAlbumByteArray, 0, hinhAlbumByteArray.length);
         holder.img.setImageBitmap(bitmap);
         holder.txtTen.setText(dishMenuHSO.getTensp());
-//        holder.switchToggle_dishmenuHSO.setChecked(flag);
-//        holder.switchToggle_dishmenuHSO.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(flag == false)
-//                {
-//                    flag = true;
-//                }else
-//                    flag = false;
-//            }
-//        });
+        holder.txtGia.setText(dishMenuHSO.getGiasp()+"");
+        holder.txtMoTa.setText(dishMenuHSO.getMota());
+        holder.txtSL.setText(dishMenuHSO.getSoluong()+"");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -117,6 +109,8 @@ public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.
         ImageView img;
         TextView txtTen;
         TextView txtGia;
+        TextView txtMoTa;
+        TextView txtSL;
         Switch switchToggle_dishmenuHSO;
         ImageButton btn_update, btn_delete;
 
@@ -125,6 +119,8 @@ public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.
             img = itemView.findViewById(R.id.ImageView_item_dishmenuHSO);
             txtTen = itemView.findViewById(R.id.tv_name_item_dishmenuHSO);
             txtGia = itemView.findViewById(R.id.tv_price_item_dishmenuHSO);
+            txtMoTa = itemView.findViewById(R.id.tv_description_item_dishmenuHSO);
+            txtSL = itemView.findViewById(R.id.tv_quantity_item_dishmenuHSO);
             switchToggle_dishmenuHSO = itemView.findViewById(R.id.switchToggle_dishmenuHSO);
             btn_delete = itemView.findViewById(R.id.btn_delete_dishmenu);
             btn_update = itemView.findViewById(R.id.btn_update_dishmenu);

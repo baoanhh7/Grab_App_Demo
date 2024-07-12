@@ -3,13 +3,33 @@ package com.example.grab_demo.store_owner.model;
 public class DishMenuHSO {
     private byte[] hinh;
     private String tensp;
-    private String giasp;
+    private  String mota;
+    private Double giasp;
+    private  int soluong;
     private boolean isChecked;
 
-    public DishMenuHSO(byte[] hinh, String tensp, String giasp) {
+    public DishMenuHSO(byte[] hinh, String tensp, String mota, Double giasp, int soluong) {
         this.hinh = hinh;
         this.tensp = tensp;
+        this.mota = mota;
         this.giasp = giasp;
+        this.soluong = soluong;
+    }
+
+    public int getSoluong() {
+        return soluong;
+    }
+
+    public void setSoluong(int soluong) {
+        this.soluong = soluong;
+    }
+
+    public String getMota() {
+        return mota;
+    }
+
+    public void setMota(String mota) {
+        this.mota = mota;
     }
 
     public byte[] getHinh() {
@@ -28,11 +48,11 @@ public class DishMenuHSO {
         this.tensp = tensp;
     }
 
-    public String getGiasp() {
+    public Double getGiasp() {
         return giasp;
     }
 
-    public void setGiasp(String giasp) {
+    public void setGiasp(Double giasp) {
         this.giasp = giasp;
     }
 
