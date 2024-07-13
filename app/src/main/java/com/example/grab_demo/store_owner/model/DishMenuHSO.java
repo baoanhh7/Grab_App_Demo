@@ -7,7 +7,28 @@ public class DishMenuHSO {
     private String mota;
     private Double giasp;
     private int soluong;
+    private int colors;
     private boolean isChecked;
+
+    public int getColors() {
+        return colors;
+    }
+
+    public void setColors(int colors) {
+        this.colors = colors;
+    }
+
+    public DishMenuHSO( String tensp, int colors) {
+        this.tensp = tensp;
+        this.colors = colors;
+    }
+
+    public DishMenuHSO(byte[] hinh, String tensp, Double giasp, int soluong) {
+        this.hinh = hinh;
+        this.tensp = tensp;
+        this.giasp = giasp;
+        this.soluong = soluong;
+    }
 
     public DishMenuHSO(byte[] hinh, int id, String tensp, String mota, Double giasp, int soluong) {
         this.hinh = hinh;

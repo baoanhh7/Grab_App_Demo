@@ -21,39 +21,75 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
-                android:layout_marginTop="40dp"
                 android:layout_marginBottom="10dp"
                 android:orientation="vertical"
                 android:padding="16dp">
 
                 <TextView
-                    android:id="@+id/tvGreeting_home_storeowner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="7dp"
-                    android:text="Chào Lan!"
-                    android:textColor="@color/black"
-                    android:textSize="25sp"
+                    android:layout_marginBottom="20dp"
+                    android:text="Food"
+                    android:textColor="@color/cam"
+                    android:textSize="30sp"
                     android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="7dp"
+                        android:text="Chào "
+                        android:textColor="@color/black"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvGreeting_home_storeowner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chào Lan!"
+                        android:textColor="@color/black"
+                        android:textSize="25sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
 
                 <Spinner
                     android:id="@+id/SPQuan_home_storeowner"
-                    android:layout_width="wrap_content"
+                    android:layout_width="300dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
                     android:layout_marginTop="4dp"
-                    android:layout_marginBottom="5dp"
+                    android:layout_marginBottom="10dp"
                     android:text="Bún Thịt Nướng Bà Ba - 12 Võ Văn Kiệt"
                     android:textColor="@color/black"
                     android:textSize="16sp" />
 
-                <TextView
-                    android:id="@+id/tvaddress_home_storeowner"
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="7dp"
-                    android:text="Chào Lan!"
-                    android:textColor="@color/black"
-                    android:textSize="16sp" />
+                    android:orientation="horizontal">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="7dp"
+                        android:text="Địa ch: "
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                    <TextView
+                        android:id="@+id/tvaddress_home_storeowner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Chào Lan!"
+                        android:textColor="@color/black"
+                        android:textSize="16sp" />
+                </LinearLayout>
             </LinearLayout>
         </LinearLayout>
 

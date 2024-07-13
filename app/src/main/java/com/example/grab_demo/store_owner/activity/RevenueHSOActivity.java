@@ -1,10 +1,13 @@
 package com.example.grab_demo.store_owner.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -33,6 +36,8 @@ public class RevenueHSOActivity extends AppCompatActivity {
     List<Integer> listDayStart = new ArrayList<>();
     List<Integer> listDayEnd = new ArrayList<>();
     int sDay;
+    Button btn_revenueMonth;
+    ImageView back_button_revenueHSO;
 
 
     @Override
@@ -76,12 +81,31 @@ public class RevenueHSOActivity extends AppCompatActivity {
 
             }
         });
+        btn_revenueMonth.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Tạo Intent để chuyển sang Activity mới
+                Intent intent = new Intent(RevenueHSOActivity.this, Revenue_Month.class);
+                // Đính kèm dữ liệu vào Intent
+                intent.putExtra("store_id", storeId);
+                // Chuyển sang Activity mới
+                startActivity(intent);
+            }
+        });
+        back_button_revenueHSO.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void addControls() {
         tv_revenueHSO = findViewById(R.id.tv_revenueHSO);
         SP_startDay_revenueHSO = findViewById(R.id.SP_startDay_revenueHSO);
         SP_endDay_revenueHSO = findViewById(R.id.SP_endDay_revenueHSO);
+        btn_revenueMonth = findViewById(R.id.btn_revenueMonth);
+        back_button_revenueHSO = findViewById(R.id.back_button_revenueHSO);
     }
 
     private void getRevenue() {
