@@ -10,7 +10,6 @@ import com.example.grab_demo.customer.fragment.HomeFragment;
 import com.example.grab_demo.customer.fragment.OrderFragment;
 import com.example.grab_demo.customer.fragment.OrderHistoryFragment;
 import com.example.grab_demo.customer.fragment.ProfileFragment;
-import com.example.grab_demo.store_owner.fragment.HomeStoreOwnerFragment;
 
 public class ViewPagerCustomerAdapter extends FragmentStatePagerAdapter {
 
@@ -33,7 +32,7 @@ public class ViewPagerCustomerAdapter extends FragmentStatePagerAdapter {
             case 4:
                 return new ProfileFragment();
             default:
-                return new HomeStoreOwnerFragment();
+                return new HomeFragment();
         }
     }
 

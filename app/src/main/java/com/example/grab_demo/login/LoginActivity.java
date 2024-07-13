@@ -1,4 +1,4 @@
-package com.example.grab_demo;
+package com.example.grab_demo.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,9 +10,12 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.grab_demo.R;
 import com.example.grab_demo.admin.AdminActivity;
 import com.example.grab_demo.customer.activity.HomeActivity;
 import com.example.grab_demo.database.ConnectionClass;
+import com.example.grab_demo.register.ForgotPasswordActivity;
+import com.example.grab_demo.register.RoleRegisterActivity;
 import com.example.grab_demo.store_owner.activity.StoreOwnerActivity;
 import com.google.android.material.textfield.TextInputEditText;
 

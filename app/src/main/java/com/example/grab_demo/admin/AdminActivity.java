@@ -9,9 +9,9 @@ import android.widget.FrameLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.grab_demo.LoginActivity;
 import com.example.grab_demo.R;
 import com.example.grab_demo.admin.sales.activity.ListCateSalesActivity;
+import com.example.grab_demo.login.LoginActivity;
 
 public class AdminActivity extends AppCompatActivity {
     String userType = "";

@@ -7,7 +7,7 @@
     android:background="@color/xam"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".RoleRegisterActivity">
+    tools:context=".register.RoleRegisterActivity">
 
     <ImageView
         android:layout_width="wrap_content"
