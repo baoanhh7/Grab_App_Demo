@@ -34,9 +34,9 @@ public class ChiTietDonHangActivity extends AppCompatActivity {
 
         if (donHang != null) {
             // Thiết lập dữ liệu cho các thành phần
-            textViewTenDonHang.setText(donHang.getTenDonHang());
-            textViewMaDonHang.setText(donHang.getMaDonHang());
-            Picasso.get().load(donHang.getHinhMonAn()).into(imageViewHinhMonAn);
+//            textViewTenDonHang.setText(donHang.getTenDonHang());
+//            textViewMaDonHang.setText(donHang.getMaDonHang());
+//            Picasso.get().load(donHang.getHinhMonAn()).into(imageViewHinhMonAn);
         }
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {

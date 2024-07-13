@@ -2,79 +2,139 @@ package com.example.grab_demo.deliver.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
-import com.example.grab_demo.deliver.Adapter.OrderItemAdapter;
+import com.example.grab_demo.database.ConnectionClass;
+import com.example.grab_demo.deliver.Adapter.orderDetailAdapter;
 import com.example.grab_demo.model.DonHangModel;
-import com.example.grab_demo.model.OrderItem;
+import com.example.grab_demo.model.OrderDetail;
 
+import java.math.BigDecimal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
 public class ChiTietDonHangNewActivity extends AppCompatActivity {
-    private RecyclerView recyclerViewOrderItems;
-    private TextView textViewTongTien;
-    private Button buttonConfirm;
-    private List<OrderItem> orderItemList;
-    private OrderItemAdapter orderItemAdapter;
-    private DonHangModel donHang; // Khai báo biến donHang ở đây để có thể truy cập từ bất kỳ phương thức nào trong lớp này
+
+    private TextView textViewMaDonHang, textViewTrangThaiDonHang, textViewTongTien;
+    private RecyclerView recyclerViewOrderDetails;
+    private List<OrderDetail> orderDetails;
+    private orderDetailAdapter orderDetailAdapter;
+    private Button buttonAccept, buttonComplete, buttonCanceled;
+    private DonHangModel donHang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chi_tiet_don_hang_new);
 
-        // Ánh xạ các view từ layout
-        recyclerViewOrderItems = findViewById(R.id.recyclerViewOrderItems);
+        // Ánh xạ các thành phần giao diện
+        textViewMaDonHang = findViewById(R.id.textViewMaDonHang);
+        textViewTrangThaiDonHang = findViewById(R.id.textViewTrangThaiDonHang);
         textViewTongTien = findViewById(R.id.textViewTongTien);
-        buttonConfirm = findViewById(R.id.buttonConfirm);
+        recyclerViewOrderDetails = findViewById(R.id.recyclerViewOrderDetails);
+        buttonAccept = findViewById(R.id.buttonAccept);
+        buttonComplete = findViewById(R.id.buttonComplete);
+        buttonCanceled = findViewById(R.id.buttoncanceled);
 
-        // Apply system window insets to the main layout
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+        // Khởi tạo danh sách orderDetails và adapter
+        orderDetails = new ArrayList<>();
+        orderDetailAdapter = new orderDetailAdapter(this, orderDetails);
 
-        // Khởi tạo danh sách các món trong đơn hàng và adapter cho RecyclerView
-        orderItemList = new ArrayList<>();
-        orderItemList.add(new OrderItem("Phở", 2, 50000));
-        orderItemList.add(new OrderItem("Bún bò", 1, 60000));
+        // Thiết lập RecyclerView và adapter
+        recyclerViewOrderDetails.setLayoutManager(new LinearLayoutManager(this));
+        recyclerViewOrderDetails.setAdapter(orderDetailAdapter);
 
-        orderItemAdapter = new OrderItemAdapter(orderItemList);
-        recyclerViewOrderItems.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewOrderItems.setAdapter(orderItemAdapter);
-
-        // Tính tổng tiền của đơn hàng
-        int totalAmount = 0;
-        for (OrderItem item : orderItemList) {
-            totalAmount += item.getPrice() * item.getQuantity();
-        }
-        textViewTongTien.setText(totalAmount + " VND");
-
-        // Lấy đối tượng đơn hàng từ Intent (nếu có)
+        // Nhận dữ liệu từ Intent
         Intent intent = getIntent();
         if (intent != null) {
-            donHang = intent.getParcelableExtra("donhang");
-        }
-
-        // Thiết lập sự kiện khi nhấn nút Xác nhận
-        buttonConfirm.setOnClickListener(v -> {
-            // Kiểm tra nếu đơn hàng không null thì chuyển sang ChiTietDonHangActivity
+            DonHangModel donHang = (DonHangModel) intent.getSerializableExtra("donhang");
             if (donHang != null) {
-                Intent chiTietIntent = new Intent(ChiTietDonHangNewActivity.this, ChiTietDonHangActivity.class);
-                chiTietIntent.putExtra("donhang", donHang);
-                startActivity(chiTietIntent);
+                // Display general information about the order
+                textViewMaDonHang.setText("Mã đơn hàng: " + donHang.getOrderId());
+                textViewTrangThaiDonHang.setText("Trạng thái: " + donHang.getStatus());
+
+                // Retrieve OrderDetail list from DonHangModel
+                List<OrderDetail> orderDetails = donHang.getOrderDetails();
+                if (orderDetails != null && !orderDetails.isEmpty()) {
+                    // Add OrderDetail items to the list and update adapter
+                    this.orderDetails.addAll(orderDetails);
+                    orderDetailAdapter.notifyDataSetChanged();
+                    // Calculate total amount of the order
+                    calculateTotalAmount(orderDetails);
+                }
+            }
+        }
+        // Thiết lập sự kiện click cho các nút
+        buttonAccept.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateOrderStatus("confirmed");
             }
         });
+
+        buttonComplete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateOrderStatus("delivered");
+            }
+        });
+
+        buttonCanceled.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                updateOrderStatus("canceled");
+            }
+        });
+    }
+
+    private void updateOrderStatus(String status) {
+        if (donHang != null) {
+            donHang.setStatus(status);
+            textViewTrangThaiDonHang.setText("Trạng thái: " + status);
+
+            // Cập nhật trạng thái đơn hàng lên cơ sở dữ liệu
+            ConnectionClass connectionClass = new ConnectionClass();
+            Connection connection = connectionClass.conClass();
+            if (connection != null) {
+                try {
+                    String query = "UPDATE Orders SET status = ? WHERE order_id = ?";
+                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+                    preparedStatement.setString(1, status);
+                    preparedStatement.setInt(2, donHang.getOrderId());
+
+                    preparedStatement.executeUpdate();
+                    preparedStatement.close();
+                    connection.close();
+
+                    Toast.makeText(ChiTietDonHangNewActivity.this, "Cập nhật trạng thái thành công", Toast.LENGTH_SHORT).show();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    Toast.makeText(ChiTietDonHangNewActivity.this, "Lỗi khi cập nhật trạng thái đơn hàng", Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(ChiTietDonHangNewActivity.this, "Không thể kết nối đến cơ sở dữ liệu", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void calculateTotalAmount(List<OrderDetail> orderDetails) {
+        BigDecimal totalAmount = BigDecimal.ZERO;
+        for (OrderDetail detail : orderDetails) {
+            BigDecimal price = detail.getPrice();
+            int quantity = detail.getQuantity();
+            totalAmount = totalAmount.add(price.multiply(BigDecimal.valueOf(quantity)));
+        }
+        textViewTongTien.setText(totalAmount.toString() + " VND");
     }
 }
