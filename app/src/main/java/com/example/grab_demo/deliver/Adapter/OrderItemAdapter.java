@@ -9,15 +9,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
+import com.example.grab_demo.model.OrderDetail;
 import com.example.grab_demo.model.OrderItem;
 
-import java.util.List;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.OrderItemViewHolder> {
 
-    private List<OrderItem> orderItemList;
+    private ArrayList<OrderItem> orderItemList;
 
-    public OrderItemAdapter(List<OrderItem> orderItemList) {
+    public OrderItemAdapter(ArrayList<OrderItem> orderItemList) {
         this.orderItemList = orderItemList;
     }
 
@@ -33,7 +35,7 @@ public class OrderItemAdapter extends RecyclerView.Adapter<OrderItemAdapter.Orde
         OrderItem orderItem = orderItemList.get(position);
         holder.textViewItemName.setText(orderItem.getItemName());
         holder.textViewQuantity.setText(String.valueOf(orderItem.getQuantity()));
-        holder.textViewPrice.setText(String.valueOf(orderItem.getPrice()) + " VND");
+        holder.textViewPrice.setText(orderItem.getPrice().toString() + " VND");
     }
 
     @Override

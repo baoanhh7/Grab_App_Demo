@@ -13,14 +13,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.deliver.activity.ChiTietDonHangActivity;
+import com.example.grab_demo.deliver.activity.ChiTietDonHangNewActivity;
 import com.example.grab_demo.model.DonHangModel;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class DanhSachDonHangoldAdapter extends RecyclerView.Adapter<DanhSachDonHangoldAdapter.ViewHolder> {
-    Context context;
-    ArrayList<DonHangModel> mangDonHang;
+    private Context context;
+    private ArrayList<DonHangModel> mangDonHang;
 
     public DanhSachDonHangoldAdapter(Context context, ArrayList<DonHangModel> mangDonHang) {
         this.context = context;
@@ -29,33 +30,31 @@ public class DanhSachDonHangoldAdapter extends RecyclerView.Adapter<DanhSachDonH
 
     @NonNull
     @Override
-    public DanhSachDonHangoldAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
         View view = inflater.inflate(R.layout.dong_danh_sach_don_hang_da_giao, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull DanhSachDonHangoldAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DonHangModel donHang = mangDonHang.get(position);
-        holder.txtTenDonHang.setText(donHang.getTenDonHang());
-        holder.txtMaDonHang.setText(donHang.getMaDonHang());
-        Picasso.get().load(donHang.getHinhMonAn()).into(holder.hinhMonAn);
+        holder.txtMaDonHang.setText(donHang.getOrderId() + ""); // Hiển thị mã đơn hàng
+        holder.txtTrangThaiDonHang.setText(donHang.getStatus()); // Hiển thị trạng thái đơn hàng
     }
 
     @Override
     public int getItemCount() {
         return mangDonHang.size();
     }
-
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtTenDonHang, txtMaDonHang;
-        ImageView hinhMonAn, tim;
+        TextView txtMaDonHang, txtTrangThaiDonHang;
+        ImageView hinhMonAn;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            txtTenDonHang = itemView.findViewById(R.id.textViewtendonhang);
             txtMaDonHang = itemView.findViewById(R.id.textViewmadonhang);
+            txtTrangThaiDonHang = itemView.findViewById(R.id.textViewtrangthaidonhang);
             hinhMonAn = itemView.findViewById(R.id.imageViewhinhmonan);
 
             itemView.setOnClickListener(new View.OnClickListener() {
