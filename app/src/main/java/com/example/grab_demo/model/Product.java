@@ -7,6 +7,7 @@ public class Product implements Serializable {
     private int img;
     private String describe;
     private double price;
+    private byte[] image;
 
     public Product(String name, int img) {
         this.name = name;
@@ -24,6 +25,19 @@ public class Product implements Serializable {
         this.img = img;
         this.describe = describe;
         this.price = price;
+    }
+
+    public Product(String name, byte[] image) {
+        this.name = name;
+        this.image = image;
+    }
+
+    public byte[] getImage() {
+        return image;
+    }
+
+    public void setImage(byte[] image) {
+        this.image = image;
     }
 
     public double getPrice() {

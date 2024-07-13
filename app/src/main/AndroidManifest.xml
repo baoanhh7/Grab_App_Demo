@@ -72,7 +72,7 @@
             android:name=".store_owner.activity.MenuHomeStoreOwnerActivity"
             android:exported="false" />
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name=".register.ForgotPasswordActivity"
             android:exported="false" />
         <activity
             android:name=".deliver.activity.EditProfileActivity"
@@ -81,19 +81,19 @@
             android:name=".customer.activity.ChatActivity"
             android:exported="true" />
         <activity
-            android:name=".RegisterOwnerStoreActivity"
+            android:name=".register.RegisterOwnerStoreActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterDeliverActivity"
+            android:name=".register.RegisterDeliverActivity"
             android:exported="false" />
         <activity
-            android:name=".RoleRegisterActivity"
+            android:name=".register.RoleRegisterActivity"
             android:exported="false" />
         <activity
-            android:name=".RegisterCustomerActivity"
+            android:name=".register.RegisterCustomerActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".login.LoginActivity"
             android:exported="false" />
         <activity
             android:name=".SplashActivity"

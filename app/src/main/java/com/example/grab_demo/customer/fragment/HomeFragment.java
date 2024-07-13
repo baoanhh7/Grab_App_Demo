@@ -23,6 +23,7 @@ import com.example.grab_demo.customer.adapter.Home.HomeAdapter;
 import com.example.grab_demo.customer.adapter.Home.HomeSecondAdapter;
 import com.example.grab_demo.customer.adapter.Home.HomeVoucherAdapter;
 import com.example.grab_demo.customer.adapter.Home.OrderAgainAdapter;
+import com.example.grab_demo.database.ConnectionClass;
 import com.example.grab_demo.m_interface.IClickItem;
 import com.example.grab_demo.model.Product;
 
@@ -60,7 +61,6 @@ public class HomeFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_home2, container, false);
 
         addControls();
-        createData();
 
         addEvents();
         startAutoSlide();
@@ -71,31 +71,11 @@ public class HomeFragment extends Fragment {
         Log.e("HomeFragment", userId);
 
         if (userId != null) {
-            loadData(); // Load data using userId
+            loadingData();
         } else {
             Log.e("HomeFragment", "userId is null");
         }
         return view;
-    }
-
-    private void loadData() {
-//        ConnectionClass sql = new ConnectionClass();
-//        connection = sql.conClass();
-//        if (connection != null) {
-//            try {
-//                query = "SELECT username FROM Users WHERE user_id = " + userId;
-//                smt = connection.createStatement();
-//                resultSet = smt.executeQuery(query);
-//                while (resultSet.next()) {
-//                    tvGreeting_home_storeowner.setText(resultSet.getString(1));
-//                }
-//                connection.close();
-//            } catch (Exception e) {
-//                Log.e("Error: ", e.getMessage());
-//            }
-//        } else {
-//            Log.e("Error: ", "Connection null");
-//        }
     }
 
     private void startAutoSlide() {
@@ -118,13 +98,36 @@ public class HomeFragment extends Fragment {
         }, 1000, 3000); // Delay 1 sec, repeat every 3 sec
     }
 
-    private void createData() {
-        productList.clear();
-        productList.add(new Product("Noodles & Congee", R.drawable.noodle));
-        productList.add(new Product("International Food", R.drawable.food));
-        productList.add(new Product("Healthy Food", R.drawable.healthy));
-        productList.add(new Product("Pizza", R.drawable.pizza));
-        homeAdapter.notifyDataSetChanged();
+    private void loadingData() {
+        ConnectionClass sql = new ConnectionClass();
+        connection = sql.conClass();
+        if (connection != null) {
+            try {
+                query = "SELECT cate_name, cate_image FROM Categories";
+                smt = connection.createStatement();
+                resultSet = smt.executeQuery(query);
+
+                productList.clear();
+                while (resultSet.next()) {
+                    String cateName = resultSet.getString(1);
+                    byte[] cateImage = resultSet.getBytes(2);
+                    productList.add(new Product(cateName, cateImage));
+                }
+                homeAdapter.notifyDataSetChanged();
+                connection.close();
+            } catch (Exception e) {
+                Log.e("Error: ", e.getMessage());
+            }
+        } else {
+            Log.e("Error: ", "Connection null");
+        }
+
+//        productList.clear();
+//        productList.add(new Product("Noodles & Congee", R.drawable.noodle));
+//        productList.add(new Product("International Food", R.drawable.food));
+//        productList.add(new Product("Healthy Food", R.drawable.healthy));
+//        productList.add(new Product("Pizza", R.drawable.pizza));
+//        homeAdapter.notifyDataSetChanged();
 
         productList2.clear();
         productList2.add(new Product("Near me", "Get it quick", R.color.hongNhat));
@@ -246,4 +249,5 @@ public class HomeFragment extends Fragment {
     public void onResume() {
         super.onResume();
     }
+
 }

@@ -1,5 +1,8 @@
 package com.example.grab_demo.customer.activity;
 
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -13,9 +16,20 @@ import androidx.viewpager.widget.ViewPager;
 import com.example.grab_demo.R;
 import com.example.grab_demo.customer.adapter.Home.ViewPagerCustomerAdapter;
 import com.example.grab_demo.customer.fragment.HomeFragment;
+import com.example.grab_demo.database.ConnectionClass;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.io.ByteArrayOutputStream;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.Statement;
+
 public class HomeActivity extends AppCompatActivity {
+    Connection connection;
+    String query;
+    Statement smt;
+    ResultSet resultSet;
     String userId = "";
     private ViewPager viewPager;
     private BottomNavigationView bottomNavigationView;
@@ -30,10 +44,15 @@ public class HomeActivity extends AppCompatActivity {
         userId = getIntent().getStringExtra("user_id");
         Log.d("HomeActivity", "Received user_id: " + userId);
         // Lấy chỉ số fragment từ intent
-        sendDatatoFragment();
+//        sendDatatoFragment();
 
-        createData();
+//        addDataToDatabase();
         addEvents();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
     }
 
     public String getUserId() {
@@ -51,9 +70,61 @@ public class HomeActivity extends AppCompatActivity {
 
     }
 
-    private void createData() {
+    private void addDataToDatabase() {
+        ConnectionClass sql = new ConnectionClass();
+        connection = sql.conClass();
 
+        if (connection != null) {
+            try {
+                byte[] imageChicken = getByteArrayFromDrawable(this, R.drawable.chickenfood);
+                byte[] imageBurger = getByteArrayFromDrawable(this, R.drawable.burgerfood);
+                byte[] imageRice = getByteArrayFromDrawable(this, R.drawable.ricefood);
+                byte[] imageNoodle = getByteArrayFromDrawable(this, R.drawable.noodle);
 
+                // Tạo câu lệnh INSERT
+                String query = "INSERT INTO Categories(cate_name, cate_image) VALUES (?,?)";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+
+                // Thực hiện chèn dữ liệu vào bảng
+                preparedStatement.setString(1, "Chicken");
+                preparedStatement.setBytes(2, imageChicken);
+                preparedStatement.addBatch();
+
+                preparedStatement.setString(1, "Burger");
+                preparedStatement.setBytes(2, imageBurger);
+                preparedStatement.addBatch();
+
+                preparedStatement.setString(1, "Rice");
+                preparedStatement.setBytes(2, imageRice);
+                preparedStatement.addBatch();
+
+                preparedStatement.setString(1, "Noodle");
+                preparedStatement.setBytes(2, imageNoodle);
+                preparedStatement.addBatch();
+
+                // Thực thi tất cả các câu lệnh INSERT
+                int[] rowsAffected = preparedStatement.executeBatch();
+                connection.close();
+
+                // Kiểm tra kết quả
+                boolean success = true;
+                for (int count : rowsAffected) {
+                    if (count <= 0) {
+                        success = false;
+                        break;
+                    }
+                }
+                if (success) {
+                    Log.d("HomeFragment", "Insert successfully");
+                } else {
+                    Log.e("HomeFragment", "Insert failed");
+                }
+            } catch (Exception e) {
+                Log.e("Error: ", e.getMessage());
+            }
+        } else {
+            Log.e("Error: ", "Connection null");
+        }
     }
 
     private void addControls() {
@@ -113,5 +184,12 @@ public class HomeActivity extends AppCompatActivity {
                 return true;
             }
         });
+    }
+
+    private byte[] getByteArrayFromDrawable(Context context, int drawableId) {
+        Bitmap bitmap = BitmapFactory.decodeResource(context.getResources(), drawableId);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
+        return outputStream.toByteArray();
     }
 }

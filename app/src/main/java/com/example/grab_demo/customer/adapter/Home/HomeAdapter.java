@@ -1,6 +1,9 @@
 package com.example.grab_demo.customer.adapter.Home;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,9 +49,15 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
     @Override
     public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
         Product product = productList.get(position);
+        byte[] img = product.getImage();
 
+        if (img != null) {
+            Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
+            holder.img_circle.setImageBitmap(bitmap);
+        } else {
+            Log.e("HomeAdapter", "Items array is null");
+        }
         holder.txt_name.setText(product.getName());
-        holder.img_circle.setImageResource(product.getImg());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,4 +1,4 @@
-package com.example.grab_demo;
+package com.example.grab_demo.register;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.grab_demo.R;
+import com.example.grab_demo.login.LoginActivity;
 import com.google.android.material.textfield.TextInputEditText;
 
 public class ForgotPasswordActivity extends AppCompatActivity {

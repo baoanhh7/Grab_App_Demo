@@ -1,4 +1,4 @@
-package com.example.grab_demo;
+package com.example.grab_demo.register;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,7 +9,10 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class RegisterDeliverActivity extends AppCompatActivity {
+import com.example.grab_demo.R;
+import com.example.grab_demo.login.LoginActivity;
+
+public class RegisterOwnerStoreActivity extends AppCompatActivity {
     TextView txt_haveAccount;
     Button btn_createAcount;
     ImageView img_back;
@@ -17,34 +20,32 @@ public class RegisterDeliverActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_register_deliver);
+        setContentView(R.layout.activity_register_owner_store);
 
         addControls();
         addEvents();
+    }
 
+    private void addControls() {
+        txt_haveAccount = findViewById(R.id.txt_haveAccount);
+        btn_createAcount = findViewById(R.id.btn_createAcount);
+        img_back = findViewById(R.id.img_back);
     }
 
     private void addEvents() {
         txt_haveAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RegisterDeliverActivity.this, LoginActivity.class));
+                startActivity(new Intent(RegisterOwnerStoreActivity.this, LoginActivity.class));
                 finish();
             }
         });
-
         img_back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(RegisterDeliverActivity.this, RoleRegisterActivity.class));
+                startActivity(new Intent(RegisterOwnerStoreActivity.this, RoleRegisterActivity.class));
                 finish();
             }
         });
-    }
-
-    private void addControls() {
-        txt_haveAccount = findViewById(R.id.txt_haveAccount);
-        img_back = findViewById(R.id.img_back);
-        btn_createAcount = findViewById(R.id.btn_createAcount);
     }
 }
