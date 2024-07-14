@@ -24,9 +24,6 @@
         android:theme="@style/Theme.Grab_Demo"
         tools:targetApi="31">
         <activity
-            android:name=".StartActivity"
-            android:exported="false" />
-        <activity
             android:name=".customer.activity.CartActivity"
             android:exported="false" />
         <activity
@@ -101,18 +98,15 @@
         <activity
             android:name=".SplashActivity"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
         <activity
             android:name=".deliver.activity.DriverHomeActivity"
             android:exported="true">
-
         </activity>
         <!--
              TODO: Before you run your application, you need a Google Maps API key.

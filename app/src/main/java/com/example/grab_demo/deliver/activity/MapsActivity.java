@@ -8,6 +8,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.SearchView;
@@ -113,6 +114,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                         if (location != null) {
                             currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 15f));
+                            Log.d("MapsActivity", "Current location: " + currentLocation.toString());
+                        } else {
+                            Log.e("MapsActivity", "Failed to get current location");
                         }
                     }
                 });
@@ -149,6 +153,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 getRouteToLocation(latLng);
             } else {
                 Toast.makeText(this, "Current location not available", Toast.LENGTH_SHORT).show();
+                Log.e("MapsActivity", "Current location not available");
             }
         } else {
             Toast.makeText(this, "Location not found: " + locationName, Toast.LENGTH_SHORT).show();

@@ -185,7 +185,7 @@ public class Revenue_Month extends AppCompatActivity {
         rcv_listitemsold_month.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         rcv_name_piechart_monthAd = new rcv_name_piechart_monthAdapter(this, arr1);
         rcv_name_piechart_month.setAdapter(rcv_name_piechart_monthAd);
-        rcv_name_piechart_month.setLayoutManager(new GridLayoutManager(this, 3, GridLayoutManager.HORIZONTAL, false));
+        rcv_name_piechart_month.setLayoutManager(new GridLayoutManager(this, 3, GridLayoutManager.VERTICAL, false));
     }
 
     private void getYearMonthDay() {
@@ -210,7 +210,7 @@ public class Revenue_Month extends AppCompatActivity {
             pie_chart_month.addPieSlice(
                     new PieModel(
                             dishMenuHSO.getTensp(),
-                            dishMenuHSO.getSoluong(),
+                            (float) (dishMenuHSO.getSoluong()*dishMenuHSO.getGiasp()),
                             colors.get(i)));
         }
 
