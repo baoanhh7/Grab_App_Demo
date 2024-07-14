@@ -11,6 +11,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CompoundButton;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -24,16 +26,17 @@ import com.example.grab_demo.database.ConnectionClass;
 import com.example.grab_demo.store_owner.OnItemClickListener;
 import com.example.grab_demo.store_owner.activity.UpdateDishMenuActivity;
 import com.example.grab_demo.store_owner.model.DishMenuHSO;
+import com.example.grab_demo.store_owner.model.Stores;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.ViewHolder> {
+public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.ViewHolder>  implements Filterable {
 
     Context context;
-    ArrayList<DishMenuHSO> arr;
+    ArrayList<DishMenuHSO> arr,arr1;
     boolean flag = false;
     Connection connection;
     String status;
@@ -42,6 +45,7 @@ public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.
     public DishMenuHSOAdapter(Context context, ArrayList<DishMenuHSO> arr) {
         this.context = context;
         this.arr = arr;
+        this.arr1 = arr;
     }
 
     @NonNull
@@ -147,6 +151,36 @@ public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.
             Log.e("Error: ", "Connection null");
         }
         notifyDataSetChanged();
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String strSearch = constraint.toString();
+                if (strSearch.isEmpty()) {
+                    arr = arr1;
+                } else {
+                    ArrayList<DishMenuHSO> arrayList = new ArrayList<>();
+                    for (DishMenuHSO dishMenuHSO : arr1) {
+                        if (dishMenuHSO.getTensp().toLowerCase().contains(strSearch.toLowerCase())) {
+                            arrayList.add(dishMenuHSO);
+                        }
+                    }
+                    arr = arrayList;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = arr;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                arr = (ArrayList<DishMenuHSO>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

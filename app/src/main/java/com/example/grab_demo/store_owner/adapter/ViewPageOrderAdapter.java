@@ -23,8 +23,6 @@ public class ViewPageOrderAdapter extends FragmentStatePagerAdapter {
             case 0:
                 return new NewOrderHSOFragment();
             case 1:
-                return new ConfirmOrderHSOFragment();
-            case 2:
                 return new HistoryOrderHSOFragment();
             default:
                 return new NewOrderHSOFragment();
@@ -33,7 +31,7 @@ public class ViewPageOrderAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 3;
+        return 2;
     }
 
     @Nullable
@@ -45,9 +43,6 @@ public class ViewPageOrderAdapter extends FragmentStatePagerAdapter {
                 title = "Mới";
                 break;
             case 1:
-                title = "Đã xác nhận";
-                break;
-            case 2:
                 title = "Lịch sử";
                 break;
         }

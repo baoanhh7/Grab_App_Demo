@@ -39,6 +39,12 @@ public class AdminActivity extends AppCompatActivity {
             FL_IT.setVisibility(View.GONE);
 
         }
+        btn_logout_IT.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         btn_logout_sales.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

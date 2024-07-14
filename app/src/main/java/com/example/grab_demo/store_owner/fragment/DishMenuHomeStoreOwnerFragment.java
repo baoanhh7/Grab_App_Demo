@@ -82,6 +82,19 @@ public class DishMenuHomeStoreOwnerFragment extends Fragment {
                 startActivity(intent);
             }
         });
+        searchView_DishMenuHSO.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                dishMenuHSOAdapter.getFilter().filter(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                dishMenuHSOAdapter.getFilter().filter(newText);
+                return false;
+            }
+        });
     }
 
     private void addDB() {
