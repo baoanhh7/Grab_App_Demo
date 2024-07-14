@@ -11,8 +11,11 @@ import androidx.fragment.app.Fragment;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.deliver.activity.EditProfileActivity;
+import com.example.grab_demo.model.UserModel;
 
 public class NotificationsFragment extends Fragment {
+
+    private UserModel userModel; // Assume you have UserModel instance here
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -24,15 +27,15 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), EditProfileActivity.class);
-                intent.putExtra("name", "Anna Avetisyan");
-                intent.putExtra("birthday", "");  // Replace with actual birthday
-                intent.putExtra("phone", "818 123 4567");
-                intent.putExtra("email", "info@aplusdesign.co");
-                intent.putExtra("password", "123456789");  // Replace with actual password
+                intent.putExtra("userModel", userModel); // Pass UserModel object to EditProfileActivity
                 startActivity(intent);
             }
         });
-
         return view;
+    }
+
+    // Method to update UserModel from data source
+    public void updateUserModel(UserModel userModel) {
+        this.userModel = userModel;
     }
 }

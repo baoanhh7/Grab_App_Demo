@@ -1,5 +1,7 @@
 package com.example.grab_demo.deliver.activity;
 
+import static android.graphics.Color.BLUE;
+
 import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Address;
@@ -32,7 +34,6 @@ import com.google.maps.model.DirectionsRoute;
 
 import java.io.IOException;
 import java.util.List;
-
 
 public class MapsActivity extends FragmentActivity implements OnMapReadyCallback {
 
@@ -89,12 +90,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
         if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                // Permission granted, enable the map's location layer
                 enableMyLocation();
             } else {
-                // Permission denied, handle accordingly (e.g., show a message or disable functionality)
                 Toast.makeText(this, "Location permission denied", Toast.LENGTH_SHORT).show();
             }
         }
@@ -176,9 +177,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 });
     }
-
     private void addPolylineToMap(DirectionsRoute route) {
         PolylineOptions polylineOptions = new PolylineOptions();
+        polylineOptions.color(BLUE);  // Đặt màu xanh cho đường đi
+        polylineOptions.width(10);  // Đặt độ rộng của đường đi
+
         for (com.google.maps.model.LatLng latLng : route.overviewPolyline.decodePath()) {
             polylineOptions.add(new LatLng(latLng.lat, latLng.lng));
         }
