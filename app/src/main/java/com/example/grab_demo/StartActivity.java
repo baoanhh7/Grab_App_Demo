@@ -13,7 +13,7 @@ import com.example.grab_demo.login.LoginActivity;
 
 public class StartActivity extends AppCompatActivity {
     Button btn_start;
-    LottieAnimationView lottie;
+    //LottieAnimationView lottie;
     private Handler handler = new Handler();
     private Runnable runnable;
 
@@ -56,6 +56,6 @@ public class StartActivity extends AppCompatActivity {
 
     private void addControls() {
         btn_start = findViewById(R.id.btn_start);
-        lottie = findViewById(R.id.lottie);
+        //lottie = findViewById(R.id.lottie);
     }
 }

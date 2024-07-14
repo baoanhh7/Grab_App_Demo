@@ -57,8 +57,10 @@ public class ListCateSalesActivity extends AppCompatActivity {
                 resultSet = smt.executeQuery(query);
                 arr.clear();
                 while (resultSet.next()) {
+                    Integer cateId = resultSet.getInt(1);
                     String cateName = resultSet.getString(2);
-                    arr.add(new Cate(cateName));
+                    byte[] cateImage = resultSet.getBytes(5);
+                    arr.add(new Cate(cateId, cateName, cateImage));
                 }
                 cateAdapter.notifyDataSetChanged();
                 connection.close();

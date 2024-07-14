@@ -4,11 +4,14 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -49,19 +52,10 @@ public class CateAdapter extends RecyclerView.Adapter<CateAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Cate cate = arr.get(position);
-
+        byte[] hinhAlbumByteArray = cate.getHinh();
+        Bitmap bitmap = BitmapFactory.decodeByteArray(hinhAlbumByteArray, 0, hinhAlbumByteArray.length);
+        holder.img.setImageBitmap(bitmap);
         holder.txtTen.setText(cate.getTensp());
-//        holder.switchToggle_dishmenuHSO.setChecked(flag);
-//        holder.switchToggle_dishmenuHSO.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                if(flag == false)
-//                {
-//                    flag = true;
-//                }else
-//                    flag = false;
-//            }
-//        });
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -74,7 +68,7 @@ public class CateAdapter extends RecyclerView.Adapter<CateAdapter.ViewHolder> {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(context, UpdateCateSalesActivity.class);
-                intent.putExtra("cateName", cate.getTensp());
+                intent.putExtra("cateID", cate.getId());
                 context.startActivity(intent);
             }
         });
@@ -142,11 +136,13 @@ public class CateAdapter extends RecyclerView.Adapter<CateAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtTen;
+        ImageView img;
         ImageButton btn_update, btn_delete;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             txtTen = itemView.findViewById(R.id.tv_name_item_CateSale);
+            img = itemView.findViewById(R.id.imageview_name_item_CateSale);
             btn_delete = itemView.findViewById(R.id.btn_delete_CateSale);
             btn_update = itemView.findViewById(R.id.btn_update_CateSale);
         }
