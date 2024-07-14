@@ -13,9 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.deliver.activity.ChiTietDonHangActivity;
-import com.example.grab_demo.deliver.activity.ChiTietDonHangNewActivity;
 import com.example.grab_demo.model.DonHangModel;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -47,6 +45,7 @@ public class DanhSachDonHangoldAdapter extends RecyclerView.Adapter<DanhSachDonH
     public int getItemCount() {
         return mangDonHang.size();
     }
+
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView txtMaDonHang, txtTrangThaiDonHang;
         ImageView hinhMonAn;

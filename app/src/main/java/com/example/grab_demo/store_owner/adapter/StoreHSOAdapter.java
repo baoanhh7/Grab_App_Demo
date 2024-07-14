@@ -107,6 +107,7 @@ public class StoreHSOAdapter extends RecyclerView.Adapter<StoreHSOAdapter.ViewHo
                 filterResults.values = arr;
                 return filterResults;
             }
+
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
                 arr = (ArrayList<Stores>) results.values;

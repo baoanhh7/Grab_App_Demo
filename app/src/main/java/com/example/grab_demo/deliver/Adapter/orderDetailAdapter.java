@@ -12,7 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.grab_demo.R;
 import com.example.grab_demo.model.OrderDetail;
 
-import java.math.BigDecimal;
 import java.util.List;
 
 public class orderDetailAdapter extends RecyclerView.Adapter<orderDetailAdapter.ViewHolder> {

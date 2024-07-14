@@ -32,6 +32,7 @@ public class DonHangModel implements Serializable {
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
     }
+
     public List<OrderDetail> getOrderDetails() {
         return orderDetails;
     }
@@ -39,6 +40,7 @@ public class DonHangModel implements Serializable {
     public void setOrderDetails(List<OrderDetail> orderDetails) {
         this.orderDetails = orderDetails;
     }
+
     public int getOrderId() {
         return orderId;
     }

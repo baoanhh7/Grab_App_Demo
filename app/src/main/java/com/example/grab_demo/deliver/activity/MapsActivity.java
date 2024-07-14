@@ -177,6 +177,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                     }
                 });
     }
+
     private void addPolylineToMap(DirectionsRoute route) {
         PolylineOptions polylineOptions = new PolylineOptions();
         polylineOptions.color(BLUE);  // Đặt màu xanh cho đường đi

@@ -24,12 +24,9 @@ import com.example.grab_demo.store_owner.model.DishMenuHSO;
 import org.eazegraph.lib.charts.PieChart;
 import org.eazegraph.lib.models.PieModel;
 
-import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -70,7 +67,7 @@ public class Revenue_Month extends AppCompatActivity {
         }
     }
 
-    private void loadData()  {
+    private void loadData() {
         ConnectionClass sql = new ConnectionClass();
         connection = sql.conClass();
         loadDataNameItem(connection);
@@ -89,7 +86,7 @@ public class Revenue_Month extends AppCompatActivity {
                 Log.d("SQL", sql);
                 stmt.setInt(1, getMonth);
                 stmt.setInt(2, year);
-                stmt.setInt(3,storeid);
+                stmt.setInt(3, storeid);
                 ResultSet rs = stmt.executeQuery();
                 arr.clear();
                 // Xử lý kết quả trả về
@@ -122,14 +119,14 @@ public class Revenue_Month extends AppCompatActivity {
                 PreparedStatement stmt = connection.prepareStatement(sql);
                 stmt.setInt(1, getMonth);
                 stmt.setInt(2, year);
-                stmt.setInt(3,storeid);
+                stmt.setInt(3, storeid);
                 ResultSet rs = stmt.executeQuery();
                 arr1.clear();
                 while (rs.next()) {
                     String itemName = rs.getString("item_name");
                     Integer color = getRandomColor();
                     arr1.add(new DishMenuHSO(itemName, color));
-                    Log.d("Color", color +"");
+                    Log.d("Color", color + "");
                 }
                 rcv_name_piechart_monthAd.notifyDataSetChanged();
                 rs.close();
@@ -147,7 +144,7 @@ public class Revenue_Month extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 getMonth = listmonth.get(position);
-                tv_revenue_month.setText(getMonth+"");
+                tv_revenue_month.setText(getMonth + "");
                 loadData();
             }
 
@@ -201,15 +198,15 @@ public class Revenue_Month extends AppCompatActivity {
         Random random = new Random();
         return Color.rgb(random.nextInt(256), random.nextInt(256), random.nextInt(256));
     }
+
     private void setData() {
         List<Integer> colors = new ArrayList<>();
-        for(DishMenuHSO dishMenuHSO : arr1)
-        {
+        for (DishMenuHSO dishMenuHSO : arr1) {
             colors.add(dishMenuHSO.getColors());
         }
-        for( int i = 0; i< arr.size(); i++){
+        for (int i = 0; i < arr.size(); i++) {
             DishMenuHSO dishMenuHSO = arr.get(i);
-            Log.d("Color", dishMenuHSO.getColors()+"");
+            Log.d("Color", dishMenuHSO.getColors() + "");
             pie_chart_month.addPieSlice(
                     new PieModel(
                             dishMenuHSO.getTensp(),

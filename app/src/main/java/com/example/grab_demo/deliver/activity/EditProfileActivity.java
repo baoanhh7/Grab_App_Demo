@@ -5,10 +5,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.grab_demo.R;
-import com.example.grab_demo.model.UserModel;
 import com.example.grab_demo.database.UserDataSource;
+import com.example.grab_demo.model.UserModel;
 
 public class EditProfileActivity extends AppCompatActivity {
     private EditText nameEditText, birthdayEditText, phoneEditText, emailEditText, passwordEditText;

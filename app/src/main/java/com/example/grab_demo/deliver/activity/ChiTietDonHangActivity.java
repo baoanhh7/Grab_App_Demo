@@ -11,7 +11,6 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.model.DonHangModel;
-import com.squareup.picasso.Picasso;
 
 public class ChiTietDonHangActivity extends AppCompatActivity {
 

@@ -10,15 +10,7 @@ public class DishMenuHSO {
     private int colors;
     private boolean isChecked;
 
-    public int getColors() {
-        return colors;
-    }
-
-    public void setColors(int colors) {
-        this.colors = colors;
-    }
-
-    public DishMenuHSO( String tensp, int colors) {
+    public DishMenuHSO(String tensp, int colors) {
         this.tensp = tensp;
         this.colors = colors;
     }
@@ -37,6 +29,14 @@ public class DishMenuHSO {
         this.mota = mota;
         this.giasp = giasp;
         this.soluong = soluong;
+    }
+
+    public int getColors() {
+        return colors;
+    }
+
+    public void setColors(int colors) {
+        this.colors = colors;
     }
 
     public int getId() {

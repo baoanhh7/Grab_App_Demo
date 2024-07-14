@@ -8,30 +8,30 @@
         android:id="@+id/textViewMaDonHang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Mã đơn hàng"
-        android:textSize="18sp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"/>
+        android:text="Mã đơn hàng"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textViewTrangThaiDonHang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Trạng thái"
-        android:textSize="18sp"
-        android:layout_marginTop="16dp"
         android:layout_below="@id/textViewMaDonHang"
-        android:layout_marginStart="16dp"/>
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Trạng thái"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/textViewTongTien"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tổng tiền"
-        android:textSize="18sp"
-        android:layout_marginTop="16dp"
         android:layout_below="@id/textViewTrangThaiDonHang"
-        android:layout_marginStart="16dp"/>
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Tổng tiền"
+        android:textSize="18sp" />
 
     <!-- RecyclerView to display order details -->
     <androidx.recyclerview.widget.RecyclerView
@@ -39,29 +39,29 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/textViewTongTien"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="16dp" />
 
     <!-- Button for accepting -->
     <Button
         android:id="@+id/buttonAccept"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Accept"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"/>
+        android:layout_marginBottom="16dp"
+        android:text="Accept" />
 
     <!-- Button for completing -->
     <Button
         android:id="@+id/buttonComplete"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hoàn thành"
-        android:layout_toEndOf="@id/buttonAccept"
         android:layout_alignBottom="@id/buttonAccept"
         android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"/>
+        android:layout_marginEnd="16dp"
+        android:layout_toEndOf="@id/buttonAccept"
+        android:text="Hoàn thành" />
 
     <Button
         android:id="@+id/buttoncanceled"

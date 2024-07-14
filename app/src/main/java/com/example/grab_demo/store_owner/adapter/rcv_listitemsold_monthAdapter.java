@@ -1,33 +1,22 @@
 package com.example.grab_demo.store_owner.adapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
-import com.example.grab_demo.database.ConnectionClass;
 import com.example.grab_demo.store_owner.OnItemClickListener;
-import com.example.grab_demo.store_owner.activity.UpdateDishMenuActivity;
 import com.example.grab_demo.store_owner.model.DishMenuHSO;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 
 public class rcv_listitemsold_monthAdapter extends RecyclerView.Adapter<rcv_listitemsold_monthAdapter.ViewHolder> {
@@ -62,7 +51,7 @@ public class rcv_listitemsold_monthAdapter extends RecyclerView.Adapter<rcv_list
         holder.txtTen.setText(dishMenuHSO.getTensp());
         holder.txtGia.setText(dishMenuHSO.getGiasp() + "");
         double totalAmount = dishMenuHSO.getGiasp() * dishMenuHSO.getSoluong();
-        holder.txtTotalAmountMonth.setText(totalAmount+"đ");
+        holder.txtTotalAmountMonth.setText(totalAmount + "đ");
         holder.txtSL.setText(dishMenuHSO.getSoluong() + "");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
