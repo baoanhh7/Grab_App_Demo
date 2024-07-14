@@ -8,7 +8,7 @@ import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.airbnb.lottie.LottieAnimationView;
+//import com.airbnb.lottie.LottieAnimationView;
 import com.example.grab_demo.login.LoginActivity;
 
 public class StartActivity extends AppCompatActivity {

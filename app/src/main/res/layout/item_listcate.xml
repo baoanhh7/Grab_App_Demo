@@ -11,7 +11,7 @@
         android:layout_width="64dp"
         android:layout_height="64dp"
         android:id="@+id/imageview_name_item_CateSale"
-        android:background="@drawable/burger" />
+        android:src="@drawable/burger" />
 
     <LinearLayout
         android:layout_marginStart="10dp"

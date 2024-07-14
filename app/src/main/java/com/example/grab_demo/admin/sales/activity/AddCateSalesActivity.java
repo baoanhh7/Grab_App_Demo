@@ -61,7 +61,7 @@ public class AddCateSalesActivity extends AppCompatActivity {
         connection = sql.conClass();
         if (connection != null) {
             try {
-                query = "INSERT INTO Categories(cate_name) VALUES (?,?)";
+                query = "INSERT INTO Categories(cate_name,cate_image) VALUES (?,?)";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setString(1, categoryName);
                 preparedStatement.setBytes(2, anh);
