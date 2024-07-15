@@ -62,7 +62,7 @@ public class ListStoreRegistrationAdapter extends RecyclerView.Adapter<ListStore
             @Override
             public void onClick(View v) {
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClick(arr.get(position).getTensp());
+                    onItemClickListener.onItemClickIStoreRegistration(arr.get(position).getId(),name);
                 }
             }
         });
