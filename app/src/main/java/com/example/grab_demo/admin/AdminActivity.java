@@ -10,6 +10,7 @@ import android.widget.FrameLayout;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.grab_demo.R;
+import com.example.grab_demo.admin.sales.activity.ApproveStoreRegistrationActivity;
 import com.example.grab_demo.admin.sales.activity.ListCateSalesActivity;
 import com.example.grab_demo.login.LoginActivity;
 
@@ -56,6 +57,12 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AdminActivity.this, ListCateSalesActivity.class));
+            }
+        });
+        btn_duyetdondk_sales.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminActivity.this, ApproveStoreRegistrationActivity.class));
             }
         });
     }
