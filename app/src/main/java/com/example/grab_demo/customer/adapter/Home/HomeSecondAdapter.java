@@ -12,8 +12,8 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
-import com.example.grab_demo.m_interface.StClickItem;
-import com.example.grab_demo.model.Category;
+import com.example.grab_demo.customer.m_interface.StClickItem;
+import com.example.grab_demo.customer.model.Category;
 
 import java.util.List;
 

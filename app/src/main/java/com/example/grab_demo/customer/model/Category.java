@@ -1,4 +1,4 @@
-package com.example.grab_demo.model;
+package com.example.grab_demo.customer.model;
 
 import java.io.Serializable;
 

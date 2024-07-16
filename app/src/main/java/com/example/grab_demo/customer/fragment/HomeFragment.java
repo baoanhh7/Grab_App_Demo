@@ -24,9 +24,9 @@ import com.example.grab_demo.customer.adapter.Home.HomeSecondAdapter;
 import com.example.grab_demo.customer.adapter.Home.HomeVoucherAdapter;
 import com.example.grab_demo.customer.adapter.Home.StoreListAdapter;
 import com.example.grab_demo.database.ConnectionClass;
-import com.example.grab_demo.m_interface.StClickItem;
-import com.example.grab_demo.model.Category;
-import com.example.grab_demo.model.Store;
+import com.example.grab_demo.customer.m_interface.StClickItem;
+import com.example.grab_demo.customer.model.Category;
+import com.example.grab_demo.customer.model.Store;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

@@ -1,4 +1,4 @@
-package com.example.grab_demo.model;
+package com.example.grab_demo.customer.model;
 
 public class Store {
     private int storeId;
