@@ -37,31 +37,15 @@
             android:text="Cơm Tấm Ốp La"
             android:textSize="18sp"
             android:textStyle="bold" />
+        <TextView
+            android:id="@+id/tv_message_item_message_store_owner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cơm Tấm Ốp La"
+            android:textSize="16sp"
+            android:textStyle="bold" />
 
 
     </LinearLayout>
 
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
-
-        <ImageButton
-            android:id="@+id/btn_update_CateSale"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center"
-            android:layout_marginBottom="10dp"
-            android:background="@drawable/ic_edit" />
-
-        <ImageButton
-            android:id="@+id/btn_delete_CateSale"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            android:layout_gravity="center"
-            android:background="@drawable/ic_bin" />
-
-    </LinearLayout>
 </LinearLayout>

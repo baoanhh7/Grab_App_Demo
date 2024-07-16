@@ -154,6 +154,11 @@ public class ApproveStoreRegistrationActivity extends AppCompatActivity {
                 startActivity(intent);
                 finish();
             }
+
+            @Override
+            public void onItemClickMessage(int sender_id, int reciever_id) {
+
+            }
         });
     }
 }

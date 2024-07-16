@@ -5,7 +5,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
 
@@ -13,6 +15,8 @@ import com.example.grab_demo.R;
 public class MessageStoreOwnerFragment extends Fragment {
 
     View view;
+    SearchView searchView_ShopHSO;
+    RecyclerView recycleView_messages_storeowner;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
