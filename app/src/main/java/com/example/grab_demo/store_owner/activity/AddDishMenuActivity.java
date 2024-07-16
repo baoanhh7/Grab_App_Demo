@@ -68,6 +68,12 @@ public class AddDishMenuActivity extends AppCompatActivity {
                 choosePhoto();
             }
         });
+        img_back_addDishMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void addControls() {

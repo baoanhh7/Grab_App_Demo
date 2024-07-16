@@ -95,7 +95,7 @@ public class LoginActivity extends AppCompatActivity {
                             intent.putExtra("user_id", userId); // Truyền user_id qua intent
                             startActivity(intent);
                             finish();
-                        } else if (resultSet.getString(4).equals("sales") || resultSet.getString(4).equals("admin")) {
+                        } else if (resultSet.getString(4).equals("sales") || resultSet.getString(4).equals("it")) {
                             String userType = resultSet.getString(4);
                             Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
