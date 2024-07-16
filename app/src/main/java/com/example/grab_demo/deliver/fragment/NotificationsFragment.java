@@ -7,6 +7,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.example.grab_demo.R;
@@ -15,7 +17,24 @@ import com.example.grab_demo.model.UserModel;
 
 public class NotificationsFragment extends Fragment {
 
-    private UserModel userModel; // Assume you have UserModel instance here
+    private static final String ARG_USER_ID = "user_id";
+    private String userId;
+
+    public static NotificationsFragment newInstance(String userId) {
+        NotificationsFragment fragment = new NotificationsFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_USER_ID, userId);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            userId = getArguments().getString(ARG_USER_ID);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -27,15 +46,10 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), EditProfileActivity.class);
-                intent.putExtra("userModel", userModel); // Pass UserModel object to EditProfileActivity
+                intent.putExtra("user_id", userId); // Pass user_id to EditProfileActivity
                 startActivity(intent);
             }
         });
         return view;
-    }
-
-    // Method to update UserModel from data source
-    public void updateUserModel(UserModel userModel) {
-        this.userModel = userModel;
     }
 }

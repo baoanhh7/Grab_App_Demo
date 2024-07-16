@@ -31,8 +31,23 @@ public class NewDHFragment extends Fragment {
     private DanhSachDonHangnewAdapter adapter;
     private ArrayList<DonHangModel> mangDonHang;
 
-    public static NewDHFragment newInstance() {
-        return new NewDHFragment();
+    private static final String ARG_USER_ID = "user_id";
+    private String userId;
+
+    public static NewDHFragment newInstance(String userId) {
+        NewDHFragment fragment = new NewDHFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_USER_ID, userId);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            userId = getArguments().getString(ARG_USER_ID);
+        }
     }
 
     @Nullable
@@ -55,8 +70,9 @@ public class NewDHFragment extends Fragment {
             Log.d("DatabaseConnection", "Connected to database successfully");
             try {
                 // Cập nhật SQL query để lấy dữ liệu với trạng thái 'pending' hoặc 'confirmed'
-                String query = "SELECT order_id, customer_id, store_id, delivery_id, delivery_price, total_price, payment_method, status, voucher_id, created_at, updated_at FROM Orders WHERE status = 'pending' OR status = 'confirmed'";
+                String query = "SELECT order_id, customer_id, store_id, delivery_id, delivery_price, total_price, payment_method, status, voucher_id, created_at, updated_at FROM Orders WHERE (status = 'pending' OR status = 'confirmed') AND delivery_id = ?";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, userId); // Pass userId to query
 
                 // Execute query and get the result set
                 ResultSet resultSet = preparedStatement.executeQuery();
