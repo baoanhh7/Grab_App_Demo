@@ -22,12 +22,13 @@ import com.example.grab_demo.store_owner.model.Stores;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class StoreRegistrationActivity extends AppCompatActivity {
 
-    ImageButton img_back_storeregistration;
+    ImageButton img_back_storeregistration, btn_check_registerstore, btn_close_registerstore;
     ImageView img_storeregistration;
     MaterialAutoCompleteTextView tv_ownerName_registerstore, tv_namestore_registerstore, tv_nameCate_registerstore, tv_opened_registerstore, tv_address_registerstore;
     Button btn_registerstore;
@@ -105,6 +106,20 @@ public class StoreRegistrationActivity extends AppCompatActivity {
                 finish();
             }
         });
+        btn_check_registerstore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                insertDataCheck();
+                finish();
+            }
+        });
+        btn_close_registerstore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                insertDataClose();
+                finish();
+            }
+        });
     }
 
     private void addControls() {
@@ -116,7 +131,8 @@ public class StoreRegistrationActivity extends AppCompatActivity {
         tv_opened_registerstore = findViewById(R.id.tv_opened_registerstore);
         tv_address_registerstore = findViewById(R.id.tv_address_registerstore);
         btn_registerstore = findViewById(R.id.btn_registerstore);
-        btn_registerstore = findViewById(R.id.btn_registerstore);
+        btn_check_registerstore = findViewById(R.id.btn_check_registerstore);
+        btn_close_registerstore = findViewById(R.id.btn_close_registerstore);
         tv_address_registerstore.setFocusable(false);
         tv_opened_registerstore.setFocusable(false);
         tv_nameCate_registerstore.setFocusable(false);
@@ -126,5 +142,59 @@ public class StoreRegistrationActivity extends AppCompatActivity {
     private Bitmap getImageViewFromByteArray(byte[] byteArray) {
         Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         return bitmap;
+    }
+    private void insertDataCheck() {
+        ConnectionClass sql = new ConnectionClass();
+        connection = sql.conClass();
+        if (connection != null) {
+            try {
+                String query = "UPDATE Stores SET status = ?,updated_at = ? WHERE store_id = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, "closed");
+                preparedStatement.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));
+                preparedStatement.setInt(3, storeId); // Thiết lập điều kiện WHERE để xác định hàng cần cập nhật
+                // Thực thi truy vấn INSERT
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected > 0) {
+                    Log.d("StoreRegistrationActivity", "Update successfully");
+                    // Gọi finish() để đóng activity sau khi chèn thành công
+                    finish();
+                } else {
+                    Log.e("StoreRegistrationActivity", "Update failed");
+                }
+                connection.close();
+            } catch (Exception e) {
+                Log.e("Error: ", e.getMessage());
+            }
+        } else {
+            Log.e("Error: ", "Connection null");
+        }
+    }
+    private void insertDataClose() {
+        ConnectionClass sql = new ConnectionClass();
+        connection = sql.conClass();
+        if (connection != null) {
+            try {
+                String query = "UPDATE Stores SET status = ?,updated_at = ? WHERE store_id = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, "rejected");
+                preparedStatement.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis()));
+                preparedStatement.setInt(3, storeId); // Thiết lập điều kiện WHERE để xác định hàng cần cập nhật
+                // Thực thi truy vấn INSERT
+                int rowsAffected = preparedStatement.executeUpdate();
+                if (rowsAffected > 0) {
+                    Log.d("StoreRegistrationActivity", "Update successfully");
+                    // Gọi finish() để đóng activity sau khi chèn thành công
+                    finish();
+                } else {
+                    Log.e("StoreRegistrationActivity", "Update failed");
+                }
+                connection.close();
+            } catch (Exception e) {
+                Log.e("Error: ", e.getMessage());
+            }
+        } else {
+            Log.e("Error: ", "Connection null");
+        }
     }
 }
