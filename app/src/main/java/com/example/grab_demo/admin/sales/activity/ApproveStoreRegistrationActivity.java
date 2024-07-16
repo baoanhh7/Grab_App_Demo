@@ -2,6 +2,8 @@ package com.example.grab_demo.admin.sales.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
@@ -33,6 +35,9 @@ public class ApproveStoreRegistrationActivity extends AppCompatActivity {
     ListStoreRegistrationAdapter listStoreRegistrationAdapter;
     ArrayList<Stores> arr;
     Connection connection;
+    private Handler handler;
+    private Runnable refreshRunnable;
+    private static final long REFRESH_INTERVAL = 1000; // 3 giây
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,33 +45,68 @@ public class ApproveStoreRegistrationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_approve_store_registration);
         addControls();
         addEvents();
-        loadData();
+        handler = new Handler(Looper.getMainLooper());
+        refreshRunnable = new Runnable() {
+            @Override
+            public void run() {
+                loadData();
+                handler.postDelayed(this, REFRESH_INTERVAL);
+            }
+        };
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+        startAutoRefresh();
+    }
+
+    private void startAutoRefresh() {
+        handler.postDelayed(refreshRunnable, REFRESH_INTERVAL);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
     }
 
     private void loadData() {
-        ConnectionClass sql = new ConnectionClass();
-        connection = sql.conClass();
-        if (connection != null) {
-            try {
-                String query = "SELECT store_id, store_name,owner_id, image FROM Stores WHERE status = 'pending' ";
-                Statement smt = connection.createStatement();
-                ResultSet resultSet = smt.executeQuery(query);
-                arr.clear();
-                while (resultSet.next()) {
-                    Integer id = resultSet.getInt(1);
-                    String storeName = resultSet.getString(2);
-                    Integer ownerId = resultSet.getInt(3);
-                    byte[] image = resultSet.getBytes(4);
-                    arr.add(new Stores(storeName, ownerId, id,image));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ConnectionClass sql = new ConnectionClass();
+                connection = sql.conClass();
+                if (connection != null) {
+                    try {
+                        String query = "SELECT store_id, store_name,owner_id, image FROM Stores WHERE status = 'pending' ";
+                        Statement smt = connection.createStatement();
+                        ResultSet resultSet = smt.executeQuery(query);
+                        final ArrayList<Stores> tempArr = new ArrayList<>();
+                        while (resultSet.next()) {
+                            Integer id = resultSet.getInt(1);
+                            String storeName = resultSet.getString(2);
+                            Integer ownerId = resultSet.getInt(3);
+                            byte[] image = resultSet.getBytes(4);
+                            tempArr.add(new Stores(storeName, ownerId, id, image));
+                        }
+                        connection.close();
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                arr.clear();
+                                arr.addAll(tempArr);
+                                listStoreRegistrationAdapter.notifyDataSetChanged();
+                            }
+                        });
+                    } catch (Exception e) {
+                        Log.e("Error: ", e.getMessage());
+                    }
+                } else {
+                    Log.e("Error: ", "Connection null");
                 }
-                connection.close();
-                listStoreRegistrationAdapter.notifyDataSetChanged();
-            } catch (Exception e) {
-                Log.e("Error: ", e.getMessage());
             }
-        } else {
-            Log.e("Error: ", "Connection null");
-        }
+        }).start();
     }
 
     private void addEvents() {
