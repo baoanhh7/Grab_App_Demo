@@ -2,34 +2,49 @@ package com.example.grab_demo.model;
 
 import java.io.Serializable;
 
-public class Product implements Serializable {
+public class Category implements Serializable {
+    private int cateID;
     private String name;
     private int img;
     private String describe;
     private double price;
     private byte[] image;
 
-    public Product(String name, int img) {
+    public Category(int cateID, String name, byte[] image) {
+        this.cateID = cateID;
+        this.name = name;
+        this.image = image;
+    }
+
+    public Category(String name, int img) {
         this.name = name;
         this.img = img;
     }
 
-    public Product(String name, String describe, int img) {
+    public Category(String name, String describe, int img) {
         this.name = name;
         this.img = img;
         this.describe = describe;
     }
 
-    public Product(String name, String describe, int img, double price) {
+    public Category(String name, String describe, int img, double price) {
         this.name = name;
         this.img = img;
         this.describe = describe;
         this.price = price;
     }
 
-    public Product(String name, byte[] image) {
+    public Category(String name, byte[] image) {
         this.name = name;
         this.image = image;
+    }
+
+    public int getCateID() {
+        return cateID;
+    }
+
+    public void setCateID(int cateID) {
+        this.cateID = cateID;
     }
 
     public byte[] getImage() {

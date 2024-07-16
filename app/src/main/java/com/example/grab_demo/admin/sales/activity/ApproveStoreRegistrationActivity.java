@@ -8,11 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -20,7 +16,6 @@ import com.example.grab_demo.R;
 import com.example.grab_demo.admin.sales.adapter.ListStoreRegistrationAdapter;
 import com.example.grab_demo.database.ConnectionClass;
 import com.example.grab_demo.store_owner.OnItemClickListener;
-import com.example.grab_demo.store_owner.activity.RegisterStoreActivity;
 import com.example.grab_demo.store_owner.model.Stores;
 
 import java.sql.Connection;
@@ -29,6 +24,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class ApproveStoreRegistrationActivity extends AppCompatActivity {
+    private static final long REFRESH_INTERVAL = 1000; // 3 giây
     ImageButton img_back_ApproveStoreRegistration;
     RecyclerView rv_ApproveStoreRegistration;
     androidx.appcompat.widget.SearchView searchView_ApproveStoreRegistration;
@@ -37,7 +33,6 @@ public class ApproveStoreRegistrationActivity extends AppCompatActivity {
     Connection connection;
     private Handler handler;
     private Runnable refreshRunnable;
-    private static final long REFRESH_INTERVAL = 1000; // 3 giây
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +49,7 @@ public class ApproveStoreRegistrationActivity extends AppCompatActivity {
             }
         };
     }
+
     @Override
     protected void onResume() {
         super.onResume();

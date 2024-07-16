@@ -110,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                             intent.putExtra("user_id", userID);
                             startActivity(intent);
                             finish();
-                        }else if (resultSet.getString(4).equals("delivery")) {
+                        } else if (resultSet.getString(4).equals("delivery")) {
                             String userID = resultSet.getString(1);
                             Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                             Log.d("Login", "User is delivery");

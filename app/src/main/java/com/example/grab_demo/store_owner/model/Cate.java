@@ -2,7 +2,7 @@ package com.example.grab_demo.store_owner.model;
 
 public class Cate {
     private String tensp;
-    private  Integer id;
+    private Integer id;
     private byte[] hinh;
 
     public Cate(Integer id, String tensp, byte[] hinh) {

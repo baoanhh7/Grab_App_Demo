@@ -1,33 +1,23 @@
 package com.example.grab_demo.store_owner.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
-import android.widget.Switch;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
-import com.example.grab_demo.database.ConnectionClass;
 import com.example.grab_demo.store_owner.OnItemClickListener;
 import com.example.grab_demo.store_owner.model.Message;
-import com.example.grab_demo.store_owner.model.Stores;
-import com.example.grab_demo.store_owner.model.User;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.util.ArrayList;
+
 public class MessageHSOAdapter extends RecyclerView.Adapter<MessageHSOAdapter.ViewHolder> implements Filterable {
 
     Context context;
@@ -63,7 +53,7 @@ public class MessageHSOAdapter extends RecyclerView.Adapter<MessageHSOAdapter.Vi
             @Override
             public void onClick(View v) {
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClickMessage(arr.get(position).getSender_id(),arr.get(position).getReceiver_id());
+                    onItemClickListener.onItemClickMessage(arr.get(position).getSender_id(), arr.get(position).getReceiver_id());
                 }
             }
         });

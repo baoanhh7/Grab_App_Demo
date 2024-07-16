@@ -18,14 +18,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.grab_demo.R;
 import com.example.grab_demo.customer.activity.CartActivity;
 import com.example.grab_demo.customer.activity.HomeActivity;
-import com.example.grab_demo.customer.activity.ProductListActivity;
+import com.example.grab_demo.customer.activity.StoreListActivity;
 import com.example.grab_demo.customer.adapter.Home.HomeAdapter;
 import com.example.grab_demo.customer.adapter.Home.HomeSecondAdapter;
 import com.example.grab_demo.customer.adapter.Home.HomeVoucherAdapter;
-import com.example.grab_demo.customer.adapter.Home.OrderAgainAdapter;
+import com.example.grab_demo.customer.adapter.Home.StoreListAdapter;
 import com.example.grab_demo.database.ConnectionClass;
-import com.example.grab_demo.m_interface.IClickItem;
-import com.example.grab_demo.model.Product;
+import com.example.grab_demo.m_interface.StClickItem;
+import com.example.grab_demo.model.Category;
+import com.example.grab_demo.model.Store;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -40,12 +41,15 @@ public class HomeFragment extends Fragment {
     String query;
     Statement smt;
     ResultSet resultSet;
+
     RecyclerView rcv_header, rcv_second, rcv_voucher, rcv_orderAgain;
-    List<Product> filterProduct, productList, productList2, productListVoucher, productListOderAgain;
+    List<Category> filterCategory, categoryList, categoryList2, categoryListVoucher, categoryListOderAgain;
+    List<Store> storeList;
     HomeAdapter homeAdapter;
     HomeSecondAdapter homeSecondAdapter;
     HomeVoucherAdapter homeVoucherAdapter;
-    OrderAgainAdapter orderAgainAdapter;
+    StoreListAdapter storeListAdapter;
+
     SearchView searchView;
     ImageView img_cart;
     private View view;
@@ -103,15 +107,16 @@ public class HomeFragment extends Fragment {
         connection = sql.conClass();
         if (connection != null) {
             try {
-                query = "SELECT cate_name, cate_image FROM Categories";
+                query = "SELECT cate_id, cate_name, cate_image FROM Categories";
                 smt = connection.createStatement();
                 resultSet = smt.executeQuery(query);
 
-                productList.clear();
+                categoryList.clear();
                 while (resultSet.next()) {
-                    String cateName = resultSet.getString(1);
-                    byte[] cateImage = resultSet.getBytes(2);
-                    productList.add(new Product(cateName, cateImage));
+                    int id = resultSet.getInt(1);
+                    String cateName = resultSet.getString(2);
+                    byte[] cateImage = resultSet.getBytes(3);
+                    categoryList.add(new Category(id, cateName, cateImage));
                 }
                 homeAdapter.notifyDataSetChanged();
                 connection.close();
@@ -129,31 +134,31 @@ public class HomeFragment extends Fragment {
 //        productList.add(new Product("Pizza", R.drawable.pizza));
 //        homeAdapter.notifyDataSetChanged();
 
-        productList2.clear();
-        productList2.add(new Product("Near me", "Get it quick", R.color.hongNhat));
-        productList2.add(new Product("Bửa tối nữa giá", "Chốt deal ngay!", R.color.lavender));
-        productList2.add(new Product("Grab ngon rẻ", "Bao tiết kiệm", R.color.vangNhat));
-        productList2.add(new Product("Tuần lễ món cơm", "Tặng món 0đ", R.color.xanhNhat));
+        categoryList2.clear();
+        categoryList2.add(new Category("Near me", "Get it quick", R.color.hongNhat));
+        categoryList2.add(new Category("Bửa tối nữa giá", "Chốt deal ngay!", R.color.lavender));
+        categoryList2.add(new Category("Grab ngon rẻ", "Bao tiết kiệm", R.color.vangNhat));
+        categoryList2.add(new Category("Tuần lễ món cơm", "Tặng món 0đ", R.color.xanhNhat));
         homeSecondAdapter.notifyDataSetChanged();
 
-        productListVoucher.clear();
-        productListVoucher.add(new Product("Voucher 1", "Get it quick", R.drawable.voucher4));
-        productListVoucher.add(new Product("Voucher 2", "Chốt deal ngay!", R.drawable.voucher3));
-        productListVoucher.add(new Product("Voucher 3", "Bao tiết kiệm", R.drawable.voucher2));
-        productListVoucher.add(new Product("Voucher 4", "Tặng món 0đ", R.drawable.voucher1));
+        categoryListVoucher.clear();
+        categoryListVoucher.add(new Category("Voucher 1", "Get it quick", R.drawable.voucher4));
+        categoryListVoucher.add(new Category("Voucher 2", "Chốt deal ngay!", R.drawable.voucher3));
+        categoryListVoucher.add(new Category("Voucher 3", "Bao tiết kiệm", R.drawable.voucher2));
+        categoryListVoucher.add(new Category("Voucher 4", "Tặng món 0đ", R.drawable.voucher1));
         homeVoucherAdapter.notifyDataSetChanged();
 
-        productListOderAgain.clear();
-        productListOderAgain.add(new Product("Pizza", "Bột pizza, sốt cà chua, phô mai", R.drawable.pizza, 10000));
-        productListOderAgain.add(new Product("Japan noodle", "Bột mì, sup, egg", R.drawable.noodle, 20000));
-        productListOderAgain.add(new Product("Kimbap", "Rice, carot, egg", R.drawable.food, 50000));
-        productListOderAgain.add(new Product("Salad", "Rau, trái cây, hạt", R.drawable.healthy, 23456));
-        productListOderAgain.add(new Product("Pizza", "Bột pizza, sốt cà chua, phô mai", R.drawable.pizza, 10000));
-        productListOderAgain.add(new Product("Japan noodle", "Bột mì, sup, egg", R.drawable.noodle, 20000));
-        productListOderAgain.add(new Product("Kimbap", "Rice, carot, egg", R.drawable.food, 50000));
-        productListOderAgain.add(new Product("Salad", "Rau, trái cây, hạt", R.drawable.healthy, 23456));
-        productListOderAgain.add(new Product("Pizza", "Bột pizza, sốt cà chua, phô mai", R.drawable.pizza, 10000));
-        orderAgainAdapter.notifyDataSetChanged();
+        categoryListOderAgain.clear();
+        categoryListOderAgain.add(new Category("Pizza", "Bột pizza, sốt cà chua, phô mai", R.drawable.pizza, 10000));
+        categoryListOderAgain.add(new Category("Japan noodle", "Bột mì, sup, egg", R.drawable.noodle, 20000));
+        categoryListOderAgain.add(new Category("Kimbap", "Rice, carot, egg", R.drawable.food, 50000));
+        categoryListOderAgain.add(new Category("Salad", "Rau, trái cây, hạt", R.drawable.healthy, 23456));
+        categoryListOderAgain.add(new Category("Pizza", "Bột pizza, sốt cà chua, phô mai", R.drawable.pizza, 10000));
+        categoryListOderAgain.add(new Category("Japan noodle", "Bột mì, sup, egg", R.drawable.noodle, 20000));
+        categoryListOderAgain.add(new Category("Kimbap", "Rice, carot, egg", R.drawable.food, 50000));
+        categoryListOderAgain.add(new Category("Salad", "Rau, trái cây, hạt", R.drawable.healthy, 23456));
+        categoryListOderAgain.add(new Category("Pizza", "Bột pizza, sốt cà chua, phô mai", R.drawable.pizza, 10000));
+        storeListAdapter.notifyDataSetChanged();
     }
 
     private void addEvents() {
@@ -178,56 +183,59 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        homeAdapter.setOnItemClick(new IClickItem() {
+        homeAdapter.setOnItemClick(new StClickItem() {
             @Override
             public void onClickItem(String data) {
-                Intent intent = new Intent(getActivity(), ProductListActivity.class);
+                Intent intent = new Intent(getActivity(), StoreListActivity.class);
+                intent.putExtra("cate_id", Integer.parseInt(data));
                 startActivity(intent);
             }
         });
 
-        homeSecondAdapter.setOnClickItemListener(new IClickItem() {
+        homeSecondAdapter.setOnClickItemListener(new StClickItem() {
             @Override
             public void onClickItem(String data) {
-                Intent intent = new Intent(getActivity(), ProductListActivity.class);
+                Intent intent = new Intent(getActivity(), StoreListActivity.class);
+//                intent.putExtra("cate_id", Integer.parseInt(data));
                 startActivity(intent);
             }
         });
     }
 
     private void filter(String text) {
-        filterProduct.clear();
-        for (Product product : productList) {
-            if (product.getName().toLowerCase().contains(text.toLowerCase())) {
-                filterProduct.add(product);
+        filterCategory.clear();
+        for (Category category : categoryList) {
+            if (category.getName().toLowerCase().contains(text.toLowerCase())) {
+                filterCategory.add(category);
             }
         }
-        homeAdapter.filterList(filterProduct);
+        homeAdapter.filterList(filterCategory);
     }
 
     private void addControls() {
         img_cart = view.findViewById(R.id.img_cart);
 
-        filterProduct = new ArrayList<>();
-        productList = new ArrayList<>();
-        productList2 = new ArrayList<>();
-        productListVoucher = new ArrayList<>();
-        productListOderAgain = new ArrayList<>();
+        filterCategory = new ArrayList<>();
+        categoryList = new ArrayList<>();
+        categoryList2 = new ArrayList<>();
+        categoryListVoucher = new ArrayList<>();
+        categoryListOderAgain = new ArrayList<>();
+        storeList = new ArrayList<>();
 
         rcv_header = view.findViewById(R.id.rcv_header);
         rcv_second = view.findViewById(R.id.rcv_second);
         rcv_voucher = view.findViewById(R.id.rcv_voucher);
         rcv_orderAgain = view.findViewById(R.id.rcv_orderAgain);
 
-        homeAdapter = new HomeAdapter(getActivity(), productList);
-        homeSecondAdapter = new HomeSecondAdapter(getActivity(), productList2);
-        homeVoucherAdapter = new HomeVoucherAdapter(getActivity(), productListVoucher);
-        orderAgainAdapter = new OrderAgainAdapter(getActivity(), productListOderAgain);
+        homeAdapter = new HomeAdapter(getActivity(), categoryList);
+        homeSecondAdapter = new HomeSecondAdapter(getActivity(), categoryList2);
+        homeVoucherAdapter = new HomeVoucherAdapter(getActivity(), categoryListVoucher);
+        storeListAdapter = new StoreListAdapter(getActivity(), storeList);
 
         rcv_header.setAdapter(homeAdapter);
         rcv_second.setAdapter(homeSecondAdapter);
         rcv_voucher.setAdapter(homeVoucherAdapter);
-        rcv_orderAgain.setAdapter(orderAgainAdapter);
+        rcv_orderAgain.setAdapter(storeListAdapter);
 
         searchView = view.findViewById(R.id.searchView);
         searchView.setIconifiedByDefault(false);
@@ -244,6 +252,7 @@ public class HomeFragment extends Fragment {
         LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         rcv_orderAgain.setLayoutManager(linearLayoutManager2);
     }
+
 
     @Override
     public void onResume() {

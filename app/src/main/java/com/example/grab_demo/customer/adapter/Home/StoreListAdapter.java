@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,56 +15,52 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.m_interface.StClickItem;
-import com.example.grab_demo.model.Category;
+import com.example.grab_demo.model.Store;
 
 import java.util.List;
 
-import de.hdodenhof.circleimageview.CircleImageView;
-
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder> {
-    private Context context;
-    private List<Category> categoryList;
+public class StoreListAdapter extends RecyclerView.Adapter<StoreListAdapter.HomeViewHolder> {
+    Context context;
+    List<Store> storeList;
     private StClickItem stClickItem;
 
-    public HomeAdapter(Context context, List<Category> categoryList) {
+    public StoreListAdapter(Context context, List<Store> storeList) {
         this.context = context;
-        this.categoryList = categoryList;
+        this.storeList = storeList;
     }
 
-    public void setOnItemClick(StClickItem stClickItem) {
+    public void setOnClickItemListener(StClickItem stClickItem) {
         this.stClickItem = stClickItem;
-    }
-
-    public void filterList(List<Category> categoryList) {
-        this.categoryList = categoryList;
-        notifyDataSetChanged();
     }
 
     @NonNull
     @Override
     public HomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_head_home, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_store_list, parent, false);
         return new HomeViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
-        Category category = categoryList.get(position);
-        byte[] img = category.getImage();
+        Store store = storeList.get(position);
+        byte[] img = store.getImage();
+
+        holder.txt_name.setText(store.getStoreName());
+        holder.txt_status.setText(store.getStatus());
+        holder.txt_address.setText(store.getAddress());
 
         if (img != null) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
-            holder.img_circle.setImageBitmap(bitmap);
+            holder.img.setImageBitmap(bitmap);
         } else {
             Log.e("HomeAdapter", "Items array is null");
         }
-        holder.txt_name.setText(category.getName());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (stClickItem != null) {
-                    stClickItem.onClickItem(String.valueOf(categoryList.get(position).getCateID()));
+                    stClickItem.onClickItem(storeList.get(position).getStoreName());
                 }
             }
         });
@@ -71,19 +68,21 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.HomeViewHolder
 
     @Override
     public int getItemCount() {
-        if (categoryList != null) return categoryList.size();
+        if (storeList != null) return storeList.size();
         return 0;
     }
 
     public class HomeViewHolder extends RecyclerView.ViewHolder {
-        CircleImageView img_circle;
-        TextView txt_name;
+        ImageView img;
+        TextView txt_name, txt_status, txt_address;
 
         public HomeViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            img_circle = itemView.findViewById(R.id.img_circle);
+            img = itemView.findViewById(R.id.img);
             txt_name = itemView.findViewById(R.id.txt_name);
+            txt_status = itemView.findViewById(R.id.txt_status);
+            txt_address = itemView.findViewById(R.id.txt_address);
         }
     }
 }

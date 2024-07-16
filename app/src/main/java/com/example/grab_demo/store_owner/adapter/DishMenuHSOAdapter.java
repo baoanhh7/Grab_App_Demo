@@ -26,17 +26,16 @@ import com.example.grab_demo.database.ConnectionClass;
 import com.example.grab_demo.store_owner.OnItemClickListener;
 import com.example.grab_demo.store_owner.activity.UpdateDishMenuActivity;
 import com.example.grab_demo.store_owner.model.DishMenuHSO;
-import com.example.grab_demo.store_owner.model.Stores;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
-public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.ViewHolder>  implements Filterable {
+public class DishMenuHSOAdapter extends RecyclerView.Adapter<DishMenuHSOAdapter.ViewHolder> implements Filterable {
 
     Context context;
-    ArrayList<DishMenuHSO> arr,arr1;
+    ArrayList<DishMenuHSO> arr, arr1;
     boolean flag = false;
     Connection connection;
     String status;

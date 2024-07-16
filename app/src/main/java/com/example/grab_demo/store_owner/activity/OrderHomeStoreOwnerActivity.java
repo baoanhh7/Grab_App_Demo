@@ -2,7 +2,6 @@ package com.example.grab_demo.store_owner.activity;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,9 +13,10 @@ import com.example.grab_demo.store_owner.adapter.ViewPageOrderAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 public class OrderHomeStoreOwnerActivity extends AppCompatActivity {
+    ImageButton img_back_orderHSO;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    ImageButton img_back_orderHSO;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

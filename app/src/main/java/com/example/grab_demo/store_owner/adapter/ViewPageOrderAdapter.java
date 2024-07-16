@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
 
-import com.example.grab_demo.store_owner.fragment.ConfirmOrderHSOFragment;
 import com.example.grab_demo.store_owner.fragment.HistoryOrderHSOFragment;
 import com.example.grab_demo.store_owner.fragment.NewOrderHSOFragment;
 

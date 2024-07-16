@@ -210,7 +210,7 @@ public class Revenue_Month extends AppCompatActivity {
             pie_chart_month.addPieSlice(
                     new PieModel(
                             dishMenuHSO.getTensp(),
-                            (float) (dishMenuHSO.getSoluong()*dishMenuHSO.getGiasp()),
+                            (float) (dishMenuHSO.getSoluong() * dishMenuHSO.getGiasp()),
                             colors.get(i)));
         }
 

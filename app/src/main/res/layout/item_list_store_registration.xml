@@ -25,12 +25,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tên quán: "
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/tv_name_item_ListStoreRegistration"
                 android:layout_width="wrap_content"
@@ -44,12 +46,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Chủ quán: "
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
             <TextView
                 android:id="@+id/tv_ownerName_item_ListStoreRegistration"
                 android:layout_width="wrap_content"

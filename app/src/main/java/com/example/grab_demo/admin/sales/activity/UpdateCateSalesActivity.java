@@ -23,7 +23,6 @@ import androidx.core.app.ActivityCompat;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.database.ConnectionClass;
-import com.example.grab_demo.store_owner.activity.UpdateDishMenuActivity;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.ByteArrayOutputStream;
@@ -123,10 +122,12 @@ public class UpdateCateSalesActivity extends AppCompatActivity {
             }
         }
     }
+
     private Bitmap getImageViewFromByteArray(byte[] byteArray) {
         Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         return bitmap;
     }
+
     private byte[] getByteArrayFromImageView(ImageView img) {
         BitmapDrawable drawable = (BitmapDrawable) img.getDrawable();
         Bitmap bitmap = drawable.getBitmap();

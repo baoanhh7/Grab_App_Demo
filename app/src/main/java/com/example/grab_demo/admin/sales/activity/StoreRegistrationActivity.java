@@ -8,17 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.database.ConnectionClass;
-import com.example.grab_demo.store_owner.model.Stores;
 import com.google.android.material.textfield.MaterialAutoCompleteTextView;
 
 import java.sql.Connection;
@@ -42,7 +36,7 @@ public class StoreRegistrationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_store_registration);
         ownerName = getIntent().getStringExtra("owner_name");
-        Log.d("ownername",ownerName);
+        Log.d("ownername", ownerName);
         storeId = getIntent().getIntExtra("store_id", 0);
         addControls();
         addEvents();
@@ -77,7 +71,7 @@ public class StoreRegistrationActivity extends AppCompatActivity {
         connection = connectionClass.conClass();
         if (connection != null) {
             try {
-                String query = "SELECT store_name,cate_id,open_store,address, image FROM Stores WHERE store_id =  "+storeId;
+                String query = "SELECT store_name,cate_id,open_store,address, image FROM Stores WHERE store_id =  " + storeId;
                 Statement smt = connection.createStatement();
                 ResultSet resultSet = smt.executeQuery(query);
                 while (resultSet.next()) {
@@ -139,10 +133,12 @@ public class StoreRegistrationActivity extends AppCompatActivity {
         tv_namestore_registerstore.setFocusable(false);
         tv_ownerName_registerstore.setFocusable(false);
     }
+
     private Bitmap getImageViewFromByteArray(byte[] byteArray) {
         Bitmap bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
         return bitmap;
     }
+
     private void insertDataCheck() {
         ConnectionClass sql = new ConnectionClass();
         connection = sql.conClass();
@@ -170,6 +166,7 @@ public class StoreRegistrationActivity extends AppCompatActivity {
             Log.e("Error: ", "Connection null");
         }
     }
+
     private void insertDataClose() {
         ConnectionClass sql = new ConnectionClass();
         connection = sql.conClass();

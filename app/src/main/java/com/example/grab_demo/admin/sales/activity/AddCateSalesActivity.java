@@ -23,7 +23,6 @@ import androidx.core.app.ActivityCompat;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.database.ConnectionClass;
-import com.example.grab_demo.store_owner.activity.AddDishMenuActivity;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.io.ByteArrayOutputStream;
@@ -37,7 +36,7 @@ import java.sql.Statement;
 public class AddCateSalesActivity extends AppCompatActivity {
     ImageButton img_back_addCateSales, btn_camera_addCateSales;
     TextInputEditText edt_name_addCateSales;
-    Button btn_addCateSales,btn_choose_image_addCateSales;
+    Button btn_addCateSales, btn_choose_image_addCateSales;
     Connection connection;
     String query;
     ImageView img_addCateSales;
@@ -107,6 +106,7 @@ public class AddCateSalesActivity extends AppCompatActivity {
         img_addCateSales = findViewById(R.id.img_addCateSales);
         btn_camera_addCateSales = findViewById(R.id.btn_camera_addCateSales);
     }
+
     private byte[] getByteArrayFromImageView(ImageView img) {
         BitmapDrawable drawable = (BitmapDrawable) img.getDrawable();
         Bitmap bitmap = drawable.getBitmap();

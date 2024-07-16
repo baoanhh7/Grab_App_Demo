@@ -62,7 +62,7 @@ public class ListStoreRegistrationAdapter extends RecyclerView.Adapter<ListStore
             @Override
             public void onClick(View v) {
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClickIStoreRegistration(arr.get(position).getId(),name);
+                    onItemClickListener.onItemClickIStoreRegistration(arr.get(position).getId(), name);
                 }
             }
         });
@@ -107,19 +107,6 @@ public class ListStoreRegistrationAdapter extends RecyclerView.Adapter<ListStore
         };
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        ImageView img;
-        TextView txtTen;
-        TextView txtownername;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            img = itemView.findViewById(R.id.ImageView_item_ListStoreRegistration);
-            txtTen = itemView.findViewById(R.id.tv_name_item_ListStoreRegistration);
-            txtownername = itemView.findViewById(R.id.tv_ownerName_item_ListStoreRegistration);
-        }
-    }
-
     private String loadData(int id) {
         ConnectionClass sql = new ConnectionClass();
         Connection connection = sql.conClass();
@@ -140,6 +127,19 @@ public class ListStoreRegistrationAdapter extends RecyclerView.Adapter<ListStore
             Log.e("Error: ", "Connection null");
         }
         return name;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        ImageView img;
+        TextView txtTen;
+        TextView txtownername;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            img = itemView.findViewById(R.id.ImageView_item_ListStoreRegistration);
+            txtTen = itemView.findViewById(R.id.tv_name_item_ListStoreRegistration);
+            txtownername = itemView.findViewById(R.id.tv_ownerName_item_ListStoreRegistration);
+        }
     }
 }
 

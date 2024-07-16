@@ -12,24 +12,24 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
-import com.example.grab_demo.m_interface.IClickItem;
-import com.example.grab_demo.model.Product;
+import com.example.grab_demo.m_interface.StClickItem;
+import com.example.grab_demo.model.Category;
 
 import java.util.List;
 
 public class HomeSecondAdapter extends RecyclerView.Adapter<HomeSecondAdapter.HomeViewHolder> {
     Context context;
-    List<Product> productList;
+    List<Category> categoryList;
 
-    private IClickItem iClickItem;
+    private StClickItem stClickItem;
 
-    public HomeSecondAdapter(FragmentActivity context, List<Product> productList) {
+    public HomeSecondAdapter(FragmentActivity context, List<Category> categoryList) {
         this.context = context;
-        this.productList = productList;
+        this.categoryList = categoryList;
     }
 
-    public void setOnClickItemListener(IClickItem listener) {
-        this.iClickItem = listener;
+    public void setOnClickItemListener(StClickItem listener) {
+        this.stClickItem = listener;
     }
 
     @NonNull
@@ -41,17 +41,17 @@ public class HomeSecondAdapter extends RecyclerView.Adapter<HomeSecondAdapter.Ho
 
     @Override
     public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
-        Product product = productList.get(position);
+        Category category = categoryList.get(position);
 
-        holder.txt_name.setText(product.getName());
-        holder.txt_describe.setText(product.getDescribe());
-        holder.img_bg.setImageResource(product.getImg());
+        holder.txt_name.setText(category.getName());
+        holder.txt_describe.setText(category.getDescribe());
+        holder.img_bg.setImageResource(category.getImg());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (iClickItem != null) {
-                    iClickItem.onClickItem(productList.get(position).getName());
+                if (stClickItem != null) {
+                    stClickItem.onClickItem(String.valueOf(categoryList.get(position).getCateID()));
                 }
             }
         });
@@ -59,7 +59,7 @@ public class HomeSecondAdapter extends RecyclerView.Adapter<HomeSecondAdapter.Ho
 
     @Override
     public int getItemCount() {
-        if (productList != null) return productList.size();
+        if (categoryList != null) return categoryList.size();
         return 0;
     }
 

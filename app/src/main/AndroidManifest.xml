@@ -143,10 +143,10 @@
             android:name=".customer.activity.OderActivity"
             android:exported="false" />
         <activity
-            android:name=".customer.activity.MenuActivity"
+            android:name=".customer.activity.StoreMenuActivity"
             android:exported="false" />
         <activity
-            android:name=".customer.activity.ProductListActivity"
+            android:name=".customer.activity.StoreListActivity"
             android:exported="false" />
         <activity
             android:name=".customer.activity.HomeActivity"

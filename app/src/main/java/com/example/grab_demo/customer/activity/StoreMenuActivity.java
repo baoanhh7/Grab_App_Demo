@@ -11,15 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.customer.adapter.Home.HomeVoucherAdapter;
-import com.example.grab_demo.m_interface.IClickItem;
-import com.example.grab_demo.model.Product;
+import com.example.grab_demo.m_interface.StClickItem;
+import com.example.grab_demo.model.Category;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class MenuActivity extends AppCompatActivity {
+public class StoreMenuActivity extends AppCompatActivity {
     RecyclerView rcv_menu;
-    List<Product> productList;
+    List<Category> categoryList;
     HomeVoucherAdapter homeVoucherAdapter;
     ImageButton btn_back;
 
@@ -42,23 +42,23 @@ public class MenuActivity extends AppCompatActivity {
             }
         });
 
-        homeVoucherAdapter.setOnClickItemListener(new IClickItem() {
+        homeVoucherAdapter.setOnClickItemListener(new StClickItem() {
             @Override
             public void onClickItem(String data) {
-                Intent intent = new Intent(MenuActivity.this, OderActivity.class);
+                Intent intent = new Intent(StoreMenuActivity.this, OderActivity.class);
                 startActivity(intent);
             }
         });
     }
 
     private void createData() {
-        productList.clear();
-        productList.add(new Product("Cơm Sườn Phúc Lộc Thọ & 1 Món", R.drawable.comsuon));
-        productList.add(new Product("Cơm Sườn Phúc Lộc Thọ & 2 Món", R.drawable.comsuon));
-        productList.add(new Product("Cơm Sườn Phúc Lộc Thọ & 3 Món", R.drawable.comsuon));
-        productList.add(new Product("Cơm Sườn Phúc Lộc Thọ & 4 Món", R.drawable.comsuon));
-        productList.add(new Product("Cơm Sườn Phúc Lộc Thọ & 5 Món", R.drawable.comsuon));
-        productList.add(new Product("Cơm Sườn Phúc Lộc Thọ & 6 Món", R.drawable.comsuon));
+        categoryList.clear();
+        categoryList.add(new Category("Cơm Sườn Phúc Lộc Thọ & 1 Món", R.drawable.comsuon));
+        categoryList.add(new Category("Cơm Sườn Phúc Lộc Thọ & 2 Món", R.drawable.comsuon));
+        categoryList.add(new Category("Cơm Sườn Phúc Lộc Thọ & 3 Món", R.drawable.comsuon));
+        categoryList.add(new Category("Cơm Sườn Phúc Lộc Thọ & 4 Món", R.drawable.comsuon));
+        categoryList.add(new Category("Cơm Sườn Phúc Lộc Thọ & 5 Món", R.drawable.comsuon));
+        categoryList.add(new Category("Cơm Sườn Phúc Lộc Thọ & 6 Món", R.drawable.comsuon));
         homeVoucherAdapter.notifyDataSetChanged();
     }
 
@@ -66,8 +66,8 @@ public class MenuActivity extends AppCompatActivity {
         btn_back = findViewById(R.id.btn_back);
 
         rcv_menu = findViewById(R.id.rcv_menu);
-        productList = new ArrayList<>();
-        homeVoucherAdapter = new HomeVoucherAdapter(this, productList);
+        categoryList = new ArrayList<>();
+        homeVoucherAdapter = new HomeVoucherAdapter(this, categoryList);
         rcv_menu.setAdapter(homeVoucherAdapter);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);

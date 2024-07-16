@@ -1,5 +1,5 @@
 package com.example.grab_demo.m_interface;
 
 public interface IClickItem {
-    void onClickItem(String data);
+    void onClickItem(Integer data);
 }

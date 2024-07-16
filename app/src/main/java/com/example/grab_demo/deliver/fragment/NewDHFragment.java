@@ -27,11 +27,10 @@ import java.util.Date;
 
 public class NewDHFragment extends Fragment {
 
+    private static final String ARG_USER_ID = "user_id";
     private RecyclerView recyclerView;
     private DanhSachDonHangnewAdapter adapter;
     private ArrayList<DonHangModel> mangDonHang;
-
-    private static final String ARG_USER_ID = "user_id";
     private String userId;
 
     public static NewDHFragment newInstance(String userId) {
