@@ -10,8 +10,7 @@ import java.sql.DriverManager;
 public class ConnectionClass {
     //    private static final String DB_URL = "jdbc:jtds:sqlserver://172.31.54.212:1433;databaseName=FoodOrderingSystem";
     //private static final String DB_URL = "jdbc:jtds:sqlserver://192.168.1.3:1433;databaseName=FoodOrderingSystem";
-//    private static final String DB_URL = "jdbc:jtds:sqlserver://10.20.1.44:1433;databaseName=FoodOrderingSystem";
-    private static final String DB_URL = "jdbc:jtds:sqlserver://172.31.112.167:1433;databaseName=FoodOrderingSystem";
+    private static final String DB_URL = "jdbc:jtds:sqlserver://10.20.1.44:1433;databaseName=FoodOrderingSystem";
 
     //bao anh
     //private static final String DB_URL = "jdbc:jtds:sqlserver://192.168.1.16:1433;databaseName=FoodOrderingSystem";

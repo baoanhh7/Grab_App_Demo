@@ -18,6 +18,25 @@ import com.google.android.gms.maps.SupportMapFragment;
 
 public class HomeFragment extends Fragment {
 
+    private static final String ARG_USER_ID = "user_id";
+    private String userId;
+
+    public static HomeFragment newInstance(String userId) {
+        HomeFragment fragment = new HomeFragment();
+        Bundle args = new Bundle();
+        args.putString(ARG_USER_ID, userId);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            userId = getArguments().getString(ARG_USER_ID);
+        }
+    }
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -30,31 +49,37 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(getActivity(), MapsActivity.class);
+                    intent.putExtra("user_id", userId); // Pass user_id to MapsActivity
                     startActivity(intent);
                 }
             });
         }
+
         Button btnOpenMap = view.findViewById(R.id.btnOpenMap);
         btnOpenMap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), MapsActivity.class);
+                intent.putExtra("user_id", userId); // Pass user_id to MapsActivity
                 startActivity(intent);
             }
         });
+
         Button btnDHNew = view.findViewById(R.id.btnDHNew);
         btnDHNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openNewDHFragment(v);
+                openNewDHFragment();
             }
         });
+
         return view;
     }
 
-    public void openNewDHFragment(View view) {
+    public void openNewDHFragment() {
+        NewDHFragment newDHFragment = NewDHFragment.newInstance(userId); // Create new instance with user_id
         FragmentTransaction transaction = getFragmentManager().beginTransaction();
-        transaction.replace(R.id.fragment_container, NewDHFragment.newInstance());
+        transaction.replace(R.id.fragment_container, newDHFragment);
         transaction.addToBackStack(null);
         transaction.commit();
     }

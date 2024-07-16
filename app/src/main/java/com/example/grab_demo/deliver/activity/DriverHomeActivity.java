@@ -15,6 +15,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class DriverHomeActivity extends AppCompatActivity {
 
+    private String userId;
+
     private BottomNavigationView.OnNavigationItemSelectedListener navListener =
             new BottomNavigationView.OnNavigationItemSelectedListener() {
                 @Override
@@ -22,11 +24,11 @@ public class DriverHomeActivity extends AppCompatActivity {
                     Fragment selectedFragment = null;
 
                     if (item.getItemId() == R.id.navigation_home) {
-                        selectedFragment = new HomeFragment();
+                        selectedFragment = HomeFragment.newInstance(userId); // Pass userId
                     } else if (item.getItemId() == R.id.navigation_dashboard) {
-                        selectedFragment = new DashboardFragment();
+                        selectedFragment = DashboardFragment.newInstance(userId); // Pass userId
                     } else if (item.getItemId() == R.id.navigation_notifications) {
-                        selectedFragment = new NotificationsFragment();
+                        selectedFragment = NotificationsFragment.newInstance(userId); // Pass userId
                     }
                     if (selectedFragment != null) {
                         getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,
@@ -42,13 +44,15 @@ public class DriverHomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_driver_home);
 
+        userId = getIntent().getStringExtra("user_id");
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
         // Set HomeFragment as default
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction().replace(R.id.frame_layout,
-                    new HomeFragment()).commit();
+                    HomeFragment.newInstance(userId)).commit(); // Pass userId
         }
     }
 }
