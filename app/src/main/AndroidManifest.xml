@@ -151,6 +151,9 @@
         <activity
             android:name=".customer.activity.HomeActivity"
             android:exported="true" />
+        <activity
+            android:name=".StartActivity"
+            android:exported="true" />
     </application>
 
 </manifest>
