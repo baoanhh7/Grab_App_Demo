@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.grab_demo.R;
-import com.example.grab_demo.customer.adapter.Home.GridAdapter;
+import com.example.grab_demo.customer.adapter.GridAdapter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
