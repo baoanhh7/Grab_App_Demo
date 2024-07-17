@@ -2,6 +2,7 @@ package com.example.grab_demo.deliver.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -32,7 +33,7 @@ public class ChiTietDonHangNewActivity extends AppCompatActivity {
     private orderDetailAdapter orderDetailAdapter;
     private Button buttonAccept, buttonComplete, buttonCanceled;
     private DonHangModel donHang;
-
+    private String userId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,23 +59,26 @@ public class ChiTietDonHangNewActivity extends AppCompatActivity {
         // Nhận dữ liệu từ Intent
         Intent intent = getIntent();
         if (intent != null) {
-            DonHangModel donHang = (DonHangModel) intent.getSerializableExtra("donhang");
+            donHang = (DonHangModel) intent.getSerializableExtra("donhang");
+            userId = intent.getStringExtra("user_id"); // Nhận userId từ Intent
             if (donHang != null) {
-                // Display general information about the order
+                // Hiển thị thông tin chung về đơn hàng
                 textViewMaDonHang.setText("Mã đơn hàng: " + donHang.getOrderId());
                 textViewTrangThaiDonHang.setText("Trạng thái: " + donHang.getStatus());
 
-                // Retrieve OrderDetail list from DonHangModel
+                // Lấy danh sách OrderDetail từ DonHangModel
                 List<OrderDetail> orderDetails = donHang.getOrderDetails();
                 if (orderDetails != null && !orderDetails.isEmpty()) {
-                    // Add OrderDetail items to the list and update adapter
+                    // Thêm các orderDetail vào danh sách và cập nhật adapter
                     this.orderDetails.addAll(orderDetails);
                     orderDetailAdapter.notifyDataSetChanged();
-                    // Calculate total amount of the order
+
+                    // Tính tổng tiền của đơn hàng
                     calculateTotalAmount(orderDetails);
                 }
             }
         }
+
         // Thiết lập sự kiện click cho các nút
         buttonAccept.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,25 +112,34 @@ public class ChiTietDonHangNewActivity extends AppCompatActivity {
             Connection connection = connectionClass.conClass();
             if (connection != null) {
                 try {
-                    String query = "UPDATE Orders SET status = ? WHERE order_id = ?";
+                    String query = "UPDATE Orders SET status = ?, delivery_id = ? WHERE order_id = ?";
                     PreparedStatement preparedStatement = connection.prepareStatement(query);
                     preparedStatement.setString(1, status);
-                    preparedStatement.setInt(2, donHang.getOrderId());
+                    preparedStatement.setString(2, userId); // Truyền userId vào câu truy vấn
+                    preparedStatement.setInt(3, donHang.getOrderId());
 
-                    preparedStatement.executeUpdate();
+                    int rowsAffected = preparedStatement.executeUpdate(); // Kiểm tra số hàng bị ảnh hưởng
                     preparedStatement.close();
                     connection.close();
 
-                    Toast.makeText(ChiTietDonHangNewActivity.this, "Cập nhật trạng thái thành công", Toast.LENGTH_SHORT).show();
+                    if (rowsAffected > 0) {
+                        Toast.makeText(ChiTietDonHangNewActivity.this, "Cập nhật trạng thái thành công", Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(ChiTietDonHangNewActivity.this, "Không tìm thấy đơn hàng để cập nhật", Toast.LENGTH_SHORT).show();
+                    }
                 } catch (SQLException e) {
                     e.printStackTrace();
+                    Log.e("SQL Error", e.getMessage());
                     Toast.makeText(ChiTietDonHangNewActivity.this, "Lỗi khi cập nhật trạng thái đơn hàng", Toast.LENGTH_SHORT).show();
                 }
             } else {
+                Log.e("DB Connection", "Không thể kết nối đến cơ sở dữ liệu");
                 Toast.makeText(ChiTietDonHangNewActivity.this, "Không thể kết nối đến cơ sở dữ liệu", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
+
 
     private void calculateTotalAmount(List<OrderDetail> orderDetails) {
         BigDecimal totalAmount = BigDecimal.ZERO;

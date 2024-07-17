@@ -69,9 +69,9 @@ public class NewDHFragment extends Fragment {
             Log.d("DatabaseConnection", "Connected to database successfully");
             try {
                 // Cập nhật SQL query để lấy dữ liệu với trạng thái 'pending' hoặc 'confirmed'
-                String query = "SELECT order_id, customer_id, store_id, delivery_id, delivery_price, total_price, payment_method, status, voucher_id, created_at, updated_at FROM Orders WHERE (status = 'pending' OR status = 'confirmed') AND delivery_id = ?";
+                String query = "SELECT order_id, customer_id, store_id, delivery_id, delivery_price, total_price, payment_method, status, voucher_id, created_at, updated_at FROM Orders WHERE status = 'pending' OR status = 'confirmed'";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
-                preparedStatement.setString(1, userId); // Pass userId to query
+//                preparedStatement.setString(1, userId); // Pass userId to query
 
                 // Execute query and get the result set
                 ResultSet resultSet = preparedStatement.executeQuery();
@@ -114,7 +114,7 @@ public class NewDHFragment extends Fragment {
         }
 
         // After fetching data, update the adapter
-        adapter = new DanhSachDonHangnewAdapter(getContext(), mangDonHang);
+        adapter = new DanhSachDonHangnewAdapter(getContext(), mangDonHang, userId);
         recyclerView.setAdapter(adapter);
     }
 }

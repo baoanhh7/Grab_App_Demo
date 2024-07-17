@@ -19,10 +19,12 @@ import java.util.ArrayList;
 public class DanhSachDonHangnewAdapter extends RecyclerView.Adapter<DanhSachDonHangnewAdapter.ViewHolder> {
     private Context context;
     private ArrayList<DonHangModel> mangDonHang;
+    private String userId;
 
-    public DanhSachDonHangnewAdapter(Context context, ArrayList<DonHangModel> mangDonHang) {
+    public DanhSachDonHangnewAdapter(Context context, ArrayList<DonHangModel> mangDonHang, String userId) {
         this.context = context;
         this.mangDonHang = mangDonHang;
+        this.userId=userId;
     }
 
     @NonNull
@@ -44,6 +46,7 @@ public class DanhSachDonHangnewAdapter extends RecyclerView.Adapter<DanhSachDonH
             public void onClick(View view) {
                 Intent intent = new Intent(context, ChiTietDonHangNewActivity.class);
                 intent.putExtra("donhang", donHang);
+                intent.putExtra("user_id", userId); // Truyền userId qua Intent
                 context.startActivity(intent);
             }
         });
