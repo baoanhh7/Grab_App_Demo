@@ -15,10 +15,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
-import com.example.grab_demo.customer.adapter.Home.StoreListAdapter;
-import com.example.grab_demo.database.ConnectionClass;
+import com.example.grab_demo.customer.adapter.StoreListAdapter;
 import com.example.grab_demo.customer.m_interface.StClickItem;
 import com.example.grab_demo.customer.model.Store;
+import com.example.grab_demo.database.ConnectionClass;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -50,7 +50,7 @@ public class StoreListActivity extends AppCompatActivity {
         int cateId = getIntent().getIntExtra("cate_id", -1);  // Lấy cate_id kiểu int với giá trị mặc định là -1
         if (cateId != -1) {
             loadData(cateId);
-            loadStoreData(cateId);  // Load category data
+            loadCateData(cateId);  // Load category data
         } else {
             Log.e("ProductListActivity", "cate_id is null");
         }
@@ -107,7 +107,7 @@ public class StoreListActivity extends AppCompatActivity {
 
     }
 
-    private void loadStoreData(int cateId) {
+    private void loadCateData(int cateId) {
         ConnectionClass sql1 = new ConnectionClass();
         connection2 = sql1.conClass();
         if (connection2 != null) {

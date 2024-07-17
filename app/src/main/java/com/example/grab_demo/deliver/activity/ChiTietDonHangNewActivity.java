@@ -34,6 +34,7 @@ public class ChiTietDonHangNewActivity extends AppCompatActivity {
     private Button buttonAccept, buttonComplete, buttonCanceled;
     private DonHangModel donHang;
     private String userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -138,7 +139,6 @@ public class ChiTietDonHangNewActivity extends AppCompatActivity {
             }
         }
     }
-
 
 
     private void calculateTotalAmount(List<OrderDetail> orderDetails) {

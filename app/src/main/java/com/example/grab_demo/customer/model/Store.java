@@ -1,6 +1,8 @@
 package com.example.grab_demo.customer.model;
 
-public class Store {
+import java.io.Serializable;
+
+public class Store implements Serializable {
     private int storeId;
     private String storeName;
     private int ownerId;

@@ -19,14 +19,14 @@ import com.example.grab_demo.R;
 import com.example.grab_demo.customer.activity.CartActivity;
 import com.example.grab_demo.customer.activity.HomeActivity;
 import com.example.grab_demo.customer.activity.StoreListActivity;
-import com.example.grab_demo.customer.adapter.Home.HomeAdapter;
-import com.example.grab_demo.customer.adapter.Home.HomeSecondAdapter;
-import com.example.grab_demo.customer.adapter.Home.HomeVoucherAdapter;
-import com.example.grab_demo.customer.adapter.Home.StoreListAdapter;
-import com.example.grab_demo.database.ConnectionClass;
+import com.example.grab_demo.customer.adapter.CategoryHomeAdapter;
+import com.example.grab_demo.customer.adapter.HomeSecondAdapter;
+import com.example.grab_demo.customer.adapter.HomeVoucherAdapter;
+import com.example.grab_demo.customer.adapter.StoreListAdapter;
 import com.example.grab_demo.customer.m_interface.StClickItem;
 import com.example.grab_demo.customer.model.Category;
 import com.example.grab_demo.customer.model.Store;
+import com.example.grab_demo.database.ConnectionClass;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
     RecyclerView rcv_header, rcv_second, rcv_voucher, rcv_orderAgain;
     List<Category> filterCategory, categoryList, categoryList2, categoryListVoucher, categoryListOderAgain;
     List<Store> storeList;
-    HomeAdapter homeAdapter;
+    CategoryHomeAdapter categoryHomeAdapter;
     HomeSecondAdapter homeSecondAdapter;
     HomeVoucherAdapter homeVoucherAdapter;
     StoreListAdapter storeListAdapter;
@@ -118,7 +118,7 @@ public class HomeFragment extends Fragment {
                     byte[] cateImage = resultSet.getBytes(3);
                     categoryList.add(new Category(id, cateName, cateImage));
                 }
-                homeAdapter.notifyDataSetChanged();
+                categoryHomeAdapter.notifyDataSetChanged();
                 connection.close();
             } catch (Exception e) {
                 Log.e("Error: ", e.getMessage());
@@ -183,7 +183,7 @@ public class HomeFragment extends Fragment {
             }
         });
 
-        homeAdapter.setOnItemClick(new StClickItem() {
+        categoryHomeAdapter.setOnItemClick(new StClickItem() {
             @Override
             public void onClickItem(String data) {
                 Intent intent = new Intent(getActivity(), StoreListActivity.class);
@@ -209,7 +209,7 @@ public class HomeFragment extends Fragment {
                 filterCategory.add(category);
             }
         }
-        homeAdapter.filterList(filterCategory);
+        categoryHomeAdapter.filterList(filterCategory);
     }
 
     private void addControls() {
@@ -227,12 +227,12 @@ public class HomeFragment extends Fragment {
         rcv_voucher = view.findViewById(R.id.rcv_voucher);
         rcv_orderAgain = view.findViewById(R.id.rcv_orderAgain);
 
-        homeAdapter = new HomeAdapter(getActivity(), categoryList);
+        categoryHomeAdapter = new CategoryHomeAdapter(getActivity(), categoryList);
         homeSecondAdapter = new HomeSecondAdapter(getActivity(), categoryList2);
         homeVoucherAdapter = new HomeVoucherAdapter(getActivity(), categoryListVoucher);
         storeListAdapter = new StoreListAdapter(getActivity(), storeList);
 
-        rcv_header.setAdapter(homeAdapter);
+        rcv_header.setAdapter(categoryHomeAdapter);
         rcv_second.setAdapter(homeSecondAdapter);
         rcv_voucher.setAdapter(homeVoucherAdapter);
         rcv_orderAgain.setAdapter(storeListAdapter);

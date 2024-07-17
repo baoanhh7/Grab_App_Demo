@@ -17,6 +17,7 @@
             android:layout_height="match_parent">
 
             <ImageView
+                android:id="@+id/img_bg"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:background="@drawable/qc" />
@@ -50,6 +51,7 @@
                         android:padding="20dp">
 
                         <TextView
+                            android:id="@+id/txt_store_name"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Cơm tấm Phúc Lộc Thọ - Quận 1"
@@ -160,13 +162,13 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/ln"
                 android:layout_margin="10dp"
-                android:text="For You"
+                android:text="Dành cho bạn"
                 android:textColor="@color/black"
-                android:textSize="30sp"
+                android:textSize="25sp"
                 android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcv_menu"
+                android:id="@+id/rcv_store_menu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv" />

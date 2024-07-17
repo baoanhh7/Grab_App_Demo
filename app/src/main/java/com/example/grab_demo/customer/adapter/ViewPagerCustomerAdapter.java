@@ -1,4 +1,4 @@
-package com.example.grab_demo.customer.adapter.Home;
+package com.example.grab_demo.customer.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

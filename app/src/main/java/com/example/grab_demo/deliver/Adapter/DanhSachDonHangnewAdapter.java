@@ -24,7 +24,7 @@ public class DanhSachDonHangnewAdapter extends RecyclerView.Adapter<DanhSachDonH
     public DanhSachDonHangnewAdapter(Context context, ArrayList<DonHangModel> mangDonHang, String userId) {
         this.context = context;
         this.mangDonHang = mangDonHang;
-        this.userId=userId;
+        this.userId = userId;
     }
 
     @NonNull

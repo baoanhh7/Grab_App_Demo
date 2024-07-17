@@ -1,4 +1,4 @@
-package com.example.grab_demo.customer.adapter.Home;
+package com.example.grab_demo.customer.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -15,16 +15,16 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.customer.m_interface.StClickItem;
-import com.example.grab_demo.customer.model.Store;
+import com.example.grab_demo.customer.model.Item;
 
 import java.util.List;
 
-public class StoreListAdapter extends RecyclerView.Adapter<StoreListAdapter.HomeViewHolder> {
+public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.HomeViewHolder> {
     Context context;
-    List<Store> storeList;
+    List<Item> storeList;
     private StClickItem stClickItem;
 
-    public StoreListAdapter(Context context, List<Store> storeList) {
+    public MenuItemAdapter(Context context, List<Item> storeList) {
         this.context = context;
         this.storeList = storeList;
     }
@@ -36,31 +36,30 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListAdapter.Home
     @NonNull
     @Override
     public HomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_store_list, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_menu_items, parent, false);
         return new HomeViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
-        Store store = storeList.get(position);
-        byte[] img = store.getImage();
+        Item item = storeList.get(position);
+        byte[] img = item.getImage();
 
-        holder.txt_name.setText(store.getStoreName());
-        holder.txt_status.setText(store.getStatus());
-        holder.txt_address.setText(store.getAddress());
+        holder.txt_name.setText(item.getItemName());
+        holder.txt_price.setText(String.valueOf(item.getPrice()));
 
         if (img != null) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
             holder.img.setImageBitmap(bitmap);
         } else {
-            Log.e("HomeAdapter", "Items array is null");
+            Log.e("MenuItemAdapter", "Items array is null");
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (stClickItem != null) {
-                    stClickItem.onClickItem(storeList.get(position).getStoreName());
+                    stClickItem.onClickItem(storeList.get(position).getItemName());
                 }
             }
         });
@@ -74,15 +73,14 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListAdapter.Home
 
     public class HomeViewHolder extends RecyclerView.ViewHolder {
         ImageView img;
-        TextView txt_name, txt_status, txt_address;
+        TextView txt_name, txt_price;
 
         public HomeViewHolder(@NonNull View itemView) {
             super(itemView);
 
             img = itemView.findViewById(R.id.img);
             txt_name = itemView.findViewById(R.id.txt_name);
-            txt_status = itemView.findViewById(R.id.txt_status);
-            txt_address = itemView.findViewById(R.id.txt_address);
+            txt_price = itemView.findViewById(R.id.txt_price);
         }
     }
 }

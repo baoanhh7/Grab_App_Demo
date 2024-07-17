@@ -14,7 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.grab_demo.R;
-import com.example.grab_demo.customer.adapter.Home.ViewPagerCustomerAdapter;
+import com.example.grab_demo.customer.adapter.ViewPagerCustomerAdapter;
 import com.example.grab_demo.customer.fragment.HomeFragment;
 import com.example.grab_demo.database.ConnectionClass;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
