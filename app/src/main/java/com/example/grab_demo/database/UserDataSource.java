@@ -69,7 +69,6 @@ public class UserDataSource {
                 user.setUsername(resultSet.getString("username"));
                 user.setPassword(resultSet.getString("password"));
                 user.setEmail(resultSet.getString("email"));
-                user.setPhoneNumber(resultSet.getString("phone"));
                 Log.d(TAG, "User found: " + user.getUsername());
             } else {
                 Log.d(TAG, "No user found for userId: " + userId);

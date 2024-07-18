@@ -32,15 +32,6 @@
         app:layout_constraintTop_toBottomOf="@id/profilePicture" />
 
     <!-- Birthday EditText -->
-    <EditText
-        android:id="@+id/birthdayEditText"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:hint="Birthday"
-        android:inputType="date"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/nameEditText" />
 
     <!-- Phone EditText -->
     <EditText
@@ -51,7 +42,7 @@
         android:inputType="phone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/birthdayEditText" />
+        app:layout_constraintTop_toBottomOf="@id/nameEditText" />
 
     <!-- Email EditText -->
     <EditText

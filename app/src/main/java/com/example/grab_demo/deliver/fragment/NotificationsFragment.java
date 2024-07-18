@@ -25,6 +25,8 @@ public class NotificationsFragment extends Fragment {
     private TextView phoneNumberTextView;
     private TextView emailTextView;
     private TextView passwordTextView;
+    private Button editProfileButton;
+    private Button ButtonThongkedoanhthu;
 
     public static NotificationsFragment newInstance(String userId) {
         NotificationsFragment fragment = new NotificationsFragment();
@@ -52,14 +54,29 @@ public class NotificationsFragment extends Fragment {
         phoneNumberTextView = view.findViewById(R.id.phoneNumberTextView);
         emailTextView = view.findViewById(R.id.emailTextView);
         passwordTextView = view.findViewById(R.id.passwordTextView);
-
+        ButtonThongkedoanhthu = view.findViewById(R.id.ButtonThongkedoanhthu);
         Button editProfileButton = view.findViewById(R.id.editProfileButton);
         editProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), EditProfileActivity.class);
-                intent.putExtra("user_id", userId);
-                startActivity(intent);
+                if (userId != null && !userId.isEmpty()) {
+                    UserModel user = UserDataSource.getUserById(getContext(), userId);
+                    if (user != null) {
+                        Intent intent = new Intent(getActivity(), EditProfileActivity.class);
+                        intent.putExtra("user_id", userId);
+                        intent.putExtra("username", user.getUsername());
+                        intent.putExtra("phone_number", user.getPhoneNumber());
+                        intent.putExtra("email", user.getEmail());
+                        // Lưu ý: Chúng ta không truyền mật khẩu vì lý do bảo mật
+                        startActivity(intent);
+                    } else {
+                        // Xử lý trường hợp không tìm thấy dữ liệu người dùng
+                        // Bạn có thể hiển thị một thông báo toast hoặc hộp thoại cảnh báo
+                    }
+                } else {
+                    // Xử lý trường hợp userId là null hoặc rỗng
+                    // Bạn có thể hiển thị một thông báo toast hoặc hộp thoại cảnh báo
+                }
             }
         });
 

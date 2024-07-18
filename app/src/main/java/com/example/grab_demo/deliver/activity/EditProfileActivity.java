@@ -13,7 +13,7 @@ import com.example.grab_demo.database.UserDataSource;
 import com.example.grab_demo.model.UserModel;
 
 public class EditProfileActivity extends AppCompatActivity {
-    private EditText nameEditText, birthdayEditText, phoneEditText, emailEditText, passwordEditText;
+    private EditText nameEditText, phoneEditText, emailEditText, passwordEditText;
     private Button acceptButton;
 
     @Override
@@ -23,7 +23,6 @@ public class EditProfileActivity extends AppCompatActivity {
 
         // Initialize views
         nameEditText = findViewById(R.id.nameEditText);
-        birthdayEditText = findViewById(R.id.birthdayEditText);
         phoneEditText = findViewById(R.id.phoneEditText);
         emailEditText = findViewById(R.id.emailEditText);
         passwordEditText = findViewById(R.id.passwordEditText);
@@ -39,31 +38,50 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void updateUserProfile() {
-        // Get text from EditText fields
-        String name = nameEditText.getText().toString().trim();
-        String birthday = birthdayEditText.getText().toString().trim();
-        String phone = phoneEditText.getText().toString().trim();
-        String email = emailEditText.getText().toString().trim();
-        String password = passwordEditText.getText().toString().trim();
+        if (!isInputValid()) {
+            return;
+        }
+        String userId = getIntent().getStringExtra("user_id");
 
-        // Create a new UserModel object
+        // Lấy dữ liệu mới từ các trường EditText
+        String newUsername = nameEditText.getText().toString().trim();
+        String newPhoneNumber = phoneEditText.getText().toString().trim();
+        String newEmail = emailEditText.getText().toString().trim();
+        String newPassword = passwordEditText.getText().toString().trim();
+
+        // Tạo đối tượng UserModel mới với dữ liệu cập nhật
         UserModel user = new UserModel();
-        user.setUsername(name);
-        user.setPhoneNumber(phone);
-        user.setEmail(email);
-        user.setPassword(password);
-        // Set other fields accordingly (address, rating, userType, etc.)
+        user.setUserId(Integer.parseInt(userId));
+        user.setUsername(newUsername);
+        user.setPhoneNumber(newPhoneNumber);
+        user.setEmail(newEmail);
+        user.setPassword(newPassword);
 
-        // Example of updating user profile in database using UserDataSource
+        // Cập nhật hồ sơ người dùng trong cơ sở dữ liệu
         UserDataSource userDataSource = new UserDataSource(EditProfileActivity.this);
         boolean updated = userDataSource.updateUserProfile(user);
 
         if (updated) {
-            Toast.makeText(EditProfileActivity.this, "Profile updated successfully", Toast.LENGTH_SHORT).show();
-            // Optionally, you can finish the activity or navigate to another screen
-            // finish();
+            Toast.makeText(EditProfileActivity.this, "Hồ sơ đã được cập nhật thành công", Toast.LENGTH_SHORT).show();
+            finish(); // Kết thúc activity sau khi cập nhật thành công
         } else {
-            Toast.makeText(EditProfileActivity.this, "Failed to update profile", Toast.LENGTH_SHORT).show();
+            Toast.makeText(EditProfileActivity.this, "Không thể cập nhật hồ sơ", Toast.LENGTH_SHORT).show();
         }
+    }
+    private boolean isInputValid() {
+        if (nameEditText.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "Vui lòng nhập tên", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (phoneEditText.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "Vui lòng nhập số điện thoại", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        if (emailEditText.getText().toString().trim().isEmpty()) {
+            Toast.makeText(this, "Vui lòng nhập email", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        // Thêm các kiểm tra hợp lệ khác nếu cần
+        return true;
     }
 }
