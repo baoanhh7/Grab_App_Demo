@@ -1,9 +1,14 @@
 package com.example.grab_demo.customer.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,13 +20,17 @@ import com.example.grab_demo.customer.model.Item;
 import com.example.grab_demo.database.ConnectionClass;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 public class CartActivity extends AppCompatActivity {
+    private static final long REFRESH_INTERVAL = 1000; // 1s
+
     Connection connection, connection2;
     String query, query2;
     Statement smt, smt2;
@@ -30,10 +39,17 @@ public class CartActivity extends AppCompatActivity {
     RecyclerView rcv_cart;
     List<Item> itemList;
     ListOrderAdapter itemAdapter;
-
     ImageView img_back;
-
+    TextView txt_name_voucher, txt_orderMoney, txt_shipMoney, txt_voucher, txt_totalMoney;
+    Button btn_orderNow;
     int itemId;
+    double orderMoney = 0.0;
+    double shipMoney = 0.0;
+    double voucher = 0.0;
+    double totalMoney = 0.0;
+    String userId;
+    private Handler handler;
+    private Runnable refreshRunnable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,15 +58,38 @@ public class CartActivity extends AppCompatActivity {
 
         addControls();
 
-        itemId = getIntent().getIntExtra("item_id", -1);  // Lấy cate_id kiểu int với giá trị mặc định là -1
         if (itemId != -1) {
+            itemId = getIntent().getIntExtra("item_id", -1);  // Lấy cate_id kiểu int với giá trị mặc định là -1
         } else {
             Log.e("CartActivity", "item_id is null");
         }
 
-        loadData();
+        userId = getIntent().getStringExtra("user_id");
 
         addEvents();
+
+        if (itemId == -1) {
+            Log.e("CartActivity", "item_id is null");
+        }
+
+        handler = new Handler(Looper.getMainLooper());
+        refreshRunnable = new Runnable() {
+            @Override
+            public void run() {
+                loadData();
+                handler.postDelayed(this, REFRESH_INTERVAL);
+            }
+        };
+    }
+
+    private void startAutoRefresh() {
+        handler.postDelayed(refreshRunnable, REFRESH_INTERVAL);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
     }
 
     private void loadData() {
@@ -58,22 +97,31 @@ public class CartActivity extends AppCompatActivity {
         connection = sql.conClass();
         if (connection != null) {
             try {
-                query = "SELECT Items.item_id, Items.item_name, Items.price, Items.image FROM CartItems " +
+                query = "SELECT Items.item_id, Items.item_name, Items.price, Items.image, CartItems.quantity FROM CartItems " +
                         "JOIN Items ON CartItems.item_id = Items.item_id " +
                         "WHERE CartItems.cart_id = 1"; // Sử dụng cart_id thật của bạn
                 smt = connection.createStatement();
                 resultSet = smt.executeQuery(query);
 
                 itemList.clear();
+                orderMoney = 0.0; // Reset orderMoney
+
                 while (resultSet.next()) {
                     int itemId = resultSet.getInt(1);
                     String itemName = resultSet.getString(2);
                     double price = resultSet.getDouble(3);
                     byte[] image = resultSet.getBytes(4);
-                    itemList.add(new Item(itemId, itemName, price, image));
+                    int quantity = resultSet.getInt(5);
+
+                    orderMoney += price * quantity; // Tính toán Order Money
+
+                    itemList.add(new Item(itemId, itemName, price, image, quantity));
                 }
                 itemAdapter.notifyDataSetChanged();
                 connection.close();
+
+                calculateTotalMoney(); // Tính toán tổng tiền
+
             } catch (Exception e) {
                 Log.e("Error: ", Objects.requireNonNull(e.getMessage()));
             }
@@ -82,6 +130,25 @@ public class CartActivity extends AppCompatActivity {
         }
     }
 
+    private void calculateTotalMoney() {
+        // Giả sử giá trị shipMoney và voucher
+        shipMoney = 23000;
+        voucher = 50000;
+
+        // Tính toán Total Money
+        totalMoney = orderMoney + shipMoney - voucher;
+
+        // Cập nhật giao diện người dùng trên UI thread
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                txt_orderMoney.setText(String.valueOf(orderMoney));
+                txt_shipMoney.setText(String.valueOf(shipMoney));
+                txt_voucher.setText(String.valueOf(voucher));
+                txt_totalMoney.setText(String.valueOf(totalMoney));
+            }
+        });
+    }
 
     private void addEvents() {
         img_back.setOnClickListener(new View.OnClickListener() {
@@ -90,11 +157,135 @@ public class CartActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        btn_orderNow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                insertDataToOrder(userId);
+//                clearCartItems(); // Xóa các item trong CartItems
+                Toast.makeText(CartActivity.this, "Order successfully!", Toast.LENGTH_SHORT).show();
+                // Xóa dữ liệu trong CartItems
+//                itemList.clear();
+//                itemAdapter.notifyDataSetChanged();
+                finish();
+            }
+        });
+    }
+
+    private void clearCartItems() {
+        ConnectionClass sql = new ConnectionClass();
+        Connection connection = sql.conClass();
+
+        if (connection != null) {
+            try {
+                String deleteQuery = "DELETE FROM CartItems WHERE cart_id = 1"; // Sử dụng cart_id thật của bạn
+                PreparedStatement deleteStmt = connection.prepareStatement(deleteQuery);
+                int rowsAffected = deleteStmt.executeUpdate();
+                if (rowsAffected > 0) {
+                    Log.d("CartActivity", "Cart items cleared successfully");
+                } else {
+                    Log.e("CartActivity", "Failed to clear cart items");
+                }
+            } catch (SQLException e) {
+                Log.e("Error: ", Objects.requireNonNull(e.getMessage()));
+            } finally {
+                try {
+                    if (connection != null && !connection.isClosed()) {
+                        connection.close();
+                    }
+                } catch (SQLException e) {
+                    Log.e("Error: ", Objects.requireNonNull(e.getMessage()));
+                }
+            }
+        } else {
+            Log.e("Error: ", "Connection null");
+        }
+    }
+
+
+    private void insertDataToOrder(String userId) {
+        ConnectionClass sql = new ConnectionClass();
+        connection2 = sql.conClass();
+
+        if (connection2 != null) {
+            try {
+                // Kiểm tra và xử lý userId
+                if (userId == null || userId.isEmpty()) {
+                    Log.e("CartActivity", "UserId is null or empty");
+                    return;
+                }
+                int customerId;
+                try {
+                    customerId = Integer.parseInt(userId);
+                } catch (NumberFormatException e) {
+                    Log.e("CartActivity", "Invalid userId format: " + e.getMessage());
+                    return;
+                }
+
+                // Kiểm tra và xử lý txt_shipMoney
+                String shipMoneyText = txt_shipMoney.getText().toString();
+                double deliveryPrice;
+                try {
+                    deliveryPrice = Double.parseDouble(shipMoneyText);
+                } catch (NumberFormatException e) {
+                    Log.e("CartActivity", "Invalid ship money format: " + e.getMessage());
+                    return;
+                }
+
+                // Kiểm tra và xử lý txt_totalMoney
+                String totalMoneyText = txt_totalMoney.getText().toString();
+                double totalPrice;
+                try {
+                    totalPrice = Double.parseDouble(totalMoneyText);
+                } catch (NumberFormatException e) {
+                    Log.e("CartActivity", "Invalid total money format: " + e.getMessage());
+                    return;
+                }
+
+                // Chuẩn bị và thực hiện câu lệnh SQL
+                query2 = "INSERT INTO Orders (customer_id, store_id, delivery_price, total_price, payment_method, voucher_id, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement insertStmt = connection2.prepareStatement(query2);
+                insertStmt.setInt(1, customerId);
+                insertStmt.setInt(2, 2);
+                insertStmt.setDouble(3, deliveryPrice);
+                insertStmt.setDouble(4, totalPrice);
+                insertStmt.setString(5, "cash");
+                insertStmt.setInt(6, 3);
+                insertStmt.setString(7, "pending");
+
+                int rowsAffected = insertStmt.executeUpdate();
+                if (rowsAffected > 0) {
+                    Log.d("CartActivity", "Insert successfully");
+                } else {
+                    Log.e("CartActivity", "Insert failed");
+                }
+            } catch (SQLException e) {
+                Log.e("Error: ", Objects.requireNonNull(e.getMessage()));
+            } finally {
+                try {
+                    if (connection2 != null && !connection2.isClosed()) {
+                        connection2.close();
+                    }
+                } catch (SQLException e) {
+                    Log.e("Error: ", Objects.requireNonNull(e.getMessage()));
+                }
+            }
+        } else {
+            Log.e("Error: ", "Connection null");
+        }
     }
 
 
     private void addControls() {
+        txt_name_voucher = findViewById(R.id.txt_name_voucher);
+        txt_orderMoney = findViewById(R.id.txt_orderMoney);
+        txt_shipMoney = findViewById(R.id.txt_shipMoney);
+        txt_voucher = findViewById(R.id.txt_voucher);
+        txt_totalMoney = findViewById(R.id.txt_totalMoney);
+
         img_back = findViewById(R.id.img_back);
+        btn_orderNow = findViewById(R.id.btn_orderNow);
+
         rcv_cart = findViewById(R.id.rcv_cart);
         itemList = new ArrayList<>();
         itemAdapter = new ListOrderAdapter(this, itemList);
@@ -106,8 +297,15 @@ public class CartActivity extends AppCompatActivity {
 
     @Override
     protected void onResume() {
-        loadData();
+        loadData(); // Tải dữ liệu khi Activity được hiển thị
 
         super.onResume();
+        startAutoRefresh(); // Bắt đầu làm mới tự động
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        handler.removeCallbacks(refreshRunnable); // Ngừng làm mới khi Activity không còn hiển thị
     }
 }

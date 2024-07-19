@@ -35,6 +35,14 @@ public class Item implements Serializable {
         this.image = image;
     }
 
+    public Item(int itemId, String itemName, double price, byte[] image, int quantity) {
+        this.itemId = itemId;
+        this.itemName = itemName;
+        this.price = price;
+        this.image = image;
+        this.quantity = quantity;
+    }
+
     // Getters and Setters
     public int getItemId() {
         return itemId;

@@ -196,7 +196,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
                 android:backgroundTint="@color/cam"
-                android:text="Add to Basket" />
+                android:text="Add to Cart" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

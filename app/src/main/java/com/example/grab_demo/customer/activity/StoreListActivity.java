@@ -38,7 +38,7 @@ public class StoreListActivity extends AppCompatActivity {
     StoreListAdapter storeListAdapter;
     ImageButton btn_back;
     TextView txt_title;
-    ImageView img_bg;
+    ImageView img_bg, img_cart;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +65,15 @@ public class StoreListActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        img_cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(StoreListActivity.this, CartActivity.class);
+                startActivity(intent);
+            }
+        });
+
         storeListAdapter.setOnClickItemListener(new StClickItem() {
             @Override
             public void onClickItem(String data) {
@@ -140,6 +149,7 @@ public class StoreListActivity extends AppCompatActivity {
         btn_back = findViewById(R.id.btn_back);
         txt_title = findViewById(R.id.txt_title);
         img_bg = findViewById(R.id.img_bg);
+        img_cart = findViewById(R.id.img_cart);
 
         rcv_productList = findViewById(R.id.rcv_productList);
         storeList = new ArrayList<>();

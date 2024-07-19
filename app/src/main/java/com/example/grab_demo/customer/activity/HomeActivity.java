@@ -43,8 +43,6 @@ public class HomeActivity extends AppCompatActivity {
         // Nhận user_id từ intent
         userId = getIntent().getStringExtra("user_id");
         Log.d("HomeActivity", "Received user_id: " + userId);
-        // Lấy chỉ số fragment từ intent
-//        sendDatatoFragment();
 
 //        addDataToDatabase();
         addEvents();

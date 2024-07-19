@@ -43,7 +43,7 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcv_cart"
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="350dp"
                 android:layout_margin="10dp" />
 
             <LinearLayout
@@ -117,7 +117,7 @@
                             android:textSize="20sp" />
 
                         <TextView
-                            android:id="@+id/txt_oderMoney"
+                            android:id="@+id/txt_orderMoney"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:gravity="right"
@@ -212,6 +212,7 @@
             </androidx.cardview.widget.CardView>
 
             <Button
+                android:id="@+id/btn_orderNow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"

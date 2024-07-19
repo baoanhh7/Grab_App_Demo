@@ -166,6 +166,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), CartActivity.class);
+                intent.putExtra("user_id", userId);
                 startActivity(intent);
             }
         });

@@ -96,10 +96,9 @@ public class OrderActivity extends AppCompatActivity {
         btn_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent intent = new Intent(OrderActivity.this, CartActivity.class);
-//                intent.putExtra("item_id", itemId);
                 insertDataToCart(itemId);
                 Toast.makeText(OrderActivity.this, "Add to cart successfully!", Toast.LENGTH_SHORT).show();
+                finish();
             }
         });
     }
@@ -109,20 +108,44 @@ public class OrderActivity extends AppCompatActivity {
         connection2 = sql.conClass();
         if (connection2 != null) {
             try {
-                int quantity = 1;
+                // Kiểm tra xem item có tồn tại trong CartItems chưa
+                query2 = "SELECT quantity FROM CartItems WHERE cart_id = ? AND item_id = ?";
+                PreparedStatement checkStmt = connection2.prepareStatement(query2);
+                checkStmt.setInt(1, 1);  // Giả sử cart_id là 1, bạn có thể thay đổi giá trị này theo yêu cầu của bạn
+                checkStmt.setInt(2, itemId);
 
-                // Câu lệnh INSERT vào các cột mới trong bảng CartItems
-                query2 = "INSERT INTO CartItems (cart_id, item_id, quantity) VALUES (?, ?, ?)";
-                PreparedStatement preparedStatement = connection2.prepareStatement(query2);
-                preparedStatement.setInt(1, 1);  // Giả sử cart_id là 1, bạn có thể thay đổi giá trị này theo yêu cầu của bạn
-                preparedStatement.setInt(2, itemId);
-                preparedStatement.setInt(3, quantity);
+                ResultSet resultSet = checkStmt.executeQuery();
+                if (resultSet.next()) {
+                    // Nếu item đã tồn tại, cập nhật quantity
+                    int currentQuantity = resultSet.getInt("quantity");
+                    int newQuantity = currentQuantity + 1;
 
-                int rowsAffected = preparedStatement.executeUpdate();
-                if (rowsAffected > 0) {
-                    Log.d("OrderActivity", "Insert successfully");
+                    query2 = "UPDATE CartItems SET quantity = ? WHERE cart_id = ? AND item_id = ?";
+                    PreparedStatement updateStmt = connection2.prepareStatement(query2);
+                    updateStmt.setInt(1, newQuantity);
+                    updateStmt.setInt(2, 1);  // cart_id
+                    updateStmt.setInt(3, itemId);
+
+                    int rowsAffected = updateStmt.executeUpdate();
+                    if (rowsAffected > 0) {
+                        Log.d("OrderActivity", "Update successfully");
+                    } else {
+                        Log.e("OrderActivity", "Update failed");
+                    }
                 } else {
-                    Log.e("OrderActivity", "Insert failed");
+                    // Nếu item chưa tồn tại, chèn vào bảng với số lượng là 1
+                    query2 = "INSERT INTO CartItems (cart_id, item_id, quantity) VALUES (?, ?, ?)";
+                    PreparedStatement insertStmt = connection2.prepareStatement(query2);
+                    insertStmt.setInt(1, 1);  // cart_id
+                    insertStmt.setInt(2, itemId);
+                    insertStmt.setInt(3, 1);  // quantity là 1
+
+                    int rowsAffected = insertStmt.executeUpdate();
+                    if (rowsAffected > 0) {
+                        Log.d("OrderActivity", "Insert successfully");
+                    } else {
+                        Log.e("OrderActivity", "Insert failed");
+                    }
                 }
 
                 connection2.close();
