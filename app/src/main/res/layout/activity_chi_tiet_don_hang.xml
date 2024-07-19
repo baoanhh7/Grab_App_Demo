@@ -1,58 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".deliver.activity.ChiTietDonHangActivity">
+    android:layout_height="match_parent">
 
-    <ImageView
-        android:id="@+id/imageViewHinhMonAn"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:scaleType="centerCrop"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:src="@tools:sample/backgrounds/scenic" />
-
-    <TextView
-        android:id="@+id/textViewTenDonHang"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Tên đơn hàng"
-        android:textColor="#000"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewHinhMonAn" />
-
+    <!-- TextViews for displaying order information -->
     <TextView
         android:id="@+id/textViewMaDonHang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
         android:text="Mã đơn hàng"
-        android:textColor="#666"
-        android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewTenDonHang" />
+        android:textSize="18sp" />
 
-    <Button
-        android:id="@+id/buttonBack"
+    <TextView
+        android:id="@+id/textViewTrangThaiDonHang"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/textViewMaDonHang"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
-        android:text="Quay lại"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewMaDonHang" />
+        android:text="Trạng thái"
+        android:textSize="18sp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <TextView
+        android:id="@+id/textViewTongTien"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewTrangThaiDonHang"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:text="Tổng tiền"
+        android:textSize="18sp" />
+
+    <!-- RecyclerView to display order details -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerViewOrderDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textViewTongTien"
+        android:layout_marginTop="16dp" />
+</RelativeLayout>

@@ -21,6 +21,7 @@ import com.example.grab_demo.model.OrderDetail;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -49,34 +50,24 @@ public class ChiTietDonHangNewActivity extends AppCompatActivity {
         buttonComplete = findViewById(R.id.buttonComplete);
         buttonCanceled = findViewById(R.id.buttoncanceled);
 
-        // Khởi tạo danh sách orderDetails và adapter
+        // Khởi tạo danh sách orderDetails
         orderDetails = new ArrayList<>();
-        orderDetailAdapter = new orderDetailAdapter(this, orderDetails);
 
-        // Thiết lập RecyclerView và adapter
+        // Thiết lập RecyclerView
         recyclerViewOrderDetails.setLayoutManager(new LinearLayoutManager(this));
-        recyclerViewOrderDetails.setAdapter(orderDetailAdapter);
 
         // Nhận dữ liệu từ Intent
         Intent intent = getIntent();
         if (intent != null) {
             donHang = (DonHangModel) intent.getSerializableExtra("donhang");
-            userId = intent.getStringExtra("user_id"); // Nhận userId từ Intent
+            userId = intent.getStringExtra("user_id");
             if (donHang != null) {
                 // Hiển thị thông tin chung về đơn hàng
                 textViewMaDonHang.setText("Mã đơn hàng: " + donHang.getOrderId());
                 textViewTrangThaiDonHang.setText("Trạng thái: " + donHang.getStatus());
 
-                // Lấy danh sách OrderDetail từ DonHangModel
-                List<OrderDetail> orderDetails = donHang.getOrderDetails();
-                if (orderDetails != null && !orderDetails.isEmpty()) {
-                    // Thêm các orderDetail vào danh sách và cập nhật adapter
-                    this.orderDetails.addAll(orderDetails);
-                    orderDetailAdapter.notifyDataSetChanged();
-
-                    // Tính tổng tiền của đơn hàng
-                    calculateTotalAmount(orderDetails);
-                }
+                // Truy vấn chi tiết đơn hàng
+                loadOrderDetails(donHang.getOrderId());
             }
         }
 
@@ -139,15 +130,67 @@ public class ChiTietDonHangNewActivity extends AppCompatActivity {
             }
         }
     }
+// Tính tổng giá đơn hàng thì hệ thống bên người dùng tính hay là nên để hệ thống driver tính tổng giá + phí ship rồi cập nhật database để hiển thị lên đơn hàng
+    private void loadOrderDetails(int orderId) {
+        ConnectionClass connectionClass = new ConnectionClass();
+        Connection connection = connectionClass.conClass();
+        if (connection != null) {
+            try {
+                String query = "SELECT od.order_detail_id, od.order_id, od.item_id, od.quantity, od.price, i.item_name " +
+                        "FROM OrderDetails od " +
+                        "JOIN Items i ON od.item_id = i.item_id " +
+                        "WHERE od.order_id = ?";
+                Log.d("SQL Query", query);
 
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setInt(1, orderId);
 
-    private void calculateTotalAmount(List<OrderDetail> orderDetails) {
-        BigDecimal totalAmount = BigDecimal.ZERO;
-        for (OrderDetail detail : orderDetails) {
-            BigDecimal price = detail.getPrice();
-            int quantity = detail.getQuantity();
-            totalAmount = totalAmount.add(price.multiply(BigDecimal.valueOf(quantity)));
+                Log.d("OrderID", "Loading details for order ID: " + orderId);
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+
+                orderDetails.clear();
+                BigDecimal totalAmount = BigDecimal.ZERO;
+
+                while (resultSet.next()) {
+                    int orderDetailId = resultSet.getInt("order_detail_id");
+                    int itemId = resultSet.getInt("item_id");
+                    int quantity = resultSet.getInt("quantity");
+                    BigDecimal price = resultSet.getBigDecimal("price");
+                    String itemName = resultSet.getString("item_name");
+
+                    Log.d("Order Detail", "ID: " + orderDetailId + ", Item: " + itemName + ", Quantity: " + quantity + ", Price: " + price);
+
+                    OrderDetail orderDetail = new OrderDetail(orderDetailId, orderId, itemId, quantity, price, itemName);
+                    orderDetails.add(orderDetail);
+
+                    totalAmount = totalAmount.add(price.multiply(BigDecimal.valueOf(Integer.valueOf( 5000))));//
+                }
+
+                if (orderDetails.isEmpty()) {
+                    Log.d("Adapter", "No order details found");
+                } else {
+                    Log.d("Adapter", "Found " + orderDetails.size() + " order details");
+                }
+
+                orderDetailAdapter = new orderDetailAdapter(this, orderDetails);
+                recyclerViewOrderDetails.setAdapter(orderDetailAdapter);
+
+                textViewTongTien.setText(totalAmount.toString() + " VND");
+
+                resultSet.close();
+                preparedStatement.close();
+                connection.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+                Log.e("SQL Error", "Error message: " + e.getMessage());
+                Log.e("SQL Error", "SQL State: " + e.getSQLState());
+                Log.e("SQL Error", "Error Code: " + e.getErrorCode());
+                Toast.makeText(this, "Lỗi khi tải chi tiết đơn hàng: " + e.getMessage(), Toast.LENGTH_LONG).show();
+            }
+        } else {
+            Log.e("DB Connection", "Không thể kết nối đến cơ sở dữ liệu");
+            Toast.makeText(this, "Không thể kết nối đến cơ sở dữ liệu", Toast.LENGTH_SHORT).show();
         }
-        textViewTongTien.setText(totalAmount.toString() + " VND");
     }
 }
