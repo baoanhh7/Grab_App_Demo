@@ -64,6 +64,12 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListAdapter.Home
                 }
             }
         });
+
+        if (store.getStatus().equals("closed")) {
+            holder.txt_status.setTextColor(context.getResources().getColor(R.color.red));
+        } else if (store.getStatus().equals("pending")) {
+            holder.txt_status.setTextColor(context.getResources().getColor(R.color.xamnhe));
+        }
     }
 
     @Override

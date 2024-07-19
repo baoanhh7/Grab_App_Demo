@@ -19,14 +19,14 @@ import com.example.grab_demo.customer.model.Item;
 
 import java.util.List;
 
-public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.HomeViewHolder> {
+public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.HomeViewHolder> {
     Context context;
-    List<Item> storeList;
+    List<Item> itemList;
     private StClickItem stClickItem;
 
-    public MenuItemAdapter(Context context, List<Item> storeList) {
+    public ListOrderAdapter(Context context, List<Item> itemList) {
         this.context = context;
-        this.storeList = storeList;
+        this.itemList = itemList;
     }
 
     public void setOnClickItemListener(StClickItem stClickItem) {
@@ -36,30 +36,30 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.HomeVi
     @NonNull
     @Override
     public HomeViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_menu_items, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_list_order, parent, false);
         return new HomeViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull HomeViewHolder holder, int position) {
-        Item item = storeList.get(position);
-        byte[] img = item.getImage();
+        Item item = itemList.get(position);
 
         holder.txt_name.setText(item.getItemName());
         holder.txt_price.setText(String.valueOf(item.getPrice()));
+        byte[] img = item.getImage();
 
         if (img != null) {
             Bitmap bitmap = BitmapFactory.decodeByteArray(img, 0, img.length);
             holder.img.setImageBitmap(bitmap);
         } else {
-            Log.e("MenuItemAdapter", "Items array is null");
+            Log.e("ListOrderAdapter", "Items array is null");
         }
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (stClickItem != null) {
-                    stClickItem.onClickItem(String.valueOf(storeList.get(position).getItemId()));
+                    stClickItem.onClickItem(String.valueOf(item.getItemId()));
                 }
             }
         });
@@ -67,20 +67,25 @@ public class MenuItemAdapter extends RecyclerView.Adapter<MenuItemAdapter.HomeVi
 
     @Override
     public int getItemCount() {
-        if (storeList != null) return storeList.size();
+        if (itemList != null) return itemList.size();
         return 0;
     }
 
     public class HomeViewHolder extends RecyclerView.ViewHolder {
-        ImageView img;
-        TextView txt_name, txt_price;
+        TextView txt_name, txt_price, txt_count;
+        ImageView img, img_remove, img_add, img_delete;
 
         public HomeViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            img = itemView.findViewById(R.id.img);
             txt_name = itemView.findViewById(R.id.txt_name);
             txt_price = itemView.findViewById(R.id.txt_price);
+            txt_count = itemView.findViewById(R.id.txt_count);
+
+            img = itemView.findViewById(R.id.img);
+            img_remove = itemView.findViewById(R.id.img_remove);
+            img_add = itemView.findViewById(R.id.img_add);
+            img_delete = itemView.findViewById(R.id.img_delete);
         }
     }
 }

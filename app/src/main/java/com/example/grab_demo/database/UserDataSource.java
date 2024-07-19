@@ -19,30 +19,6 @@ public class UserDataSource {
         connection = connectionClass.conClass();
     }
 
-    public boolean updateUserProfile(UserModel user) {
-        boolean isSuccess = false;
-        String query = "UPDATE Users SET username=?, phone_number=?, email=?, password=? WHERE user_id=?";
-        try {
-            PreparedStatement preparedStatement = connection.prepareStatement(query);
-            preparedStatement.setString(1, user.getUsername());
-            preparedStatement.setString(2, user.getPhoneNumber());
-            preparedStatement.setString(3, user.getEmail());
-            preparedStatement.setString(4, user.getPassword());
-            preparedStatement.setInt(5, user.getUserId());
-
-            int rowsAffected = preparedStatement.executeUpdate();
-            if (rowsAffected > 0) {
-                Log.d(TAG, "User profile updated successfully");
-                isSuccess = true;
-            } else {
-                Log.d(TAG, "Failed to update user profile");
-            }
-        } catch (SQLException e) {
-            Log.e(TAG, "SQL Exception: " + e.getMessage());
-        }
-        return isSuccess;
-    }
-
     public static UserModel getUserById(Context context, String userId) {
         UserModel user = null;
         Connection connection = null;
@@ -85,5 +61,29 @@ public class UserDataSource {
             }
         }
         return user;
+    }
+
+    public boolean updateUserProfile(UserModel user) {
+        boolean isSuccess = false;
+        String query = "UPDATE Users SET username=?, phone_number=?, email=?, password=? WHERE user_id=?";
+        try {
+            PreparedStatement preparedStatement = connection.prepareStatement(query);
+            preparedStatement.setString(1, user.getUsername());
+            preparedStatement.setString(2, user.getPhoneNumber());
+            preparedStatement.setString(3, user.getEmail());
+            preparedStatement.setString(4, user.getPassword());
+            preparedStatement.setInt(5, user.getUserId());
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                Log.d(TAG, "User profile updated successfully");
+                isSuccess = true;
+            } else {
+                Log.d(TAG, "Failed to update user profile");
+            }
+        } catch (SQLException e) {
+            Log.e(TAG, "SQL Exception: " + e.getMessage());
+        }
+        return isSuccess;
     }
 }

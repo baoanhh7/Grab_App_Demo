@@ -28,7 +28,8 @@ public class Item implements Serializable {
         this.updatedAt = updatedAt;
     }
 
-    public Item(String itemName, double price, byte[] image) {
+    public Item(int itemId, String itemName, double price, byte[] image) {
+        this.itemId = itemId;
         this.itemName = itemName;
         this.price = price;
         this.image = image;

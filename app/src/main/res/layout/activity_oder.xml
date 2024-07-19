@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".customer.activity.OderActivity">
+    tools:context=".customer.activity.OrderActivity">
 
 
     <androidx.core.widget.NestedScrollView
@@ -40,16 +40,48 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="10dp">
+
+                <TextView
+                    android:layout_width="234dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:fontFamily="monospace"
+                    android:gravity="center|left"
+                    android:text="Tên món ăn"
+                    android:textColor="#838383"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:fontFamily="monospace"
+                    android:gravity="center|left"
+                    android:text="Giá"
+                    android:textColor="#7A7A7A"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/txt_item_name"
                     android:layout_width="234dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="10dp"
                     android:gravity="center|left"
                     android:text="Cơm Sườn Phúc Lộc Thọ - 2 món"
                     android:textColor="@color/black"
-                    android:textSize="25sp"
+                    android:textSize="22sp"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -58,13 +90,14 @@
                     android:orientation="vertical">
 
                     <TextView
+                        android:id="@+id/txt_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="15dp"
                         android:gravity="center|left"
                         android:text="35.000đ"
                         android:textColor="#FF0057"
-                        android:textSize="23sp"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
 
                     <TextView
@@ -74,7 +107,7 @@
                         android:gravity="center|left"
                         android:text="Base price"
                         android:textColor="#7C7C7C"
-                        android:textSize="21sp"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
                 </LinearLayout>
@@ -82,100 +115,78 @@
             </LinearLayout>
 
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="15dp"
-                android:text="Thơm phức Sường nướng Than, thêm 2 trong các món kèm: Bì thính, Chả trứng ấp, Trứng chiên giòn, Canh, Nước."
-                android:textSize="20sp" />
-
-            <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:layout_marginBottom="10dp"
+                android:layout_marginStart="15dp"
+                android:fontFamily="monospace"
                 android:gravity="center|left"
-                android:text="Các món kèm tùy chọn (Chọn 2 món) "
-                android:textColor="@color/black"
-                android:textSize="22sp"
+                android:text="----------------------------"
+                android:textColor="#494949"
+                android:textSize="23sp"
                 android:textStyle="bold" />
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:gravity="center">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="15dp"
+                    android:fontFamily="monospace"
                     android:gravity="center|left"
-                    android:text="Bì"
-                    android:textColor="#7C7C7C"
-                    android:textSize="20sp"
+                    android:text="Mô tả"
+                    android:textColor="#494949"
+                    android:textSize="23sp"
                     android:textStyle="bold" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp">
 
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/img_circle"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_gravity="center"
+                    android:layout_marginEnd="10dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/food" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/txt_description"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:gravity="center|left"
-                    android:text="Chả hấp"
-                    android:textColor="#7C7C7C"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:padding="15dp"
+                    android:text="Thơm phức Sường nướng Than, thêm 2 trong các món kèm: Bì thính, Chả trứng ấp, Trứng chiên giòn, Canh, Nước."
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:gravity="center|left"
-                    android:text="Trứng ốp la"
-                    android:textColor="#7C7C7C"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
+                    android:padding="15dp"
+                    android:text="Số lượng món ăn có sẵn: "
+                    android:textColor="@color/black"
+                    android:textSize="20sp" />
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:id="@+id/txt_quantity"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
-                    android:gravity="center|left"
-                    android:text="Lạp sưởng"
-                    android:textColor="#7C7C7C"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:text="-1"
+                    android:textSize="20sp" />
 
             </LinearLayout>
 
@@ -184,8 +195,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="10dp"
-                android:background="@drawable/round_img"
-                android:text="Add to Basket - 35.000đ" />
+                android:backgroundTint="@color/cam"
+                android:text="Add to Basket" />
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>

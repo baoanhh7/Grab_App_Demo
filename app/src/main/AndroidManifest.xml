@@ -140,7 +140,7 @@
             android:name=".store_owner.activity.StoreOwnerActivity"
             android:exported="true" />
         <activity
-            android:name=".customer.activity.OderActivity"
+            android:name=".customer.activity.OrderActivity"
             android:exported="false" />
         <activity
             android:name=".customer.activity.StoreMenuActivity"

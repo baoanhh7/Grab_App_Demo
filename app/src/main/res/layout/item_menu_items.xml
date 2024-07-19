@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="200dp"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="10dp"
-    android:layout_marginBottom="10dp"
+    android:layout_marginStart="15dp"
+    android:layout_marginBottom="15dp"
     android:elevation="10dp"
     android:orientation="vertical"
     app:cardCornerRadius="20dp">
@@ -26,6 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
+            android:fontFamily="monospace"
             android:text="Name"
             android:textColor="#424242"
             android:textSize="20sp"
@@ -35,10 +36,13 @@
             android:id="@+id/txt_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginBottom="5dp"
+            android:fontFamily="monospace"
+            android:gravity="bottom"
             android:text="Price"
             android:textColor="#FF2626"
-            android:textSize="20sp"
+            android:textSize="15sp"
             android:textStyle="bold" />
 
     </LinearLayout>

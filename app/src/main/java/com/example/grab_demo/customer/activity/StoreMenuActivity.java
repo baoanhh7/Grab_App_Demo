@@ -71,7 +71,8 @@ public class StoreMenuActivity extends AppCompatActivity {
         itemAdapter.setOnClickItemListener(new StClickItem() {
             @Override
             public void onClickItem(String data) {
-                Intent intent = new Intent(StoreMenuActivity.this, OderActivity.class);
+                Intent intent = new Intent(StoreMenuActivity.this, OrderActivity.class);
+                intent.putExtra("item_id", Integer.parseInt(data));
                 startActivity(intent);
             }
         });
@@ -82,17 +83,18 @@ public class StoreMenuActivity extends AppCompatActivity {
         connection = sql.conClass();
         if (connection != null) {
             try {
-                query = "SELECT item_name, price, image FROM Items " +
+                query = "SELECT item_id, item_name, price, image FROM Items " +
                         "WHERE store_id = " + storeId;
                 smt = connection.createStatement();
                 resultSet = smt.executeQuery(query);
 
                 itemList.clear();
                 while (resultSet.next()) {
-                    String storeName = resultSet.getString(1);
-                    double price = resultSet.getDouble(2);
-                    byte[] image = resultSet.getBytes(3);
-                    itemList.add(new Item(storeName, price, image));
+                    int itemId = resultSet.getInt(1);
+                    String storeName = resultSet.getString(2);
+                    double price = resultSet.getDouble(3);
+                    byte[] image = resultSet.getBytes(4);
+                    itemList.add(new Item(itemId, storeName, price, image));
                 }
                 itemAdapter.notifyDataSetChanged();
                 connection.close();

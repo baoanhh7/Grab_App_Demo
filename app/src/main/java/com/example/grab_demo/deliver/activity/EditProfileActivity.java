@@ -68,6 +68,7 @@ public class EditProfileActivity extends AppCompatActivity {
             Toast.makeText(EditProfileActivity.this, "Không thể cập nhật hồ sơ", Toast.LENGTH_SHORT).show();
         }
     }
+
     private boolean isInputValid() {
         if (nameEditText.getText().toString().trim().isEmpty()) {
             Toast.makeText(this, "Vui lòng nhập tên", Toast.LENGTH_SHORT).show();
