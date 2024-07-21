@@ -1,6 +1,7 @@
 package com.example.grab_demo.login;
 
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -21,114 +22,132 @@ import com.example.grab_demo.store_owner.activity.StoreOwnerActivity;
 import com.google.android.material.textfield.TextInputEditText;
 
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 public class LoginActivity extends AppCompatActivity {
-    Button btn_login, btn_createAcount;
-    Connection connection;
-    String query;
-    Statement smt;
-    ResultSet resultSet;
-    TextInputEditText edt_user, edt_password;
-    TextView txt_forgotPassword;
+    private Button btn_login, btn_createAccount;
+    private TextInputEditText edt_user, edt_password;
+    private TextView txt_forgotPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        addControls();
-        addEvents();
+        initializeViews();
+        setupEventListeners();
     }
 
-    private void addEvents() {
-        btn_createAcount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, RoleRegisterActivity.class));
-                finish();
-            }
-        });
-
-        btn_login.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                loadData();
-            }
-        });
-
-        txt_forgotPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class));
-                finish();
-            }
-        });
-    }
-
-    private void addControls() {
+    private void initializeViews() {
         btn_login = findViewById(R.id.btn_login);
-        btn_createAcount = findViewById(R.id.btn_createAcount);
+        btn_createAccount = findViewById(R.id.btn_createAcount);
         edt_user = findViewById(R.id.edt_user);
         edt_password = findViewById(R.id.edt_password);
         txt_forgotPassword = findViewById(R.id.txt_forgotPassword);
     }
 
-    private void loadData() {
-        ConnectionClass sql = new ConnectionClass();
-        connection = sql.conClass();
-        if (connection != null) {
-            try {
-                query = "Select user_id, password, phone_number, user_type, email from Users";
-                smt = connection.createStatement();
-                resultSet = smt.executeQuery(query);
-                while (resultSet.next()) {
+    private void setupEventListeners() {
+        btn_createAccount.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, RoleRegisterActivity.class)));
+        btn_login.setOnClickListener(v -> attemptLogin());
+        txt_forgotPassword.setOnClickListener(v -> startActivity(new Intent(LoginActivity.this, ForgotPasswordActivity.class)));
+    }
 
-                    if (edt_user.getText().toString().equals(resultSet.getString(3)) || edt_user.getText().toString().equals(resultSet.getString(5)) && edt_password.getText().toString().equals(resultSet.getString(2))) {
-                        Log.d("Login", "Checking user: " + resultSet.getString(3));
-                        if (resultSet.getString(4).equals("store_owner")) {
-                            String userId = resultSet.getString(1); // Lấy user_id từ kết quả truy vấn
-                            Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
-                            Log.d("Login", "User is store_owner");
-                            Intent intent = new Intent(LoginActivity.this, StoreOwnerActivity.class);
-                            intent.putExtra("user_id", userId); // Truyền user_id qua intent
-                            startActivity(intent);
-                            finish();
-                        } else if (resultSet.getString(4).equals("sales") || resultSet.getString(4).equals("it")) {
-                            String userType = resultSet.getString(4);
-                            Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
-                            intent.putExtra("user_type", userType);
-                            startActivity(intent);
-                            finish();
-                        } else if (resultSet.getString(4).equals("customer")) {
-                            String userID = resultSet.getString(1);
-                            Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
-                            Log.d("Login", "User is customer");
-                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                            intent.putExtra("user_id", userID);
-                            startActivity(intent);
-                            finish();
-                        } else if (resultSet.getString(4).equals("delivery")) {
-                            String userID = resultSet.getString(1);
-                            Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
-                            Log.d("Login", "User is delivery");
-                            Intent intent = new Intent(LoginActivity.this, DriverHomeActivity.class);
-                            intent.putExtra("user_id", userID);
-                            startActivity(intent);
-                            finish();
+    private void attemptLogin() {
+        String username = edt_user.getText().toString().trim();
+        String password = edt_password.getText().toString().trim();
+
+        if (username.isEmpty() || password.isEmpty()) {
+            Toast.makeText(this, "Please enter username and password", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        new LoginTask().execute(username, password);
+    }
+
+    private class LoginTask extends AsyncTask<String, Void, UserInfo> {
+        @Override
+        protected UserInfo doInBackground(String... params) {
+            String username = params[0];
+            String password = params[1];
+            Connection connection = null;
+            try {
+                connection = new ConnectionClass().conClass();
+                if (connection == null) return null;
+
+                String query = "SELECT user_id, password, user_type FROM Users WHERE (phone_number = ? OR email = ?)";
+                try (PreparedStatement pstmt = connection.prepareStatement(query)) {
+                    pstmt.setString(1, username);
+                    pstmt.setString(2, username);
+                    try (ResultSet rs = pstmt.executeQuery()) {
+                        if (rs.next()) {
+                            String storedPassword = rs.getString("password");
+                            if (password.equals(storedPassword)) {
+                                return new UserInfo(rs.getString("user_id"), rs.getString("user_type"));
+                            }
                         }
-                    } else {
-                        Log.e("Error: ", "Failed");
                     }
                 }
-                connection.close();
-            } catch (Exception e) {
-                Log.e("Error: ", e.getMessage());
+            } catch (SQLException e) {
+                Log.e("LoginTask", "SQL Error", e);
+            } finally {
+                if (connection != null) {
+                    try {
+                        connection.close();
+                    } catch (SQLException e) {
+                        Log.e("LoginTask", "Error closing connection", e);
+                    }
+                }
             }
-        } else {
-            Log.e("Error: ", "Connection null");
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(UserInfo userInfo) {
+            if (userInfo != null) {
+                Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                navigateToAppropriateActivity(userInfo);
+            } else {
+                Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
+    private void navigateToAppropriateActivity(UserInfo userInfo) {
+        Intent intent;
+        switch (userInfo.userType) {
+            case "store_owner":
+                intent = new Intent(this, StoreOwnerActivity.class);
+                break;
+            case "sales":
+            case "it":
+                intent = new Intent(this, AdminActivity.class);
+                intent.putExtra("user_type", userInfo.userType);
+                break;
+            case "customer":
+                intent = new Intent(this, HomeActivity.class);
+                break;
+            case "delivery":
+                intent = new Intent(this, DriverHomeActivity.class);
+                break;
+            default:
+                Log.e("Login", "Unknown user type: " + userInfo.userType);
+                return;
+        }
+        intent.putExtra("user_id", userInfo.userId);
+        startActivity(intent);
+        finish();
+    }
+
+    private static class UserInfo {
+        String userId;
+        String userType;
+
+        UserInfo(String userId, String userType) {
+            this.userId = userId;
+            this.userType = userType;
         }
     }
 }

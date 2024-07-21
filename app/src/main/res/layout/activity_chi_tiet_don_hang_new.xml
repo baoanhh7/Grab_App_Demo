@@ -65,13 +65,15 @@
 
     <Button
         android:id="@+id/buttoncanceled"
-        android:layout_width="wrap_content"
+        android:layout_width="80dp"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="31dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="665dp"
+        android:layout_marginEnd="41dp"
+        android:layout_marginBottom="18dp"
         android:layout_toEndOf="@+id/buttonComplete"
         android:text="hủy" />
 
