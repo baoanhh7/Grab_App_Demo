@@ -23,15 +23,6 @@
 
 
             <Button
-                android:id="@+id/btn_edit_profile_storeowner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:backgroundTint="@color/cam"
-                android:text="Chỉnh sửa thông tin cá nhân"
-                android:textColor="@color/white" />
-
-            <Button
                 android:id="@+id/btn_voucher_sales"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

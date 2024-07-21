@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".admin.sales.activity.AddVoucherSalesActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/img_back_addVoucherSales"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/ic_back" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:fontFamily="monospace"
+            android:text="Quay về"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="5dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_name_addVoucherSales"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_button"
+                    android:hint="Tên voucher"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_condition_addVoucherSales"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_button"
+                    android:hint= "Điều kiện"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_discount_addVoucherSales"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_button"
+                    android:hint="Discount"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_startdate_addVoucherSales"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_button"
+                    android:hint="Ngày hiệu lực"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_enddate_addVoucherSales"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_button"
+                    android:hint="Ngày hết hiệu lực"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/edt_quantity_addVoucherSales"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/round_button"
+                    android:hint="Số lượng"
+                    android:inputType="text"
+                    android:padding="15dp"
+                    android:textColor="@color/black"
+                    android:textStyle="bold" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/btn_addVoucherSales"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="40dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@color/light_blue_600"
+            android:text="Tạo "
+            android:textStyle="bold" />
+    </LinearLayout>
+</LinearLayout>

@@ -40,8 +40,6 @@ public class AddCateSalesActivity extends AppCompatActivity {
     Connection connection;
     String query;
     ImageView img_addCateSales;
-    Statement smt;
-    ResultSet resultSet;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -12,12 +12,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.grab_demo.R;
 import com.example.grab_demo.admin.sales.activity.ApproveStoreRegistrationActivity;
 import com.example.grab_demo.admin.sales.activity.ListCateSalesActivity;
+import com.example.grab_demo.admin.sales.activity.ListVoucherSalesActivity;
 import com.example.grab_demo.login.LoginActivity;
 
 public class AdminActivity extends AppCompatActivity {
     String userType = "";
     FrameLayout FL_sales, FL_IT;
-    Button btn_edit_profile_storeowner, btn_voucher_sales, btn_cate_sales, btn_duyetdondk_sales, btn_quanlycuahang_sales, btn_quanlytkHSO_sales,
+    Button btn_voucher_sales, btn_cate_sales, btn_duyetdondk_sales, btn_quanlycuahang_sales, btn_quanlytkHSO_sales,
             btn_logout_sales, btn_createaccountNVKD_IT, btn_quanlytkNVGH_IT, btn_logout_IT;
 
     @Override
@@ -65,12 +66,17 @@ public class AdminActivity extends AppCompatActivity {
                 startActivity(new Intent(AdminActivity.this, ApproveStoreRegistrationActivity.class));
             }
         });
+        btn_voucher_sales.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminActivity.this, ListVoucherSalesActivity.class));
+            }
+        });
     }
 
     private void addControls() {
         FL_sales = findViewById(R.id.FL_sales);
         FL_IT = findViewById(R.id.FL_IT);
-        btn_edit_profile_storeowner = findViewById(R.id.btn_edit_profile_storeowner);
         btn_voucher_sales = findViewById(R.id.btn_voucher_sales);
         btn_cate_sales = findViewById(R.id.btn_cate_sales);
         btn_duyetdondk_sales = findViewById(R.id.btn_duyetdondk_sales);
