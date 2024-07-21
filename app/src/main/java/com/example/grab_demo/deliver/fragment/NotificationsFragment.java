@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import com.example.grab_demo.R;
 import com.example.grab_demo.database.UserDataSource;
 import com.example.grab_demo.deliver.activity.EditProfileActivity;
+import com.example.grab_demo.deliver.activity.StatisticalActivity;
 import com.example.grab_demo.model.UserModel;
 
 public class NotificationsFragment extends Fragment {
@@ -68,6 +69,25 @@ public class NotificationsFragment extends Fragment {
                         intent.putExtra("phone_number", user.getPhoneNumber());
                         intent.putExtra("email", user.getEmail());
                         // Lưu ý: Chúng ta không truyền mật khẩu vì lý do bảo mật
+                        startActivity(intent);
+                    } else {
+                        // Xử lý trường hợp không tìm thấy dữ liệu người dùng
+                        // Bạn có thể hiển thị một thông báo toast hoặc hộp thoại cảnh báo
+                    }
+                } else {
+                    // Xử lý trường hợp userId là null hoặc rỗng
+                    // Bạn có thể hiển thị một thông báo toast hoặc hộp thoại cảnh báo
+                }
+            }
+        });
+        ButtonThongkedoanhthu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (userId != null && !userId.isEmpty()) {
+                    UserModel user = UserDataSource.getUserById(getContext(), userId);
+                    if (user != null) {
+                        Intent intent = new Intent(getActivity(), StatisticalActivity.class);
+                        intent.putExtra("user_id", userId);
                         startActivity(intent);
                     } else {
                         // Xử lý trường hợp không tìm thấy dữ liệu người dùng

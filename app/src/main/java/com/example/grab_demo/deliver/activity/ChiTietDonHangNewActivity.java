@@ -151,7 +151,7 @@ public class ChiTietDonHangNewActivity extends AppCompatActivity {
 
                 orderDetails.clear();
                 BigDecimal totalAmount = BigDecimal.ZERO;
-
+                BigDecimal additionalAmount = new BigDecimal("5.00");
                 while (resultSet.next()) {
                     int orderDetailId = resultSet.getInt("order_detail_id");
                     int itemId = resultSet.getInt("item_id");
@@ -164,7 +164,8 @@ public class ChiTietDonHangNewActivity extends AppCompatActivity {
                     OrderDetail orderDetail = new OrderDetail(orderDetailId, orderId, itemId, quantity, price, itemName);
                     orderDetails.add(orderDetail);
 
-                    totalAmount = totalAmount.add(price.multiply(BigDecimal.valueOf(Integer.valueOf( 5000))));//
+                    //totalAmount = totalAmount.add(price);//.multiply(BigDecimal.valueOf(Integer.valueOf( 5000)))
+                    totalAmount = totalAmount.add(price.add(additionalAmount));
                 }
 
                 if (orderDetails.isEmpty()) {
