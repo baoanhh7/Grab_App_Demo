@@ -1,5 +1,7 @@
 package com.example.grab_demo.store_owner.model;
 
+import java.sql.Date;
+
 public class Stores {
     private byte[] hinh;
     private int id;
@@ -9,6 +11,7 @@ public class Stores {
     private String address;
     private String tensp;
     private String giomocua;
+    private Date updated_at;
     private boolean isChecked;
 
     public Stores(byte[] hinh, int id, int owner_id, String status, int cate_id, String address, String tensp, String giomocua) {
@@ -20,6 +23,14 @@ public class Stores {
         this.address = address;
         this.tensp = tensp;
         this.giomocua = giomocua;
+    }
+
+    public Stores(byte[] hinh, int id,int owner_id, String tensp, Date updated_at) {
+        this.hinh = hinh;
+        this.id = id;
+        this.owner_id = owner_id;
+        this.tensp = tensp;
+        this.updated_at = updated_at;
     }
 
     public Stores(String tensp, int owner_id, int id, byte[] hinh) {
@@ -105,5 +116,13 @@ public class Stores {
 
     public void setChecked(boolean checked) {
         isChecked = checked;
+    }
+
+    public Date getUpdated_at() {
+        return updated_at;
+    }
+
+    public void setUpdated_at(Date updated_at) {
+        this.updated_at = updated_at;
     }
 }
