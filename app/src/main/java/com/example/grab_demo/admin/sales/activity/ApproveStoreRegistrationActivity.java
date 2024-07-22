@@ -136,25 +136,25 @@ public class ApproveStoreRegistrationActivity extends AppCompatActivity {
         listStoreRegistrationAdapter = new ListStoreRegistrationAdapter(this, arr);
         rv_ApproveStoreRegistration.setAdapter(listStoreRegistrationAdapter);
         rv_ApproveStoreRegistration.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        listStoreRegistrationAdapter.setOnItemClickListener(new OnItemClickListener() {
-            @Override
-            public void onItemClick(String data) {
-
-            }
-
-            @Override
-            public void onItemClickIStoreRegistration(int data, String name) {
-                Intent intent = new Intent(ApproveStoreRegistrationActivity.this, StoreRegistrationActivity.class);
-                intent.putExtra("store_id", data);
-                intent.putExtra("owner_name", name);
-                startActivity(intent);
-                finish();
-            }
-
-            @Override
-            public void onItemClickMessage(int sender_id, int reciever_id) {
-
-            }
-        });
+//        listStoreRegistrationAdapter.setOnItemClickListener(new OnItemClickListener() {
+//            @Override
+//            public void onItemClick(String data) {
+//
+//            }
+//
+//            @Override
+//            public void onItemClickIStoreRegistration(int data, String name) {
+//                Intent intent = new Intent(ApproveStoreRegistrationActivity.this, StoreRegistrationActivity.class);
+//                intent.putExtra("store_id", data);
+//                intent.putExtra("owner_name", name);
+//                startActivity(intent);
+//                finish();
+//            }
+//
+//            @Override
+//            public void onItemClickMessage(int sender_id, int reciever_id) {
+//
+//            }
+//        });
     }
 }

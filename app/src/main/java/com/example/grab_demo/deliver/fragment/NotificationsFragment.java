@@ -1,5 +1,7 @@
 package com.example.grab_demo.deliver.fragment;
 
+import static androidx.core.app.ActivityCompat.finishAffinity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,10 +10,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.database.UserDataSource;
+import com.example.grab_demo.deliver.activity.DriverHomeActivity;
 import com.example.grab_demo.deliver.activity.EditProfileActivity;
 import com.example.grab_demo.deliver.activity.StatisticalActivity;
 import com.example.grab_demo.model.UserModel;
@@ -27,7 +31,7 @@ public class NotificationsFragment extends Fragment {
     private TextView emailTextView;
     private TextView passwordTextView;
     private Button editProfileButton;
-    private Button ButtonThongkedoanhthu;
+    private Button ButtonThongkedoanhthu,buttonLogout;
 
     public static NotificationsFragment newInstance(String userId) {
         NotificationsFragment fragment = new NotificationsFragment();
@@ -56,7 +60,8 @@ public class NotificationsFragment extends Fragment {
         emailTextView = view.findViewById(R.id.emailTextView);
         passwordTextView = view.findViewById(R.id.passwordTextView);
         ButtonThongkedoanhthu = view.findViewById(R.id.ButtonThongkedoanhthu);
-        Button editProfileButton = view.findViewById(R.id.editProfileButton);
+        editProfileButton = view.findViewById(R.id.editProfileButton);
+        buttonLogout = view.findViewById(R.id.Buttonlogout);
         editProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -78,6 +83,12 @@ public class NotificationsFragment extends Fragment {
                     // Xử lý trường hợp userId là null hoặc rỗng
                     // Bạn có thể hiển thị một thông báo toast hoặc hộp thoại cảnh báo
                 }
+            }
+        });
+        buttonLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logoutAndExit();
             }
         });
         ButtonThongkedoanhthu.setOnClickListener(new View.OnClickListener() {
@@ -104,7 +115,15 @@ public class NotificationsFragment extends Fragment {
 
         return view;
     }
+    private void logoutAndExit() {
+        // Logic để đăng xuất người dùng, ví dụ xóa dữ liệu người dùng, token, etc.
 
+        // Dừng ứng dụng
+        if (getActivity() != null) {
+            ActivityCompat.finishAffinity(getActivity());
+            System.exit(0);
+        }
+    }
     private void loadUserData() {
         if (userId != null && !userId.isEmpty()) {
             UserModel user = UserDataSource.getUserById(getContext(), userId);
