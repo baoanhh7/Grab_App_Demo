@@ -6,4 +6,5 @@ public interface OnItemClickListener {
     void onItemClickIStoreRegistration(int data, String name);
 
     void onItemClickMessage(int sender_id, int reciever_id);
+    void onItemClickID(int data);
 }

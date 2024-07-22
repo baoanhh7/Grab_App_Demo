@@ -37,7 +37,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 
-public class NewOrderAdapter extends RecyclerView.Adapter<NewOrderAdapter.ViewHolder>{
+public class NewOrderAdapter extends RecyclerView.Adapter<NewOrderAdapter.ViewHolder> implements Filterable{
 
     Context context;
     ArrayList<Order> arr, arr1;
@@ -70,7 +70,7 @@ public class NewOrderAdapter extends RecyclerView.Adapter<NewOrderAdapter.ViewHo
             @Override
             public void onClick(View v) {
                 if (onItemClickListener != null) {
-                    onItemClickListener.onItemClickIStoreRegistration(arr.get(position).getId(), name);
+                    onItemClickListener.onItemClickID(arr.get(position).getId());
                 }
             }
         });
@@ -105,6 +105,36 @@ public class NewOrderAdapter extends RecyclerView.Adapter<NewOrderAdapter.ViewHo
             Log.e("Error: ", "Connection null");
         }
         return name;
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence constraint) {
+                String strSearch = constraint.toString().trim();
+                if (strSearch.isEmpty()) {
+                    arr = arr1;
+                } else {
+                    ArrayList<Order> arrayList = new ArrayList<>();
+                    for (Order order : arr1) {
+                        if (String.valueOf(order.getId()).contains(strSearch)) {
+                            arrayList.add(order);
+                        }
+                    }
+                    arr = arrayList;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = arr;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults results) {
+                arr = (ArrayList<Order>) results.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

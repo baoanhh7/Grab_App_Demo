@@ -1,5 +1,6 @@
 package com.example.grab_demo.store_owner.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -46,6 +47,7 @@ public class OrderHomeStoreOwnerActivity extends AppCompatActivity {
         img_back_orderHSO.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(OrderHomeStoreOwnerActivity.this, StoreOwnerActivity.class));
                 finish();
             }
         });
