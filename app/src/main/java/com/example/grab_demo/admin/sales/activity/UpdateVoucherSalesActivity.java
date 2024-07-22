@@ -107,15 +107,15 @@ public class UpdateVoucherSalesActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         // Định dạng ngày theo yêu cầu (yyyy-MM-dd)
                         String selectedDate = String.format(Locale.getDefault(), "%d-%02d-%02d", year, monthOfYear + 1, dayOfMonth);
-                        if(edt == edt_enddate_updateVoucherSales) {
+                        if (edt == edt_enddate_updateVoucherSales) {
                             // Lấy ngày bắt đầu
                             String startDateStr = edt_startdate_updateVoucherSales.getText().toString();
                             try {
                                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                                java.util.Date startDate =  sdf.parse(startDateStr);
-                                java.util.Date endDate =  sdf.parse(selectedDate);
+                                java.util.Date startDate = sdf.parse(startDateStr);
+                                java.util.Date endDate = sdf.parse(selectedDate);
 
-                                if(endDate.after(startDate)) {
+                                if (endDate.after(startDate)) {
                                     edt.setText(selectedDate);
                                 } else {
                                     Toast.makeText(UpdateVoucherSalesActivity.this, "End date must be after start date", Toast.LENGTH_SHORT).show();

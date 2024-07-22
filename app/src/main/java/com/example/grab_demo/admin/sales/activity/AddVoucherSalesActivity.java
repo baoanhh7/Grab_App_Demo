@@ -8,22 +8,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.database.ConnectionClass;
-import com.example.grab_demo.login.LoginActivity;
 import com.google.android.material.textfield.TextInputEditText;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
@@ -36,8 +28,9 @@ public class AddVoucherSalesActivity extends AppCompatActivity {
     ImageButton img_back_addVoucherSales;
     Button btn_addVoucherSales;
     TextInputEditText edt_name_addVoucherSales, edt_condition_addVoucherSales,
-            edt_discount_addVoucherSales,edt_startdate_addVoucherSales, edt_enddate_addVoucherSales, edt_quantity_addVoucherSales;
+            edt_discount_addVoucherSales, edt_startdate_addVoucherSales, edt_enddate_addVoucherSales, edt_quantity_addVoucherSales;
     Connection connection;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +57,7 @@ public class AddVoucherSalesActivity extends AppCompatActivity {
         edt_startdate_addVoucherSales.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               Date(edt_startdate_addVoucherSales);
+                Date(edt_startdate_addVoucherSales);
             }
         });
         edt_enddate_addVoucherSales.setOnClickListener(new View.OnClickListener() {
@@ -74,7 +67,8 @@ public class AddVoucherSalesActivity extends AppCompatActivity {
             }
         });
     }
-    private  void Date(TextInputEditText edt){
+
+    private void Date(TextInputEditText edt) {
         // Lấy ngày hiện tại
         final Calendar c = Calendar.getInstance();
         int year = c.get(Calendar.YEAR);
@@ -88,15 +82,15 @@ public class AddVoucherSalesActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         // Định dạng ngày theo yêu cầu (yyyy-MM-dd)
                         String selectedDate = String.format(Locale.getDefault(), "%d-%02d-%02d", year, monthOfYear + 1, dayOfMonth);
-                        if(edt == edt_enddate_addVoucherSales) {
+                        if (edt == edt_enddate_addVoucherSales) {
                             // Lấy ngày bắt đầu
                             String startDateStr = edt_startdate_addVoucherSales.getText().toString();
                             try {
                                 SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-                                java.util.Date startDate =  sdf.parse(startDateStr);
-                                java.util.Date endDate =  sdf.parse(selectedDate);
+                                java.util.Date startDate = sdf.parse(startDateStr);
+                                java.util.Date endDate = sdf.parse(selectedDate);
 
-                                if(endDate.after(startDate)) {
+                                if (endDate.after(startDate)) {
                                     edt.setText(selectedDate);
                                 } else {
                                     Toast.makeText(AddVoucherSalesActivity.this, "End date must be after start date", Toast.LENGTH_SHORT).show();

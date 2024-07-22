@@ -1,7 +1,5 @@
 package com.example.grab_demo.deliver.fragment;
 
-import static androidx.core.app.ActivityCompat.finishAffinity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,7 +13,6 @@ import androidx.fragment.app.Fragment;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.database.UserDataSource;
-import com.example.grab_demo.deliver.activity.DriverHomeActivity;
 import com.example.grab_demo.deliver.activity.EditProfileActivity;
 import com.example.grab_demo.deliver.activity.StatisticalActivity;
 import com.example.grab_demo.model.UserModel;
@@ -31,7 +28,7 @@ public class NotificationsFragment extends Fragment {
     private TextView emailTextView;
     private TextView passwordTextView;
     private Button editProfileButton;
-    private Button ButtonThongkedoanhthu,buttonLogout;
+    private Button ButtonThongkedoanhthu, buttonLogout;
 
     public static NotificationsFragment newInstance(String userId) {
         NotificationsFragment fragment = new NotificationsFragment();
@@ -115,6 +112,7 @@ public class NotificationsFragment extends Fragment {
 
         return view;
     }
+
     private void logoutAndExit() {
         // Logic để đăng xuất người dùng, ví dụ xóa dữ liệu người dùng, token, etc.
 
@@ -124,6 +122,7 @@ public class NotificationsFragment extends Fragment {
             System.exit(0);
         }
     }
+
     private void loadUserData() {
         if (userId != null && !userId.isEmpty()) {
             UserModel user = UserDataSource.getUserById(getContext(), userId);

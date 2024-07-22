@@ -42,6 +42,9 @@
             android:name=".admin.sales.activity.AddVoucherSalesActivity"
             android:exported="false" />
         <activity
+            android:name=".customer.activity.VoucherActivity"
+            android:exported="false" />
+        <activity
             android:name=".admin.sales.activity.StoreRegistrationActivity"
             android:exported="false" />
         <activity

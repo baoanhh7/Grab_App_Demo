@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 public class HistoryOrderHSOFragment extends Fragment {
 
+    private static final long REFRESH_INTERVAL = 1000;
     SearchView searchView_HistoryOrderHSO;
     RecyclerView rcv_HistoryOrderHSO;
     NewOrderAdapter historyOrderHSOAdapter;
@@ -36,7 +37,7 @@ public class HistoryOrderHSOFragment extends Fragment {
     Connection connection;
     private Handler handler;
     private Runnable refreshRunnable;
-    private static final long REFRESH_INTERVAL = 1000;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -47,7 +48,7 @@ public class HistoryOrderHSOFragment extends Fragment {
             storeID = orderHomeStoreOwnerActivity.getStoreID();
         }
         if (storeID > 0) {
-            Log.e("NewOrderHSOFragment", storeID+"");
+            Log.e("NewOrderHSOFragment", storeID + "");
             addControls();
             addEvents();
             handler = new Handler(Looper.getMainLooper());
@@ -85,9 +86,11 @@ public class HistoryOrderHSOFragment extends Fragment {
         super.onResume();
         startAutoRefresh();
     }
+
     private void startAutoRefresh() {
         handler.postDelayed(refreshRunnable, REFRESH_INTERVAL);
     }
+
     private void loadData() {
         new Thread(new Runnable() {
             @Override
@@ -96,16 +99,16 @@ public class HistoryOrderHSOFragment extends Fragment {
                 connection = sql.conClass();
                 if (connection != null) {
                     try {
-                        String query = "SELECT order_id,delivery_id, status FROM Orders WHERE store_id = ? AND status = 'confirmed' " ;
+                        String query = "SELECT order_id,delivery_id, status FROM Orders WHERE store_id = ? AND status = 'confirmed' ";
                         PreparedStatement smt = connection.prepareStatement(query);
-                        smt.setInt(1,storeID);
+                        smt.setInt(1, storeID);
                         ResultSet resultSet = smt.executeQuery();
                         final ArrayList<Order> tempArr = new ArrayList<>();
                         while (resultSet.next()) {
                             Integer id = resultSet.getInt(1);
                             int delivery_id = resultSet.getInt(2);
                             String status = resultSet.getString(3);
-                            tempArr.add(new Order(id,delivery_id, status));
+                            tempArr.add(new Order(id, delivery_id, status));
                         }
                         connection.close();
 

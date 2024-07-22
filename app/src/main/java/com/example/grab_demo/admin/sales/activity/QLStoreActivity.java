@@ -7,11 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,7 +15,6 @@ import com.example.grab_demo.R;
 import com.example.grab_demo.admin.sales.adapter.QLStoreAdapter;
 import com.example.grab_demo.database.ConnectionClass;
 import com.example.grab_demo.store_owner.model.Stores;
-import com.example.grab_demo.store_owner.model.Vouchers;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -28,15 +23,16 @@ import java.util.ArrayList;
 import java.util.Date;
 
 public class QLStoreActivity extends AppCompatActivity {
+    private static final long REFRESH_INTERVAL = 1000;
     ImageButton img_back_QLStore;
     androidx.appcompat.widget.SearchView searchView_QLStore;
     RecyclerView rv_QLStore;
     QLStoreAdapter qlStoreAdapter;
     ArrayList<Stores> arr;
+    Connection connection;
     private Handler handler;
     private Runnable refreshRunnable;
-    private static final long REFRESH_INTERVAL = 1000;
-    Connection connection;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,7 +67,7 @@ public class QLStoreActivity extends AppCompatActivity {
                             int owner_id = resultSet.getInt(3);
                             Date updated_at = resultSet.getDate(4);
                             byte[] image = resultSet.getBytes(5);
-                            tempArr.add(new Stores(image,id,owner_id, storeName , (java.sql.Date) updated_at));
+                            tempArr.add(new Stores(image, id, owner_id, storeName, (java.sql.Date) updated_at));
                         }
                         connection.close();
 

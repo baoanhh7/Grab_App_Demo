@@ -8,21 +8,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.admin.sales.adapter.VoucherAdapter;
 import com.example.grab_demo.database.ConnectionClass;
-import com.example.grab_demo.store_owner.model.Stores;
 import com.example.grab_demo.store_owner.model.Vouchers;
 
-import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -36,9 +30,9 @@ public class ListVoucherSalesActivity extends AppCompatActivity {
     RecyclerView rv_ListVoucherSales;
     VoucherAdapter voucherAdapter;
     ArrayList<Vouchers> arr;
+    Connection connection;
     private Handler handler;
     private Runnable refreshRunnable;
-    Connection connection;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +49,7 @@ public class ListVoucherSalesActivity extends AppCompatActivity {
             }
         };
     }
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -117,7 +112,7 @@ public class ListVoucherSalesActivity extends AppCompatActivity {
         btn_add_ListVoucherSales.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent( ListVoucherSalesActivity.this, AddVoucherSalesActivity.class));
+                startActivity(new Intent(ListVoucherSalesActivity.this, AddVoucherSalesActivity.class));
                 finish();
             }
         });

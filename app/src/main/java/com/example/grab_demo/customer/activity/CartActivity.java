@@ -1,5 +1,6 @@
 package com.example.grab_demo.customer.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -41,8 +42,9 @@ public class CartActivity extends AppCompatActivity {
     ListOrderAdapter itemAdapter;
     ImageView img_back;
     TextView txt_name_voucher, txt_orderMoney, txt_shipMoney, txt_voucher, txt_totalMoney;
-    Button btn_orderNow;
+    Button btn_orderNow, btn_getVoucher;
     int itemId;
+    int voucherId;
     double orderMoney = 0.0;
     double shipMoney = 0.0;
     double voucher = 0.0;
@@ -58,11 +60,8 @@ public class CartActivity extends AppCompatActivity {
 
         addControls();
 
-        if (itemId != -1) {
-            itemId = getIntent().getIntExtra("item_id", -1);  // Lấy cate_id kiểu int với giá trị mặc định là -1
-        } else {
-            Log.e("CartActivity", "item_id is null");
-        }
+        itemId = getIntent().getIntExtra("item_id", -1);  // Lấy cate_id kiểu int với giá trị mặc định là -1
+        voucherId = getIntent().getIntExtra("voucher_id", -1);  // Lấy cate_id kiểu int với giá trị mặc định là -1
 
         userId = getIntent().getStringExtra("user_id");
 
@@ -72,6 +71,13 @@ public class CartActivity extends AppCompatActivity {
             Log.e("CartActivity", "item_id is null");
         }
 
+        if (voucherId == -1) {
+            Log.e("CartActivity", "voucher_id is null");
+        }
+
+        // Truy vấn và cập nhật tên voucher
+        loadVoucherName(voucherId);
+
         handler = new Handler(Looper.getMainLooper());
         refreshRunnable = new Runnable() {
             @Override
@@ -80,6 +86,37 @@ public class CartActivity extends AppCompatActivity {
                 handler.postDelayed(this, REFRESH_INTERVAL);
             }
         };
+
+    }
+
+    private void loadVoucherName(int voucherId) {
+        ConnectionClass sql = new ConnectionClass();
+        connection = sql.conClass();
+        if (connection != null) {
+            try {
+                query = "SELECT voucher_name, discount FROM Vouchers WHERE voucher_id = " + voucherId;
+                smt = connection.createStatement();
+                resultSet = smt.executeQuery(query);
+
+                if (resultSet.next()) {
+                    final String voucherName = resultSet.getString(1);
+                    final double discount = resultSet.getDouble(2);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            txt_name_voucher.setText(voucherName);
+                            txt_voucher.setText(String.valueOf(discount));
+                            voucher = discount;
+                        }
+                    });
+                }
+                connection.close();
+            } catch (Exception e) {
+                Log.e("Error: ", Objects.requireNonNull(e.getMessage()));
+            }
+        } else {
+            Log.e("Error: ", "Connection null");
+        }
     }
 
     private void startAutoRefresh() {
@@ -133,7 +170,6 @@ public class CartActivity extends AppCompatActivity {
     private void calculateTotalMoney() {
         // Giả sử giá trị shipMoney và voucher
         shipMoney = 23000;
-        voucher = 50000;
 
         // Tính toán Total Money
         totalMoney = orderMoney + shipMoney - voucher;
@@ -144,8 +180,10 @@ public class CartActivity extends AppCompatActivity {
             public void run() {
                 txt_orderMoney.setText(String.valueOf(orderMoney));
                 txt_shipMoney.setText(String.valueOf(shipMoney));
-                txt_voucher.setText(String.valueOf(voucher));
-                txt_totalMoney.setText(String.valueOf(totalMoney));
+                if (totalMoney < 0)
+                    totalMoney = 0;
+                else
+                    txt_totalMoney.setText(String.valueOf(totalMoney));
             }
         });
     }
@@ -158,6 +196,14 @@ public class CartActivity extends AppCompatActivity {
             }
         });
 
+        btn_getVoucher.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CartActivity.this, VoucherActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
         btn_orderNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -165,8 +211,8 @@ public class CartActivity extends AppCompatActivity {
 //                clearCartItems(); // Xóa các item trong CartItems
                 Toast.makeText(CartActivity.this, "Order successfully!", Toast.LENGTH_SHORT).show();
                 // Xóa dữ liệu trong CartItems
-//                itemList.clear();
-//                itemAdapter.notifyDataSetChanged();
+                itemList.clear();
+                itemAdapter.notifyDataSetChanged();
                 finish();
             }
         });
@@ -285,6 +331,7 @@ public class CartActivity extends AppCompatActivity {
 
         img_back = findViewById(R.id.img_back);
         btn_orderNow = findViewById(R.id.btn_orderNow);
+        btn_getVoucher = findViewById(R.id.btn_getVoucher);
 
         rcv_cart = findViewById(R.id.rcv_cart);
         itemList = new ArrayList<>();

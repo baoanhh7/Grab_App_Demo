@@ -10,7 +10,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageButton;
@@ -41,8 +40,8 @@ public class QLStoreAdapter extends RecyclerView.Adapter<QLStoreAdapter.ViewHold
 
     Context context;
     ArrayList<Stores> arr, arr1;
-    private OnItemClickListener onItemClickListener;
     Connection connection;
+    private OnItemClickListener onItemClickListener;
 
     public QLStoreAdapter(Context context, ArrayList<Stores> arr) {
         this.context = context;
@@ -72,7 +71,7 @@ public class QLStoreAdapter extends RecyclerView.Adapter<QLStoreAdapter.ViewHold
         // Giả sử stores.getUpdated_at() trả về một đối tượng Date
         Date updatedAt = stores.getUpdated_at();
 
-    // Chuyển đổi Date thành LocalDate
+        // Chuyển đổi Date thành LocalDate
         LocalDate updatedAtLocal = null;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             updatedAtLocal = updatedAt.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
@@ -124,9 +123,9 @@ public class QLStoreAdapter extends RecyclerView.Adapter<QLStoreAdapter.ViewHold
                 builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        if(finalMonths >=3) {
+                        if (finalMonths >= 3) {
                             delete(stores.getId(), position);
-                        }else
+                        } else
                             Toast.makeText(context, "Bạn không đủ 3 tháng để xóa", Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -140,6 +139,7 @@ public class QLStoreAdapter extends RecyclerView.Adapter<QLStoreAdapter.ViewHold
             }
         });
     }
+
     private void delete(int idStore, int position) {
         ConnectionClass sql = new ConnectionClass();
         connection = sql.conClass();
@@ -168,6 +168,7 @@ public class QLStoreAdapter extends RecyclerView.Adapter<QLStoreAdapter.ViewHold
         }
         notifyDataSetChanged();
     }
+
     @Override
     public int getItemCount() {
         return arr.size();

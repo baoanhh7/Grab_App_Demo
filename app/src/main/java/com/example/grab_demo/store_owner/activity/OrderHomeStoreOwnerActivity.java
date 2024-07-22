@@ -13,15 +13,14 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.store_owner.adapter.ViewPageOrderAdapter;
-import com.example.grab_demo.store_owner.fragment.HomeStoreOwnerFragment;
 import com.example.grab_demo.store_owner.fragment.NewOrderHSOFragment;
 import com.google.android.material.tabs.TabLayout;
 
 public class OrderHomeStoreOwnerActivity extends AppCompatActivity {
     ImageButton img_back_orderHSO;
+    int storeID;
     private TabLayout tabLayout;
     private ViewPager viewPager;
-    int storeID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +38,7 @@ public class OrderHomeStoreOwnerActivity extends AppCompatActivity {
         fragmentTransaction.replace(R.id.viewpager_OrderHSO, new NewOrderHSOFragment());
         fragmentTransaction.commit();
     }
+
     public int getStoreID() {
         return storeID;
     }

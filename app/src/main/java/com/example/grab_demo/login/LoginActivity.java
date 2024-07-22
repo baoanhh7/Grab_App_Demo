@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +24,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 
 public class LoginActivity extends AppCompatActivity {
     private Button btn_login, btn_createAccount;
@@ -65,6 +63,42 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         new LoginTask().execute(username, password);
+    }
+
+    private void navigateToAppropriateActivity(UserInfo userInfo) {
+        Intent intent;
+        switch (userInfo.userType) {
+            case "store_owner":
+                intent = new Intent(this, StoreOwnerActivity.class);
+                break;
+            case "sales":
+            case "it":
+                intent = new Intent(this, AdminActivity.class);
+                intent.putExtra("user_type", userInfo.userType);
+                break;
+            case "customer":
+                intent = new Intent(this, HomeActivity.class);
+                break;
+            case "delivery":
+                intent = new Intent(this, DriverHomeActivity.class);
+                break;
+            default:
+                Log.e("Login", "Unknown user type: " + userInfo.userType);
+                return;
+        }
+        intent.putExtra("user_id", userInfo.userId);
+        startActivity(intent);
+        finish();
+    }
+
+    private static class UserInfo {
+        String userId;
+        String userType;
+
+        UserInfo(String userId, String userType) {
+            this.userId = userId;
+            this.userType = userType;
+        }
     }
 
     private class LoginTask extends AsyncTask<String, Void, UserInfo> {
@@ -112,42 +146,6 @@ public class LoginActivity extends AppCompatActivity {
             } else {
                 Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
             }
-        }
-    }
-
-    private void navigateToAppropriateActivity(UserInfo userInfo) {
-        Intent intent;
-        switch (userInfo.userType) {
-            case "store_owner":
-                intent = new Intent(this, StoreOwnerActivity.class);
-                break;
-            case "sales":
-            case "it":
-                intent = new Intent(this, AdminActivity.class);
-                intent.putExtra("user_type", userInfo.userType);
-                break;
-            case "customer":
-                intent = new Intent(this, HomeActivity.class);
-                break;
-            case "delivery":
-                intent = new Intent(this, DriverHomeActivity.class);
-                break;
-            default:
-                Log.e("Login", "Unknown user type: " + userInfo.userType);
-                return;
-        }
-        intent.putExtra("user_id", userInfo.userId);
-        startActivity(intent);
-        finish();
-    }
-
-    private static class UserInfo {
-        String userId;
-        String userType;
-
-        UserInfo(String userId, String userType) {
-            this.userId = userId;
-            this.userType = userType;
         }
     }
 }

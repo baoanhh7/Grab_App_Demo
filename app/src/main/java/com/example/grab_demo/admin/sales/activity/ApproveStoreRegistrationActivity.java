@@ -1,6 +1,5 @@
 package com.example.grab_demo.admin.sales.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -15,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.grab_demo.R;
 import com.example.grab_demo.admin.sales.adapter.ListStoreRegistrationAdapter;
 import com.example.grab_demo.database.ConnectionClass;
-import com.example.grab_demo.store_owner.OnItemClickListener;
 import com.example.grab_demo.store_owner.model.Stores;
 
 import java.sql.Connection;

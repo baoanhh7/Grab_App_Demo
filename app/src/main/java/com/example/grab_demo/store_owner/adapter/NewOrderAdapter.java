@@ -1,21 +1,13 @@
 package com.example.grab_demo.store_owner.adapter;
 
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -24,25 +16,19 @@ import com.example.grab_demo.R;
 import com.example.grab_demo.database.ConnectionClass;
 import com.example.grab_demo.store_owner.OnItemClickListener;
 import com.example.grab_demo.store_owner.model.Order;
-import com.example.grab_demo.store_owner.model.Stores;
 
 import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 
 
-public class NewOrderAdapter extends RecyclerView.Adapter<NewOrderAdapter.ViewHolder> implements Filterable{
+public class NewOrderAdapter extends RecyclerView.Adapter<NewOrderAdapter.ViewHolder> implements Filterable {
 
     Context context;
     ArrayList<Order> arr, arr1;
-    private OnItemClickListener onItemClickListener;
     Connection connection;
+    private OnItemClickListener onItemClickListener;
 
     public NewOrderAdapter(Context context, ArrayList<Order> arr) {
         this.context = context;
@@ -62,7 +48,7 @@ public class NewOrderAdapter extends RecyclerView.Adapter<NewOrderAdapter.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Order order = arr.get(position);
-        holder.txtID.setText(order.getId()+"");
+        holder.txtID.setText(order.getId() + "");
         String name = loadData(order.getDeliverId());
         holder.txtshippername.setText(name);
         holder.txtStatus.setText(order.getStatus());
@@ -75,6 +61,7 @@ public class NewOrderAdapter extends RecyclerView.Adapter<NewOrderAdapter.ViewHo
             }
         });
     }
+
     @Override
     public int getItemCount() {
         return arr.size();

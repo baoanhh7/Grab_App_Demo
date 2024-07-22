@@ -1,6 +1,5 @@
 package com.example.grab_demo.store_owner.model;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 public class Vouchers {

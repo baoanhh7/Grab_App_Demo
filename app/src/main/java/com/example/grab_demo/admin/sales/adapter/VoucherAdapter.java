@@ -1,30 +1,24 @@
 package com.example.grab_demo.admin.sales.adapter;
 
 
-
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
-import com.example.grab_demo.admin.sales.activity.UpdateCateSalesActivity;
 import com.example.grab_demo.admin.sales.activity.UpdateVoucherSalesActivity;
 import com.example.grab_demo.database.ConnectionClass;
 import com.example.grab_demo.store_owner.OnItemClickListener;
-import com.example.grab_demo.store_owner.model.Cate;
 import com.example.grab_demo.store_owner.model.Vouchers;
 
 import java.sql.Connection;
@@ -59,8 +53,8 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.ViewHold
         holder.txtTen.setText(vouchers.getName());
         holder.start_date.setText(vouchers.getStart_date().toString());
         holder.end_date.setText(vouchers.getEnd_date().toString());
-        holder.quantity.setText(vouchers.getQuantity()+"");
-        holder.discount.setText(vouchers.getDiscount()+"");
+        holder.quantity.setText(vouchers.getQuantity() + "");
+        holder.discount.setText(vouchers.getDiscount() + "");
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -140,7 +134,7 @@ public class VoucherAdapter extends RecyclerView.Adapter<VoucherAdapter.ViewHold
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtTen,start_date,end_date,quantity,discount;
+        TextView txtTen, start_date, end_date, quantity, discount;
         ImageButton btn_update, btn_delete;
 
         public ViewHolder(@NonNull View itemView) {

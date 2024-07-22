@@ -25,7 +25,7 @@ public class Stores {
         this.giomocua = giomocua;
     }
 
-    public Stores(byte[] hinh, int id,int owner_id, String tensp, Date updated_at) {
+    public Stores(byte[] hinh, int id, int owner_id, String tensp, Date updated_at) {
         this.hinh = hinh;
         this.id = id;
         this.owner_id = owner_id;

@@ -4,20 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.database.ConnectionClass;
-import com.example.grab_demo.deliver.Adapter.orderDetailAdapter;
+import com.example.grab_demo.deliver.adapter.orderDetailAdapter;
 import com.example.grab_demo.model.DonHangModel;
 import com.example.grab_demo.model.OrderDetail;
 
@@ -33,10 +29,11 @@ public class ChiTietDonHangActivity extends AppCompatActivity {
     private TextView textViewMaDonHang, textViewTrangThaiDonHang, textViewTongTien;
     private RecyclerView recyclerViewOrderDetails;
     private List<OrderDetail> orderDetails;
-    private com.example.grab_demo.deliver.Adapter.orderDetailAdapter orderDetailAdapter;
+    private com.example.grab_demo.deliver.adapter.orderDetailAdapter orderDetailAdapter;
     private Button buttonAccept, buttonComplete, buttonCanceled;
     private DonHangModel donHang;
     private String userId;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +65,7 @@ public class ChiTietDonHangActivity extends AppCompatActivity {
         }
 
     }
+
     private void loadOrderDetails(int orderId) {
         ConnectionClass connectionClass = new ConnectionClass();
         Connection connection = connectionClass.conClass();
@@ -101,7 +99,7 @@ public class ChiTietDonHangActivity extends AppCompatActivity {
                     OrderDetail orderDetail = new OrderDetail(orderDetailId, orderId, itemId, quantity, price, itemName);
                     orderDetails.add(orderDetail);
 
-                    totalAmount = totalAmount.add(price.multiply(BigDecimal.valueOf(Integer.valueOf( 5000))));//
+                    totalAmount = totalAmount.add(price.multiply(BigDecimal.valueOf(Integer.valueOf(5000))));//
                 }
 
                 if (orderDetails.isEmpty()) {

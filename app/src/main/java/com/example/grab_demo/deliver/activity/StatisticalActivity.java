@@ -5,9 +5,7 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,14 +19,21 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class StatisticalActivity extends AppCompatActivity {
+    private static final String PREFS_NAME = "StatisticalPrefs";
+    private static final String KEY_START_TIME = "startTime";
+    private static final String KEY_ACCUMULATED_TIME = "accumulatedTime";
     private TextView tv_thu_nhap_chuyen_di, tv_da_thu_tien_mat, tv_thoi_gian_truc_tuyen, tv_so_chuyen_di;
     private long startTime;
     private long accumulatedTime = 0;
     private String userId;
     private Handler handler = new Handler();
-    private static final String PREFS_NAME = "StatisticalPrefs";
-    private static final String KEY_START_TIME = "startTime";
-    private static final String KEY_ACCUMULATED_TIME = "accumulatedTime";
+    private Runnable updateTimeRunnable = new Runnable() {
+        @Override
+        public void run() {
+            updateActivityTime();
+            handler.postDelayed(this, 1000);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,14 +86,6 @@ public class StatisticalActivity extends AppCompatActivity {
         handler.post(updateTimeRunnable); // Bắt đầu cập nhật lại khi Activity tiếp tục
     }
 
-    private Runnable updateTimeRunnable = new Runnable() {
-        @Override
-        public void run() {
-            updateActivityTime();
-            handler.postDelayed(this, 1000);
-        }
-    };
-
     private void updateActivityTime() {
         long currentTime = System.currentTimeMillis();
         long elapsedTime = accumulatedTime + (currentTime - startTime);
@@ -101,6 +98,19 @@ public class StatisticalActivity extends AppCompatActivity {
         // Hiển thị thời gian hoạt động
         String timeString = String.format("%02d:%02d:%02d", hours, minutes, seconds);
         tv_thoi_gian_truc_tuyen.setText(timeString);
+    }
+
+    // Lớp hỗ trợ để lưu kết quả truy vấn
+    private static class QueryResult {
+        int orderCount;
+        BigDecimal totalCashCollected;
+        BigDecimal totalIncome;
+
+        QueryResult(int orderCount, BigDecimal totalCashCollected, BigDecimal totalIncome) {
+            this.orderCount = orderCount;
+            this.totalCashCollected = totalCashCollected;
+            this.totalIncome = totalIncome;
+        }
     }
 
     private class QueryTask extends AsyncTask<String, Void, QueryResult> {
@@ -162,19 +172,6 @@ public class StatisticalActivity extends AppCompatActivity {
             tv_so_chuyen_di.setText("" + result.orderCount);
             tv_thu_nhap_chuyen_di.setText("" + result.totalIncome.toString() + " VND");
             tv_da_thu_tien_mat.setText("" + result.totalCashCollected.toString() + " VND");
-        }
-    }
-
-    // Lớp hỗ trợ để lưu kết quả truy vấn
-    private static class QueryResult {
-        int orderCount;
-        BigDecimal totalCashCollected;
-        BigDecimal totalIncome;
-
-        QueryResult(int orderCount, BigDecimal totalCashCollected, BigDecimal totalIncome) {
-            this.orderCount = orderCount;
-            this.totalCashCollected = totalCashCollected;
-            this.totalIncome = totalIncome;
         }
     }
 }
