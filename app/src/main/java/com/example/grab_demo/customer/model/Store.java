@@ -36,6 +36,7 @@ public class Store implements Serializable {
         this.address = address;
     }
 
+
     // Getters and Setters
     public int getStoreId() {
         return storeId;

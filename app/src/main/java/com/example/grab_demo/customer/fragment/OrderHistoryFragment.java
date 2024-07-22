@@ -1,65 +1,90 @@
 package com.example.grab_demo.customer.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
+import com.example.grab_demo.customer.adapter.C_OrderAdapter;
+import com.example.grab_demo.customer.model.Order;
+import com.example.grab_demo.database.ConnectionClass;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link OrderHistoryFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
 public class OrderHistoryFragment extends Fragment {
+    Connection connection;
+    String query;
+    Statement smt;
+    ResultSet resultSet;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    RecyclerView rcv_order;
+    List<Order> orderList;
+    C_OrderAdapter orderAdapter;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
-
-    public OrderHistoryFragment() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment OrderHistoryFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static OrderHistoryFragment newInstance(String param1, String param2) {
-        OrderHistoryFragment fragment = new OrderHistoryFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
+    private View view;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_order_history, container, false);
+        view = inflater.inflate(R.layout.fragment_order_history, container, false);
+
+        addControls();
+
+        addEvents();
+
+        loadData();
+        return view;
+    }
+
+    private void loadData() {
+        ConnectionClass sql = new ConnectionClass();
+        connection = sql.conClass();
+        if (connection != null) {
+            try {
+                query = "SELECT order_id, delivery_id, total_price, status FROM Orders WHERE status IN ('delivered', 'cancelled')";
+                smt = connection.createStatement();
+                resultSet = smt.executeQuery(query);
+
+                orderList.clear();
+                while (resultSet.next()) {
+                    int orderId = resultSet.getInt(1);
+                    int deliveryId = resultSet.getInt(2);
+                    double totalPrice = resultSet.getDouble(3);
+                    String status = resultSet.getString(4);
+                    orderList.add(new Order(orderId, deliveryId, totalPrice, status));
+                }
+                orderAdapter.notifyDataSetChanged();
+                connection.close();
+            } catch (Exception e) {
+                Log.e("Error: ", e.getMessage());
+            }
+        } else {
+            Log.e("Error: ", "Connection null");
+        }
+    }
+
+    private void addEvents() {
+
+    }
+
+    private void addControls() {
+        rcv_order = view.findViewById(R.id.rcv_order);
+        orderList = new ArrayList<>();
+        orderAdapter = new C_OrderAdapter(getActivity(), orderList);
+        rcv_order.setAdapter(orderAdapter);
+
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
+        rcv_order.setLayoutManager(linearLayoutManager);  // Set LayoutManager cho RecyclerView
     }
 }
