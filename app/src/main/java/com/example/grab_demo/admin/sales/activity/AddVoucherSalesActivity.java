@@ -1,6 +1,7 @@
 package com.example.grab_demo.admin.sales.activity;
 
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -26,6 +27,8 @@ import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -48,6 +51,7 @@ public class AddVoucherSalesActivity extends AppCompatActivity {
         img_back_addVoucherSales.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                startActivity(new Intent(AddVoucherSalesActivity.this, ListVoucherSalesActivity.class));
                 finish();
             }
         });
@@ -84,7 +88,26 @@ public class AddVoucherSalesActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         // Định dạng ngày theo yêu cầu (yyyy-MM-dd)
                         String selectedDate = String.format(Locale.getDefault(), "%d-%02d-%02d", year, monthOfYear + 1, dayOfMonth);
-                        edt.setText(selectedDate);
+                        if(edt == edt_enddate_addVoucherSales) {
+                            // Lấy ngày bắt đầu
+                            String startDateStr = edt_startdate_addVoucherSales.getText().toString();
+                            try {
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                                java.util.Date startDate =  sdf.parse(startDateStr);
+                                java.util.Date endDate =  sdf.parse(selectedDate);
+
+                                if(endDate.after(startDate)) {
+                                    edt.setText(selectedDate);
+                                } else {
+                                    Toast.makeText(AddVoucherSalesActivity.this, "End date must be after start date", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                                Toast.makeText(AddVoucherSalesActivity.this, "Invalid date format", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            edt.setText(selectedDate);
+                        }
                     }
                 }, year, month, day);
 
@@ -97,11 +120,15 @@ public class AddVoucherSalesActivity extends AppCompatActivity {
 
     private void insertData() {
         String name = edt_name_addVoucherSales.getText().toString().trim();
-        String condition = edt_condition_addVoucherSales.getText().toString().trim();
+        int condition = Integer.parseInt(edt_condition_addVoucherSales.getText().toString().trim());
         Float discount = Float.valueOf(edt_discount_addVoucherSales.getText().toString().trim());
         Date startdate = Date.valueOf(edt_startdate_addVoucherSales.getText().toString().trim());
         Date enddate = Date.valueOf(edt_enddate_addVoucherSales.getText().toString().trim());
         Integer quantity = Integer.parseInt(edt_quantity_addVoucherSales.getText().toString().trim());
+        if (discount <= 0 || quantity <= 0 || condition <= 0) {
+            Toast.makeText(this, "Discount, quantity and condition must be greater than 0", Toast.LENGTH_SHORT).show();
+            return;
+        }
         ConnectionClass sql = new ConnectionClass();
         connection = sql.conClass();
         if (connection != null) {
@@ -109,7 +136,7 @@ public class AddVoucherSalesActivity extends AppCompatActivity {
                 String query = "INSERT INTO Vouchers(voucher_name,condition,discount,start_date,end_date,quantity) VALUES (?,?,?,?,?,?)";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setString(1, name);
-                preparedStatement.setString(2, condition);
+                preparedStatement.setInt(2, condition);
                 preparedStatement.setFloat(3, discount);
                 preparedStatement.setDate(4, startdate);
                 preparedStatement.setDate(5, enddate);

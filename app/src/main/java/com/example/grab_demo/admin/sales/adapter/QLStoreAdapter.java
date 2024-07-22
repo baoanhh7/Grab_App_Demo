@@ -16,6 +16,7 @@ import android.widget.Filterable;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -91,10 +92,11 @@ public class QLStoreAdapter extends RecyclerView.Adapter<QLStoreAdapter.ViewHold
 
         // Lấy số tháng
         int months = 0;
+        int days = 0;
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
             if (period.getYears() == 0 && period.getMonths() == 0) {
-                months = period.getDays();
-                holder.txtclosed.setText(months + " ngay trước");
+                days = period.getDays();
+                holder.txtclosed.setText(days + " ngay trước");
             } else {
                 months = period.getYears() * 12 + period.getMonths();
                 holder.txtclosed.setText(months + " tháng trước");
@@ -111,6 +113,7 @@ public class QLStoreAdapter extends RecyclerView.Adapter<QLStoreAdapter.ViewHold
                 }
             }
         });
+        int finalMonths = months;
         holder.btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -121,7 +124,10 @@ public class QLStoreAdapter extends RecyclerView.Adapter<QLStoreAdapter.ViewHold
                 builder.setPositiveButton("Có", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        delete(stores.getId(), position);
+                        if(finalMonths >=3) {
+                            delete(stores.getId(), position);
+                        }else
+                            Toast.makeText(context, "Bạn không đủ 3 tháng để xóa", Toast.LENGTH_SHORT).show();
                     }
                 });
                 builder.setNegativeButton("Không", new DialogInterface.OnClickListener() {

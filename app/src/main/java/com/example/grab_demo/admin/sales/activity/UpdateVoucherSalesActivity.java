@@ -19,6 +19,8 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -105,7 +107,26 @@ public class UpdateVoucherSalesActivity extends AppCompatActivity {
                     public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
                         // Định dạng ngày theo yêu cầu (yyyy-MM-dd)
                         String selectedDate = String.format(Locale.getDefault(), "%d-%02d-%02d", year, monthOfYear + 1, dayOfMonth);
-                        edt.setText(selectedDate);
+                        if(edt == edt_enddate_updateVoucherSales) {
+                            // Lấy ngày bắt đầu
+                            String startDateStr = edt_startdate_updateVoucherSales.getText().toString();
+                            try {
+                                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                                java.util.Date startDate =  sdf.parse(startDateStr);
+                                java.util.Date endDate =  sdf.parse(selectedDate);
+
+                                if(endDate.after(startDate)) {
+                                    edt.setText(selectedDate);
+                                } else {
+                                    Toast.makeText(UpdateVoucherSalesActivity.this, "End date must be after start date", Toast.LENGTH_SHORT).show();
+                                }
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                                Toast.makeText(UpdateVoucherSalesActivity.this, "Invalid date format", Toast.LENGTH_SHORT).show();
+                            }
+                        } else {
+                            edt.setText(selectedDate);
+                        }
                     }
                 }, year, month, day);
 
@@ -118,11 +139,15 @@ public class UpdateVoucherSalesActivity extends AppCompatActivity {
 
     private void updateData() {
         String name = edt_name_updateVoucherSales.getText().toString().trim();
-        String condition = edt_condition_updateVoucherSales.getText().toString().trim();
+        int condition = Integer.parseInt(edt_condition_updateVoucherSales.getText().toString().trim());
         Float discount = Float.valueOf(edt_discount_updateVoucherSales.getText().toString().trim());
         Date startdate = Date.valueOf(edt_startdate_updateVoucherSales.getText().toString().trim());
         Date enddate = Date.valueOf(edt_enddate_updateVoucherSales.getText().toString().trim());
         Integer quantity = Integer.parseInt(edt_quantity_updateVoucherSales.getText().toString().trim());
+        if (discount <= 0 || quantity <= 0 || condition <= 0) {
+            Toast.makeText(this, "Discount, quantity and condition must be greater than 0", Toast.LENGTH_SHORT).show();
+            return;
+        }
         ConnectionClass sql = new ConnectionClass();
         connection = sql.conClass();
         if (connection != null) {
@@ -130,7 +155,7 @@ public class UpdateVoucherSalesActivity extends AppCompatActivity {
                 String query = "Update Vouchers set voucher_name=?,condition=?,discount = ?,start_date = ?,end_date = ?,quantity = ? where voucher_id = ?";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setString(1, name);
-                preparedStatement.setString(2, condition);
+                preparedStatement.setInt(2, condition);
                 preparedStatement.setFloat(3, discount);
                 preparedStatement.setDate(4, startdate);
                 preparedStatement.setDate(5, enddate);
