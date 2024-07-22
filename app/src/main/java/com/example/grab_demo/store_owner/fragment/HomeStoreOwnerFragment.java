@@ -131,6 +131,7 @@ public class HomeStoreOwnerFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), OrderHomeStoreOwnerActivity.class);
+                intent.putExtra("store_id", storeID);
                 startActivity(intent);
             }
         });
