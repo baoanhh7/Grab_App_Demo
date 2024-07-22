@@ -6,7 +6,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.ToggleButton;
 
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
@@ -29,6 +31,7 @@ public class NotificationsFragment extends Fragment {
     private TextView passwordTextView;
     private Button editProfileButton;
     private Button ButtonThongkedoanhthu, buttonLogout;
+    private ToggleButton toggleButton;
 
     public static NotificationsFragment newInstance(String userId) {
         NotificationsFragment fragment = new NotificationsFragment();
@@ -59,6 +62,7 @@ public class NotificationsFragment extends Fragment {
         ButtonThongkedoanhthu = view.findViewById(R.id.ButtonThongkedoanhthu);
         editProfileButton = view.findViewById(R.id.editProfileButton);
         buttonLogout = view.findViewById(R.id.Buttonlogout);
+        toggleButton = view.findViewById(R.id.toggleButton);
         editProfileButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -86,6 +90,17 @@ public class NotificationsFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 logoutAndExit();
+            }
+        });
+        // Xử lý sự kiện của ToggleButton
+        toggleButton.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+
+                } else {
+
+                }
             }
         });
         ButtonThongkedoanhthu.setOnClickListener(new View.OnClickListener() {
