@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.database.ConnectionClass;
-import com.example.grab_demo.deliver.adapter.orderDetailAdapter;
+import com.example.grab_demo.deliver.Adapter.orderDetailAdapter;
 import com.example.grab_demo.model.DonHangModel;
 import com.example.grab_demo.model.OrderDetail;
 
@@ -65,7 +65,6 @@ public class ChiTietDonHangNewActivity extends AppCompatActivity {
                 // Hiển thị thông tin chung về đơn hàng
                 textViewMaDonHang.setText("Mã đơn hàng: " + donHang.getOrderId());
                 textViewTrangThaiDonHang.setText("Trạng thái: " + donHang.getStatus());
-
                 // Truy vấn chi tiết đơn hàng
                 loadOrderDetails(donHang.getOrderId());
             }

@@ -13,7 +13,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.database.ConnectionClass;
-import com.example.grab_demo.deliver.adapter.orderDetailAdapter;
+
+import com.example.grab_demo.deliver.Adapter.orderDetailAdapter;
 import com.example.grab_demo.model.DonHangModel;
 import com.example.grab_demo.model.OrderDetail;
 
@@ -29,7 +30,7 @@ public class ChiTietDonHangActivity extends AppCompatActivity {
     private TextView textViewMaDonHang, textViewTrangThaiDonHang, textViewTongTien;
     private RecyclerView recyclerViewOrderDetails;
     private List<OrderDetail> orderDetails;
-    private com.example.grab_demo.deliver.adapter.orderDetailAdapter orderDetailAdapter;
+    private orderDetailAdapter orderDetailAdapter;
     private Button buttonAccept, buttonComplete, buttonCanceled;
     private DonHangModel donHang;
     private String userId;

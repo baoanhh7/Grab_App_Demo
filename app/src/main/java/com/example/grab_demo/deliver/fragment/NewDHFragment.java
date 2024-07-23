@@ -14,7 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.database.ConnectionClass;
-import com.example.grab_demo.deliver.adapter.DanhSachDonHangnewAdapter;
+import com.example.grab_demo.deliver.Adapter.DanhSachDonHangnewAdapter;
 import com.example.grab_demo.model.DonHangModel;
 
 import java.math.BigDecimal;

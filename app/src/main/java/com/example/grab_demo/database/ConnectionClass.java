@@ -14,7 +14,6 @@ public class ConnectionClass {
     //private static final String DB_URL = "jdbc:jtds:sqlserver://172.31.119.2:1433;databaseName=FoodOrderingSystem";
     private static final String DB_URL = "jdbc:jtds:sqlserver://172.31.241.69:1433;databaseName=FoodOrderingSystem";
     // 172.31.119.2
-
     //bao anh
     //private static final String DB_URL = "jdbc:jtds:sqlserver://192.168.1.40:1433;databaseName=FoodOrderingSystem";
 
