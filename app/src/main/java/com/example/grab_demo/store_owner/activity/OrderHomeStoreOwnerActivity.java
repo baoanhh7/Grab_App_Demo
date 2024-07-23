@@ -47,7 +47,7 @@ public class OrderHomeStoreOwnerActivity extends AppCompatActivity {
         img_back_orderHSO.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(OrderHomeStoreOwnerActivity.this, StoreOwnerActivity.class));
+                //startActivity(new Intent(OrderHomeStoreOwnerActivity.this, StoreOwnerActivity.class));
                 finish();
             }
         });
