@@ -82,7 +82,7 @@ public class NewOrderHSOFragment extends Fragment {
                 connection = sql.conClass();
                 if (connection != null) {
                     try {
-                        String query = "SELECT order_id,delivery_id, status FROM Orders WHERE store_id = ? AND status = 'delivered' ";
+                        String query = "SELECT order_id,delivery_id, status FROM Orders WHERE store_id = ? AND status = 'confirmed' ";
                         PreparedStatement smt = connection.prepareStatement(query);
                         smt.setInt(1, storeID);
                         ResultSet resultSet = smt.executeQuery();
