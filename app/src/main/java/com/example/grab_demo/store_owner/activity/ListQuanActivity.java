@@ -70,7 +70,7 @@ public class ListQuanActivity extends AppCompatActivity {
         connection = sql.conClass();
         if (connection != null) {
             try {
-                query = "SELECT store_name, open_store, image FROM Stores WHERE owner_id = " + userId + " AND status = 'closed' OR status = 'closed' ";
+                query = "SELECT store_name, open_store, image FROM Stores WHERE owner_id = " + userId + " AND status = 'closed' OR status = 'opened' ";
                 smt = connection.createStatement();
                 resultSet = smt.executeQuery(query);
                 while (resultSet.next()) {
