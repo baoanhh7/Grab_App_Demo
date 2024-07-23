@@ -64,6 +64,7 @@ public class CartActivity extends AppCompatActivity {
         voucherId = getIntent().getIntExtra("voucher_id", -1);  // Lấy cate_id kiểu int với giá trị mặc định là -1
 
         userId = getIntent().getStringExtra("user_id");
+        Log.e("CartActivity", userId);
 
         addEvents();
 
