@@ -21,6 +21,7 @@ public class DanhSachDonHangoldAdapter extends RecyclerView.Adapter<DanhSachDonH
     private Context context;
     private ArrayList<DonHangModel> mangDonHang;
 
+
     public DanhSachDonHangoldAdapter(Context context, ArrayList<DonHangModel> mangDonHang) {
         this.context = context;
         this.mangDonHang = mangDonHang;
