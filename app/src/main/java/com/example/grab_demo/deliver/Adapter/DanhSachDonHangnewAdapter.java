@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -20,11 +21,18 @@ public class DanhSachDonHangnewAdapter extends RecyclerView.Adapter<DanhSachDonH
     private Context context;
     private ArrayList<DonHangModel> mangDonHang;
     private String userId;
+    private String userStatus;
+    private boolean isEnabled = true;
 
-    public DanhSachDonHangnewAdapter(Context context, ArrayList<DonHangModel> mangDonHang, String userId) {
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
+    }
+
+    public DanhSachDonHangnewAdapter(Context context, ArrayList<DonHangModel> mangDonHang, String userId, String userStatus) {
         this.context = context;
         this.mangDonHang = mangDonHang;
         this.userId = userId;
+        this.userStatus = userStatus;
     }
 
     @NonNull
@@ -36,25 +44,36 @@ public class DanhSachDonHangnewAdapter extends RecyclerView.Adapter<DanhSachDonH
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        DonHangModel donHang = mangDonHang.get(position);
-        holder.txtMaDonHang.setText(String.valueOf(donHang.getOrderId())); // Hiển thị mã đơn hàng
-        holder.txtTrangThaiDonHang.setText(donHang.getStatus()); // Hiển thị trạng thái đơn hàng
+        if (isEnabled && !"inactive".equalsIgnoreCase(userStatus)) {
+            DonHangModel donHang = mangDonHang.get(position);
+            holder.txtMaDonHang.setText(String.valueOf(donHang.getOrderId()));
+            holder.txtTrangThaiDonHang.setText(donHang.getStatus());
 
-        // Xử lý sự kiện click vào một đơn hàng
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(context, ChiTietDonHangNewActivity.class);
-                intent.putExtra("donhang", donHang);
-                intent.putExtra("user_id", userId); // Truyền userId qua Intent
-                context.startActivity(intent);
+            holder.itemView.setVisibility(View.VISIBLE);
+            holder.itemView.setEnabled(true);
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(context, ChiTietDonHangNewActivity.class);
+                    intent.putExtra("donhang", donHang);
+                    intent.putExtra("user_id", userId);
+                    context.startActivity(intent);
+                }
+            });
+        } else {
+            // Ẩn hoặc vô hiệu hóa item khi adapter bị tắt hoặc khi trạng thái người dùng là "inactive"
+            holder.itemView.setVisibility(View.GONE);
+            holder.itemView.setEnabled(false);
+            if ("inactive".equalsIgnoreCase(userStatus)) {
+                Toast.makeText(context, "Tài khoản của bạn đang bị vô hiệu hóa", Toast.LENGTH_SHORT).show();
             }
-        });
+        }
     }
 
     @Override
     public int getItemCount() {
-        return mangDonHang.size();
+        return isEnabled && !"inactive".equalsIgnoreCase(userStatus) ? mangDonHang.size() : 0;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -65,5 +84,20 @@ public class DanhSachDonHangnewAdapter extends RecyclerView.Adapter<DanhSachDonH
             txtMaDonHang = itemView.findViewById(R.id.textViewmadonhang);
             txtTrangThaiDonHang = itemView.findViewById(R.id.textViewtrangthaidonhang);
         }
+    }
+
+    public void updateData(ArrayList<DonHangModel> newData) {
+        this.mangDonHang = newData;
+        notifyDataSetChanged();
+    }
+
+    public void setEnabledAndUpdate(boolean enabled) {
+        this.isEnabled = enabled;
+        notifyDataSetChanged();
+    }
+
+    public void setUserStatus(String userStatus) {
+        this.userStatus = userStatus;
+        notifyDataSetChanged();
     }
 }

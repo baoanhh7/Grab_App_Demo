@@ -68,15 +68,11 @@ public class NewDHFragment extends Fragment {
         if (connection != null) {
             Log.d("DatabaseConnection", "Connected to database successfully");
             try {
-                // Cập nhật SQL query để lấy dữ liệu với trạng thái 'pending' hoặc 'confirmed'
                 String query = "SELECT order_id, customer_id, store_id, delivery_id, delivery_price, total_price, payment_method, status, voucher_id, created_at, updated_at FROM Orders WHERE status = 'pending' OR status = 'confirmed'";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
-//                preparedStatement.setString(1, userId); // Pass userId to query
 
-                // Execute query and get the result set
                 ResultSet resultSet = preparedStatement.executeQuery();
 
-                // Loop through the result set and populate DonHangModel objects into mangDonHang
                 while (resultSet.next()) {
                     int orderId = resultSet.getInt("order_id");
                     int customerId = resultSet.getInt("customer_id");
@@ -94,7 +90,6 @@ public class NewDHFragment extends Fragment {
                     mangDonHang.add(donHang);
                 }
 
-                // Close resources
                 resultSet.close();
                 preparedStatement.close();
             } catch (SQLException e) {
@@ -102,7 +97,7 @@ public class NewDHFragment extends Fragment {
             } finally {
                 try {
                     if (connection != null) {
-                        connection.close(); // Close connection
+                        connection.close();
                         Log.d("DatabaseConnection", "Database connection closed");
                     }
                 } catch (SQLException throwables) {
@@ -113,8 +108,48 @@ public class NewDHFragment extends Fragment {
             Log.e("DatabaseConnection", "Failed to connect to database");
         }
 
+        // Get user status
+        String userStatus = getUserStatus(userId);
+
         // After fetching data, update the adapter
-        adapter = new DanhSachDonHangnewAdapter(getContext(), mangDonHang, userId);
+        adapter = new DanhSachDonHangnewAdapter(getContext(), mangDonHang, userId, userStatus);
         recyclerView.setAdapter(adapter);
     }
+
+    private String getUserStatus(String userId) {
+        ConnectionClass sql = new ConnectionClass();
+        Connection connection = sql.conClass();
+        String status = "inactive"; // Default status
+
+        if (connection != null) {
+            try {
+                String query = "SELECT status FROM Users WHERE user_id = ?";
+                PreparedStatement preparedStatement = connection.prepareStatement(query);
+                preparedStatement.setString(1, userId);
+
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    status = resultSet.getString("status");
+                }
+
+                resultSet.close();
+                preparedStatement.close();
+            } catch (SQLException e) {
+                Log.e("DatabaseConnection", "Error executing query: " + e.getMessage());
+            } finally {
+                try {
+                    if (connection != null) {
+                        connection.close();
+                    }
+                } catch (SQLException throwables) {
+                    Log.e("DatabaseConnection", "Error closing connection: " + throwables.getMessage());
+                }
+            }
+        } else {
+            Log.e("DatabaseConnection", "Failed to connect to database");
+        }
+
+        return status;
+    }
+
 }
