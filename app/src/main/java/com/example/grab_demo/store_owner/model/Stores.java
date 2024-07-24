@@ -1,6 +1,7 @@
 package com.example.grab_demo.store_owner.model;
 
 import java.sql.Date;
+import java.sql.Time;
 
 public class Stores {
     private byte[] hinh;
@@ -10,11 +11,12 @@ public class Stores {
     private int cate_id;
     private String address;
     private String tensp;
-    private String giomocua;
+    private Time giomocua;
+    private Time giodongcua;
     private Date updated_at;
     private boolean isChecked;
 
-    public Stores(byte[] hinh, int id, int owner_id, String status, int cate_id, String address, String tensp, String giomocua) {
+    public Stores(byte[] hinh, int id, int owner_id, String status, int cate_id, String address, String tensp, Time giomocua ,Time giodongcua) {
         this.hinh = hinh;
         this.id = id;
         this.owner_id = owner_id;
@@ -23,6 +25,7 @@ public class Stores {
         this.address = address;
         this.tensp = tensp;
         this.giomocua = giomocua;
+        this.giodongcua = giodongcua;
     }
 
     public Stores(byte[] hinh, int id, int owner_id, String tensp, Date updated_at) {
@@ -40,10 +43,11 @@ public class Stores {
         this.hinh = hinh;
     }
 
-    public Stores(byte[] hinh, String tensp, String giomocua) {
+    public Stores(byte[] hinh, String tensp, Time giomocua, Time giodongcua) {
         this.hinh = hinh;
         this.tensp = tensp;
         this.giomocua = giomocua;
+        this.giodongcua = giodongcua;
     }
 
     public int getId() {
@@ -102,11 +106,11 @@ public class Stores {
         this.tensp = tensp;
     }
 
-    public String getGiomocua() {
+    public Time getGiomocua() {
         return giomocua;
     }
 
-    public void setGiomocua(String giomocua) {
+    public void setGiomocua(Time giomocua) {
         this.giomocua = giomocua;
     }
 
@@ -124,5 +128,13 @@ public class Stores {
 
     public void setUpdated_at(Date updated_at) {
         this.updated_at = updated_at;
+    }
+
+    public Time getGiodongcua() {
+        return giodongcua;
+    }
+
+    public void setGiodongcua(Time giodongcua) {
+        this.giodongcua = giodongcua;
     }
 }

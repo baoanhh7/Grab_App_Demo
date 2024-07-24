@@ -29,12 +29,30 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <TextView
-            android:id="@+id/tv_opened_item_StoreHSO"
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="40.000đ"
-            android:textSize="16sp" />
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_opened_item_StoreHSO"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="40.000đ"
+                android:textSize="16sp" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="-"
+                android:layout_marginHorizontal="5dp"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/tv_closed_item_StoreHSO"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="40.000đ"
+                android:textSize="16sp" />
+        </LinearLayout>
     </LinearLayout>
 
     <Switch

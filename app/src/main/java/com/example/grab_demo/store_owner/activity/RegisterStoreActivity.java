@@ -4,6 +4,7 @@ import static android.provider.MediaStore.ACTION_IMAGE_CAPTURE;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -19,6 +20,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -35,15 +38,20 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Time;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 public class RegisterStoreActivity extends AppCompatActivity {
 
     ImageView img_registerstore;
     Button btn_choose_image_registerstore, btn_registerstore;
     ImageButton btn_camera_registerstore, img_back_registerstore;
-    TextInputEditText edt_namestore_registerstore, edt_address_registerstore, edt_opened_registerstore;
+    TextInputEditText edt_namestore_registerstore, edt_address_registerstore, edt_opened_registerstore, edt_closed_registerstore;
     Spinner sp_idCate_registerstore;
     Connection connection;
     ResultSet resultSet;
@@ -121,6 +129,24 @@ public class RegisterStoreActivity extends AppCompatActivity {
                 insertData();
             }
         });
+        img_back_registerstore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+        edt_opened_registerstore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Time(edt_opened_registerstore);
+            }
+        });
+        edt_closed_registerstore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Time(edt_closed_registerstore);
+            }
+        });
     }
 
     private void addControls() {
@@ -132,38 +158,104 @@ public class RegisterStoreActivity extends AppCompatActivity {
         edt_namestore_registerstore = findViewById(R.id.edt_namestore_registerstore);
         edt_address_registerstore = findViewById(R.id.edt_address_registerstore);
         edt_opened_registerstore = findViewById(R.id.edt_opened_registerstore);
+        edt_closed_registerstore = findViewById(R.id.edt_closed_registerstore);
         sp_idCate_registerstore = findViewById(R.id.sp_idCate_registerstore);
     }
+
+    private void Time(TextInputEditText edt) {
+        // Lấy giờ hiện tại
+        final Calendar c = Calendar.getInstance();
+        int hour = c.get(Calendar.HOUR_OF_DAY);
+        int minute = c.get(Calendar.MINUTE);
+
+        // Tạo TimePickerDialog
+        TimePickerDialog timePickerDialog = new TimePickerDialog(RegisterStoreActivity.this, new TimePickerDialog.OnTimeSetListener() {
+            @Override
+            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                // Định dạng giờ theo yêu cầu (HH:mm)
+                String selectedTime = String.format(Locale.getDefault(), "%02d:%02d", hourOfDay, minute);
+
+                if (edt == edt_closed_registerstore) {
+                    // Lấy giờ mở
+                    String openedStr = edt_opened_registerstore.getText().toString();
+                    try {
+                        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+                        java.util.Date openTime = sdf.parse(openedStr);
+                        java.util.Date closeTime = sdf.parse(selectedTime);
+
+                        if (closeTime.after(openTime)) {
+                            edt.setText(selectedTime);
+                        } else {
+                            Toast.makeText(RegisterStoreActivity.this, "End time must be after start time", Toast.LENGTH_SHORT).show();
+                        }
+                    } catch (ParseException e) {
+                        e.printStackTrace();
+                        Toast.makeText(RegisterStoreActivity.this, "Invalid time format", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    edt.setText(selectedTime);
+                }
+            }
+        }, hour, minute, true);
+
+        // Hiển thị TimePickerDialog
+        timePickerDialog.show();
+
+        // Hiển thị thông báo về định dạng giờ
+        Toast.makeText(RegisterStoreActivity.this, "Select a time (HH:mm)", Toast.LENGTH_SHORT).show();
+    }
+
 
     private void insertData() {
         byte[] anh = getByteArrayFromImageView(img_registerstore);
         // Lấy chuỗi tên danh mục từ EditText
         String storeName = edt_namestore_registerstore.getText().toString().trim();
         String address = edt_address_registerstore.getText().toString().trim();
-        String opened = edt_opened_registerstore.getText().toString().trim();
+        String openedStr = edt_opened_registerstore.getText().toString().trim();
+        String closedStr = edt_closed_registerstore.getText().toString().trim();
+        // Kiểm tra xem chuỗi có đúng định dạng không
+        if (!openedStr.matches("\\d{2}:\\d{2}") || !closedStr.matches("\\d{2}:\\d{2}")) {
+            Toast.makeText(this, "Invalid time format. Please use HH:mm", Toast.LENGTH_LONG).show();
+            return;
+        }
+        Time opened;
+        Time closed;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("HH:mm", Locale.getDefault());
+            java.util.Date openDate = sdf.parse(openedStr);
+            java.util.Date closeDate = sdf.parse(closedStr);
+            opened = new Time(openDate.getTime());
+            closed = new Time(closeDate.getTime());
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Invalid time format", Toast.LENGTH_SHORT).show();
+            return;
+        }
         Integer cateid = Integer.parseInt(cateId);
         Integer userid = Integer.parseInt(userId);
         ConnectionClass sql = new ConnectionClass();
         connection = sql.conClass();
         if (connection != null) {
             try {
-                String query = "INSERT INTO Stores(store_name,owner_id,status,cate_id,open_store,image,address) VALUES (?,?,?,?,?,?,?)";
+                String query = "INSERT INTO Stores(store_name,owner_id,status,cate_id,open_store,image,address,close_store) VALUES (?,?,?,?,?,?,?,?)";
                 PreparedStatement preparedStatement = connection.prepareStatement(query);
                 preparedStatement.setString(1, storeName);
                 preparedStatement.setInt(2, userid);
                 preparedStatement.setString(3, "pending");
                 preparedStatement.setInt(4, cateid);
-                preparedStatement.setString(5, opened);
+                preparedStatement.setTime(5, opened);
                 preparedStatement.setBytes(6, anh);
                 preparedStatement.setString(7, address);
+                preparedStatement.setTime(8, closed);
                 // Thực thi truy vấn INSERT
                 int rowsAffected = preparedStatement.executeUpdate();
                 if (rowsAffected > 0) {
                     Log.d("RegisterStoreActivity", "Insert successfully");
                     // Gọi finish() để đóng activity sau khi chèn thành công
-//                    Intent intent = new Intent(RegisterStoreActivity.this, StoreOwnerActivity.class);
-//                    startActivity(intent);
-                    finish(); // Đóng activity hiện tại sau khi chuyển hướng
+                    Intent intent = new Intent(RegisterStoreActivity.this, StoreOwnerActivity.class);
+                    startActivity(intent);
+                    finish();
+                   // finish(); // Đóng activity hiện tại sau khi chuyển hướng
                 } else {
                     Log.e("RegisterStoreActivity", "Insert failed");
                 }
