@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.database.ConnectionClass;
-import com.example.grab_demo.deliver.Adapter.orderDetailAdapter;
 import com.example.grab_demo.model.DonHangModel;
 import com.example.grab_demo.model.OrderDetail;
 
