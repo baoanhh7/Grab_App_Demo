@@ -14,6 +14,7 @@ import com.example.grab_demo.admin.sales.activity.ApproveStoreRegistrationActivi
 import com.example.grab_demo.admin.sales.activity.ListCateSalesActivity;
 import com.example.grab_demo.admin.sales.activity.ListVoucherSalesActivity;
 import com.example.grab_demo.admin.sales.activity.QLStoreActivity;
+import com.example.grab_demo.admin.sales.activity.QLTaiKhoanActivity;
 import com.example.grab_demo.login.LoginActivity;
 
 public class AdminActivity extends AppCompatActivity {
@@ -77,6 +78,12 @@ public class AdminActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(AdminActivity.this, QLStoreActivity.class));
+            }
+        });
+        btn_quanlytkHSO_sales.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(AdminActivity.this, QLTaiKhoanActivity.class));
             }
         });
     }
