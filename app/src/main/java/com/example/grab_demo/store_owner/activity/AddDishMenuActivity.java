@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -97,6 +98,10 @@ public class AddDishMenuActivity extends AppCompatActivity {
         Integer storeid = Integer.parseInt(storeID);
         byte[] anh = getByteArrayFromImageView(img_addDishMenu);
         String status = "inactive";
+        if (price <= 0 || quantity <= 0 ) {
+            Toast.makeText(this, "price, quantity must be greater than 0", Toast.LENGTH_SHORT).show();
+            return;
+        }
         ConnectionClass sql = new ConnectionClass();
         connection = sql.conClass();
         if (connection != null) {

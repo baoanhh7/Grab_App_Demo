@@ -1,6 +1,7 @@
 package com.example.grab_demo.store_owner.activity;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.MenuItem;
 
@@ -31,6 +32,7 @@ public class StoreOwnerActivity extends AppCompatActivity {
         // Lấy chỉ số fragment từ intent
         sendDatatoFragment();
     }
+
 
     private void sendDatatoFragment() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

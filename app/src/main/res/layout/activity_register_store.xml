@@ -121,7 +121,24 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/round_button"
-                android:hint="Gio hoat dong"
+                android:hint="Gio mo cua"
+                android:inputType="text"
+                android:padding="15dp"
+                android:textColor="@color/black"
+                android:textStyle="bold" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/edt_closed_registerstore"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/round_button"
+                android:hint="Gio dong cua"
                 android:inputType="text"
                 android:padding="15dp"
                 android:textColor="@color/black"

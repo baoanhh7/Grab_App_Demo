@@ -25,6 +25,7 @@ import com.example.grab_demo.store_owner.model.Stores;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Time;
 import java.util.ArrayList;
 
 
@@ -58,7 +59,8 @@ public class StoreHSOAdapter extends RecyclerView.Adapter<StoreHSOAdapter.ViewHo
         Bitmap bitmap = BitmapFactory.decodeByteArray(hinhAlbumByteArray, 0, hinhAlbumByteArray.length);
         holder.img.setImageBitmap(bitmap);
         holder.txtTen.setText(stores.getTensp());
-        holder.txtOpen.setText(stores.getGiomocua());
+        holder.txtOpen.setText(stores.getGiomocua().toString());
+        holder.txtClose.setText(stores.getGiodongcua().toString());
         holder.getCurrentStoreStatus();
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,7 +121,7 @@ public class StoreHSOAdapter extends RecyclerView.Adapter<StoreHSOAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView img;
         TextView txtTen;
-        TextView txtOpen;
+        TextView txtOpen,txtClose;
         Switch switchToggle_dishmenuHSO;
 
         public ViewHolder(@NonNull View itemView) {
@@ -127,6 +129,7 @@ public class StoreHSOAdapter extends RecyclerView.Adapter<StoreHSOAdapter.ViewHo
             img = itemView.findViewById(R.id.ImageView_item_StoreHSO);
             txtTen = itemView.findViewById(R.id.tv_name_item_StoreHSO);
             txtOpen = itemView.findViewById(R.id.tv_opened_item_StoreHSO);
+            txtClose = itemView.findViewById(R.id.tv_closed_item_StoreHSO);
             switchToggle_dishmenuHSO = itemView.findViewById(R.id.switchToggle_item_StoreHSO);
         }
 

@@ -17,6 +17,7 @@ import com.example.grab_demo.store_owner.model.Stores;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.sql.Time;
 import java.util.ArrayList;
 
 public class ListQuanActivity extends AppCompatActivity {
@@ -70,14 +71,15 @@ public class ListQuanActivity extends AppCompatActivity {
         connection = sql.conClass();
         if (connection != null) {
             try {
-                query = "SELECT store_name, open_store, image FROM Stores WHERE owner_id = " + userId + " AND status = 'closed' OR status = 'opened' ";
+                query = "SELECT store_name, open_store, image, close_store FROM Stores WHERE owner_id = " + userId + " AND status = 'closed' OR status = 'opened' ";
                 smt = connection.createStatement();
                 resultSet = smt.executeQuery(query);
                 while (resultSet.next()) {
                     String storeName = resultSet.getString(1);
-                    String openStore = resultSet.getString(2);
+                    Time openStore = resultSet.getTime(2);
                     byte[] image = resultSet.getBytes(3);
-                    arr.add(new Stores(image, storeName, openStore));
+                    Time closeStore = resultSet.getTime(4);
+                    arr.add(new Stores(image, storeName, openStore,closeStore));
                 }
                 connection.close();
             } catch (Exception e) {

@@ -14,10 +14,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.database.ConnectionClass;
-
+import com.example.grab_demo.deliver.Adapter.orderDetailAdapter;
 import com.example.grab_demo.model.DonHangModel;
 import com.example.grab_demo.model.OrderDetail;
-import com.example.grab_demo.deliver.Adapter.orderDetailAdapter;
+
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -41,6 +41,7 @@ public class ChiTietDonHangNewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chi_tiet_don_hang_new);
 
+        // Ánh xạ các thành phần giao diện
         textViewMaDonHang = findViewById(R.id.textViewMaDonHang);
         textViewTrangThaiDonHang = findViewById(R.id.textViewTrangThaiDonHang);
         textViewTongTien = findViewById(R.id.textViewTongTien);

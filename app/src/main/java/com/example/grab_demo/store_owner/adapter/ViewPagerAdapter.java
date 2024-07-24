@@ -1,6 +1,10 @@
 package com.example.grab_demo.store_owner.adapter;
 
+import android.os.Parcelable;
+import android.util.Log;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
@@ -36,5 +40,21 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public int getCount() {
         return 3;
+    }
+
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        return POSITION_NONE;
+//        return super.getItemPosition(object);
+    }
+
+    @Override
+    public void restoreState(@Nullable Parcelable state, @Nullable ClassLoader loader) {
+//        super.restoreState(state, loader);
+        try {
+            super.restoreState(state, loader);
+        } catch (IllegalStateException e) {
+            Log.e("YourTag", "Failed to restore state: " + e.getMessage());
+        }
     }
 }

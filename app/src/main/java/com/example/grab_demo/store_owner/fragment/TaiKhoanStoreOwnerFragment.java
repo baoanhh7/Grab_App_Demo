@@ -64,6 +64,7 @@ public class TaiKhoanStoreOwnerFragment extends Fragment {
             public void onClick(View v) {
                 // Xử lý sự kiện đăng xuất
                 startActivity(new Intent(getContext(), LoginActivity.class));
+                getActivity().finish();
             }
         });
     }
