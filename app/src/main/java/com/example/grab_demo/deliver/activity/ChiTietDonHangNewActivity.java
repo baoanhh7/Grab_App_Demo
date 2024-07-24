@@ -14,7 +14,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.database.ConnectionClass;
-import com.example.grab_demo.deliver.Adapter.orderDetailAdapter;
+import com.example.grab_demo.deliver.Adapter.OrderDetailAdapter;
+
 import com.example.grab_demo.model.DonHangModel;
 import com.example.grab_demo.model.OrderDetail;
 
@@ -31,7 +32,7 @@ public class ChiTietDonHangNewActivity extends AppCompatActivity {
     private TextView textViewMaDonHang, textViewTrangThaiDonHang, textViewTongTien;
     private RecyclerView recyclerViewOrderDetails;
     private List<OrderDetail> orderDetails;
-    private orderDetailAdapter orderDetailAdapter;
+    private OrderDetailAdapter orderDetailAdapter;
     private Button buttonAccept, buttonComplete, buttonCanceled;
     private DonHangModel donHang;
     private String userId;
@@ -212,7 +213,7 @@ public class ChiTietDonHangNewActivity extends AppCompatActivity {
                     Log.d("Adapter", "Found " + orderDetails.size() + " order details");
                 }
 
-                orderDetailAdapter = new orderDetailAdapter(this, orderDetails);
+                orderDetailAdapter = new OrderDetailAdapter(this, orderDetails);
                 recyclerViewOrderDetails.setAdapter(orderDetailAdapter);
 
                 textViewTongTien.setText(totalAmount.toString() + " VND");
