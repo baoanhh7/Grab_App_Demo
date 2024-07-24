@@ -1,4 +1,4 @@
-package com.example.grab_demo.deliver.adapter;
+package com.example.grab_demo.deliver.Adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -14,11 +14,11 @@ import com.example.grab_demo.model.OrderDetail;
 
 import java.util.List;
 
-public class orderDetailAdapter extends RecyclerView.Adapter<orderDetailAdapter.ViewHolder> {
+public class OrderDetailAdapter extends RecyclerView.Adapter<OrderDetailAdapter.ViewHolder> {
     private Context context;
     private List<OrderDetail> orderDetailList;
 
-    public orderDetailAdapter(Context context, List<OrderDetail> orderDetailList) {
+    public OrderDetailAdapter(Context context, List<OrderDetail> orderDetailList) {
         this.context = context;
         this.orderDetailList = orderDetailList;
     }
