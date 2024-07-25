@@ -74,12 +74,18 @@ public class EditProfileActivity extends AppCompatActivity {
             Toast.makeText(this, "Vui lòng nhập tên", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (phoneEditText.getText().toString().trim().isEmpty()) {
-            Toast.makeText(this, "Vui lòng nhập số điện thoại", Toast.LENGTH_SHORT).show();
+        if (phoneEditText.getText().toString().trim().isEmpty() || phoneEditText.getText().toString().trim().length() != 10) {
+            Toast.makeText(this, "Vui lòng nhập số điện thoại đúng (10 số)", Toast.LENGTH_SHORT).show();
             return false;
         }
-        if (emailEditText.getText().toString().trim().isEmpty()) {
-            Toast.makeText(this, "Vui lòng nhập email", Toast.LENGTH_SHORT).show();
+        String email = emailEditText.getText().toString().trim();
+        if (email.isEmpty() || !email.endsWith("@gmail.com")) {
+            Toast.makeText(this, "Vui lòng nhập email đúng định dạng (@gmail.com)", Toast.LENGTH_SHORT).show();
+            return false;
+        }
+        String password = passwordEditText.getText().toString().trim();
+        if (password.isEmpty() || password.length() < 8) {
+            Toast.makeText(this, "Mật khẩu phải có ít nhất 8 ký tự", Toast.LENGTH_SHORT).show();
             return false;
         }
         // Thêm các kiểm tra hợp lệ khác nếu cần

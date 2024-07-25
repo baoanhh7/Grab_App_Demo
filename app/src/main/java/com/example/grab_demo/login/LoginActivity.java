@@ -94,10 +94,12 @@ public class LoginActivity extends AppCompatActivity {
     private static class UserInfo {
         String userId;
         String userType;
+        String status;
 
-        UserInfo(String userId, String userType) {
+        UserInfo(String userId, String userType, String status) {
             this.userId = userId;
             this.userType = userType;
+            this.status = status;
         }
     }
 
@@ -111,15 +113,16 @@ public class LoginActivity extends AppCompatActivity {
                 connection = new ConnectionClass().conClass();
                 if (connection == null) return null;
 
-                String query = "SELECT user_id, password, user_type FROM Users WHERE (phone_number = ? OR email = ?)";
+                String query = "SELECT user_id, password, user_type, status FROM Users WHERE (phone_number = ? OR email = ?)";
                 try (PreparedStatement pstmt = connection.prepareStatement(query)) {
                     pstmt.setString(1, username);
                     pstmt.setString(2, username);
                     try (ResultSet rs = pstmt.executeQuery()) {
                         if (rs.next()) {
                             String storedPassword = rs.getString("password");
+                            String status = rs.getString("status");
                             if (password.equals(storedPassword)) {
-                                return new UserInfo(rs.getString("user_id"), rs.getString("user_type"));
+                                return new UserInfo(rs.getString("user_id"), rs.getString("user_type"), status);
                             }
                         }
                     }
@@ -141,8 +144,12 @@ public class LoginActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(UserInfo userInfo) {
             if (userInfo != null) {
-                Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
-                navigateToAppropriateActivity(userInfo);
+                if ("locked".equals(userInfo.status)) {
+                    Toast.makeText(LoginActivity.this, "Your account has been locked", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
+                    navigateToAppropriateActivity(userInfo);
+                }
             } else {
                 Toast.makeText(LoginActivity.this, "Invalid username or password", Toast.LENGTH_SHORT).show();
             }
