@@ -249,7 +249,6 @@ public class CartActivity extends AppCompatActivity {
         }
     }
 
-
     private void insertDataToOrder(String userId) {
         ConnectionClass sql = new ConnectionClass();
         connection2 = sql.conClass();
