@@ -64,7 +64,7 @@ public class CartActivity extends AppCompatActivity {
         voucherId = getIntent().getIntExtra("voucher_id", -1);  // Lấy cate_id kiểu int với giá trị mặc định là -1
 
         userId = getIntent().getStringExtra("user_id");
-        Log.e("CartActivity", userId);
+        Log.e("CartActivity", "user_id is null");
 
         addEvents();
 
@@ -212,8 +212,8 @@ public class CartActivity extends AppCompatActivity {
 //                clearCartItems(); // Xóa các item trong CartItems
                 Toast.makeText(CartActivity.this, "Order successfully!", Toast.LENGTH_SHORT).show();
                 // Xóa dữ liệu trong CartItems
-                itemList.clear();
-                itemAdapter.notifyDataSetChanged();
+//                itemList.clear();
+//                itemAdapter.notifyDataSetChanged();
                 finish();
             }
         });
