@@ -3,16 +3,11 @@ package com.example.grab_demo.admin.sales.adapter;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,18 +17,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.grab_demo.R;
 import com.example.grab_demo.database.ConnectionClass;
 import com.example.grab_demo.store_owner.OnItemClickListener;
-import com.example.grab_demo.store_owner.model.Stores;
 import com.example.grab_demo.store_owner.model.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
-import java.time.LocalDate;
-import java.time.Period;
-import java.time.ZoneId;
 import java.util.ArrayList;
-import java.util.Date;
 
 
 public class QLTaiKhoanAdapter extends RecyclerView.Adapter<QLTaiKhoanAdapter.ViewHolder> {
@@ -63,12 +53,11 @@ public class QLTaiKhoanAdapter extends RecyclerView.Adapter<QLTaiKhoanAdapter.Vi
         User user = arr.get(position);
         holder.txtTen.setText(user.getName());
         holder.txtStatus.setText(user.getStatus());
-        holder.txtVP.setText(user.getVP()+"");
+        holder.txtVP.setText(user.getVP() + "");
         String status = loadData(user.getId());
-        if(status.equalsIgnoreCase("locked"))
-        {
+        if (status.equalsIgnoreCase("locked")) {
             holder.btn_delete.setVisibility(View.GONE);
-        }else {
+        } else {
             holder.btn_delete.setVisibility(View.VISIBLE);
             holder.btn_delete.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -81,9 +70,9 @@ public class QLTaiKhoanAdapter extends RecyclerView.Adapter<QLTaiKhoanAdapter.Vi
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             int vps = user.getVP();
-                            if(vps >3) {
+                            if (vps > 3) {
                                 delete(user.getId(), position);
-                            }else
+                            } else
                                 Toast.makeText(context, "Bạn không thể xóa", Toast.LENGTH_SHORT).show();
                         }
                     });

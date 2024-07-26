@@ -1,4 +1,4 @@
-package com.example.grab_demo.deliver.Adapter;
+package com.example.grab_demo.deliver.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -24,15 +24,15 @@ public class DanhSachDonHangnewAdapter extends RecyclerView.Adapter<DanhSachDonH
     private String userStatus;
     private boolean isEnabled = true;
 
-    public void setEnabled(boolean enabled) {
-        isEnabled = enabled;
-    }
-
     public DanhSachDonHangnewAdapter(Context context, ArrayList<DonHangModel> mangDonHang, String userId, String userStatus) {
         this.context = context;
         this.mangDonHang = mangDonHang;
         this.userId = userId;
         this.userStatus = userStatus;
+    }
+
+    public void setEnabled(boolean enabled) {
+        isEnabled = enabled;
     }
 
     @NonNull
@@ -76,16 +76,6 @@ public class DanhSachDonHangnewAdapter extends RecyclerView.Adapter<DanhSachDonH
         return isEnabled && !"inactive".equalsIgnoreCase(userStatus) ? mangDonHang.size() : 0;
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtTrangThaiDonHang, txtMaDonHang;
-
-        public ViewHolder(@NonNull View itemView) {
-            super(itemView);
-            txtMaDonHang = itemView.findViewById(R.id.textViewmadonhang);
-            txtTrangThaiDonHang = itemView.findViewById(R.id.textViewtrangthaidonhang);
-        }
-    }
-
     public void updateData(ArrayList<DonHangModel> newData) {
         this.mangDonHang = newData;
         notifyDataSetChanged();
@@ -99,5 +89,15 @@ public class DanhSachDonHangnewAdapter extends RecyclerView.Adapter<DanhSachDonH
     public void setUserStatus(String userStatus) {
         this.userStatus = userStatus;
         notifyDataSetChanged();
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView txtTrangThaiDonHang, txtMaDonHang;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+            txtMaDonHang = itemView.findViewById(R.id.textViewmadonhang);
+            txtTrangThaiDonHang = itemView.findViewById(R.id.textViewtrangthaidonhang);
+        }
     }
 }

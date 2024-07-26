@@ -255,7 +255,7 @@ public class RegisterStoreActivity extends AppCompatActivity {
                     Intent intent = new Intent(RegisterStoreActivity.this, StoreOwnerActivity.class);
                     startActivity(intent);
                     finish();
-                   // finish(); // Đóng activity hiện tại sau khi chuyển hướng
+                    // finish(); // Đóng activity hiện tại sau khi chuyển hướng
                 } else {
                     Log.e("RegisterStoreActivity", "Insert failed");
                 }

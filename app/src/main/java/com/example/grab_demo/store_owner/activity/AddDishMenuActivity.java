@@ -98,7 +98,7 @@ public class AddDishMenuActivity extends AppCompatActivity {
         Integer storeid = Integer.parseInt(storeID);
         byte[] anh = getByteArrayFromImageView(img_addDishMenu);
         String status = "inactive";
-        if (price <= 0 || quantity <= 0 ) {
+        if (price <= 0 || quantity <= 0) {
             Toast.makeText(this, "price, quantity must be greater than 0", Toast.LENGTH_SHORT).show();
             return;
         }

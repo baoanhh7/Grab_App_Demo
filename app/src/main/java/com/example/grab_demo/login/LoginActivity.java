@@ -114,10 +114,10 @@ public class LoginActivity extends AppCompatActivity {
                 if (connection == null) return null;
 
                 String query = "SELECT user_id, password, user_type, status FROM Users WHERE (phone_number = ? OR email = ?)";
-                try (PreparedStatement pstmt = connection.prepareStatement(query)) {
-                    pstmt.setString(1, username);
-                    pstmt.setString(2, username);
-                    try (ResultSet rs = pstmt.executeQuery()) {
+                try (PreparedStatement smt = connection.prepareStatement(query)) {
+                    smt.setString(1, username);
+                    smt.setString(2, username);
+                    try (ResultSet rs = smt.executeQuery()) {
                         if (rs.next()) {
                             String storedPassword = rs.getString("password");
                             String status = rs.getString("status");

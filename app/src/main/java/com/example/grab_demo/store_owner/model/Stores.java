@@ -16,7 +16,7 @@ public class Stores {
     private Date updated_at;
     private boolean isChecked;
 
-    public Stores(byte[] hinh, int id, int owner_id, String status, int cate_id, String address, String tensp, Time giomocua ,Time giodongcua) {
+    public Stores(byte[] hinh, int id, int owner_id, String status, int cate_id, String address, String tensp, Time giomocua, Time giodongcua) {
         this.hinh = hinh;
         this.id = id;
         this.owner_id = owner_id;

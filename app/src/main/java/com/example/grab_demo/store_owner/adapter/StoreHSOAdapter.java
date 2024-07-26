@@ -25,7 +25,6 @@ import com.example.grab_demo.store_owner.model.Stores;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Time;
 import java.util.ArrayList;
 
 
@@ -121,7 +120,7 @@ public class StoreHSOAdapter extends RecyclerView.Adapter<StoreHSOAdapter.ViewHo
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView img;
         TextView txtTen;
-        TextView txtOpen,txtClose;
+        TextView txtOpen, txtClose;
         Switch switchToggle_dishmenuHSO;
 
         public ViewHolder(@NonNull View itemView) {

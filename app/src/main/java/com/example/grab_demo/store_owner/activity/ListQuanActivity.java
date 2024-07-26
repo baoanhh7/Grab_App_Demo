@@ -79,7 +79,7 @@ public class ListQuanActivity extends AppCompatActivity {
                     Time openStore = resultSet.getTime(2);
                     byte[] image = resultSet.getBytes(3);
                     Time closeStore = resultSet.getTime(4);
-                    arr.add(new Stores(image, storeName, openStore,closeStore));
+                    arr.add(new Stores(image, storeName, openStore, closeStore));
                 }
                 connection.close();
             } catch (Exception e) {

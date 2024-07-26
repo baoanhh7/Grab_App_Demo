@@ -1,4 +1,4 @@
-package com.example.grab_demo.deliver.Adapter;
+package com.example.grab_demo.deliver.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;

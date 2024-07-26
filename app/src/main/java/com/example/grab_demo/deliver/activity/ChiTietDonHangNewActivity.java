@@ -14,8 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.database.ConnectionClass;
-import com.example.grab_demo.deliver.Adapter.OrderDetailAdapter;
-
+import com.example.grab_demo.deliver.adapter.OrderDetailAdapter;
 import com.example.grab_demo.model.DonHangModel;
 import com.example.grab_demo.model.OrderDetail;
 
@@ -108,66 +107,68 @@ public class ChiTietDonHangNewActivity extends AppCompatActivity {
         // Check the current status of the order and update button states
         updateButtonStates();
     }
-        private void updateButtonStates() {
-            if (donHang != null) {
-                switch (donHang.getStatus()) {
-                    case "pending":
-                        buttonAccept.setEnabled(true);
-                        buttonComplete.setEnabled(false);
-                        buttonCanceled.setEnabled(true);
-                        break;
-                    case "confirmed":
-                        buttonAccept.setEnabled(false);
-                        buttonComplete.setEnabled(true);
-                        buttonCanceled.setEnabled(true);
-                        break;
-                    case "delivered":
-                    case "canceled":
-                        buttonAccept.setEnabled(false);
-                        buttonComplete.setEnabled(false);
-                        buttonCanceled.setEnabled(false);
-                        break;
-                }
+
+    private void updateButtonStates() {
+        if (donHang != null) {
+            switch (donHang.getStatus()) {
+                case "pending":
+                    buttonAccept.setEnabled(true);
+                    buttonComplete.setEnabled(false);
+                    buttonCanceled.setEnabled(true);
+                    break;
+                case "confirmed":
+                    buttonAccept.setEnabled(false);
+                    buttonComplete.setEnabled(true);
+                    buttonCanceled.setEnabled(true);
+                    break;
+                case "delivered":
+                case "canceled":
+                    buttonAccept.setEnabled(false);
+                    buttonComplete.setEnabled(false);
+                    buttonCanceled.setEnabled(false);
+                    break;
             }
         }
-        private void updateOrderStatus(String status) {
-            if (donHang != null) {
-                donHang.setStatus(status);
-                textViewTrangThaiDonHang.setText("Trạng thái: " + status);
+    }
 
-                // Cập nhật trạng thái đơn hàng lên cơ sở dữ liệu
-                ConnectionClass connectionClass = new ConnectionClass();
-                Connection connection = connectionClass.conClass();
-                if (connection != null) {
-                    try {
-                        String query = "UPDATE Orders SET status = ?, delivery_id = ? WHERE order_id = ?";
-                        PreparedStatement preparedStatement = connection.prepareStatement(query);
-                        preparedStatement.setString(1, status);
-                        preparedStatement.setString(2, userId);
-                        preparedStatement.setInt(3, donHang.getOrderId());
+    private void updateOrderStatus(String status) {
+        if (donHang != null) {
+            donHang.setStatus(status);
+            textViewTrangThaiDonHang.setText("Trạng thái: " + status);
 
-                        int rowsAffected = preparedStatement.executeUpdate();
-                        preparedStatement.close();
-                        connection.close();
+            // Cập nhật trạng thái đơn hàng lên cơ sở dữ liệu
+            ConnectionClass connectionClass = new ConnectionClass();
+            Connection connection = connectionClass.conClass();
+            if (connection != null) {
+                try {
+                    String query = "UPDATE Orders SET status = ?, delivery_id = ? WHERE order_id = ?";
+                    PreparedStatement preparedStatement = connection.prepareStatement(query);
+                    preparedStatement.setString(1, status);
+                    preparedStatement.setString(2, userId);
+                    preparedStatement.setInt(3, donHang.getOrderId());
 
-                        if (rowsAffected > 0) {
-                            Toast.makeText(ChiTietDonHangNewActivity.this, "Cập nhật trạng thái thành công", Toast.LENGTH_SHORT).show();
-                            // Update button states after successful status update
-                            updateButtonStates();
-                        } else {
-                            Toast.makeText(ChiTietDonHangNewActivity.this, "Không tìm thấy đơn hàng để cập nhật", Toast.LENGTH_SHORT).show();
-                        }
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                        Log.e("SQL Error", e.getMessage());
-                        Toast.makeText(ChiTietDonHangNewActivity.this, "Lỗi khi cập nhật trạng thái đơn hàng", Toast.LENGTH_SHORT).show();
+                    int rowsAffected = preparedStatement.executeUpdate();
+                    preparedStatement.close();
+                    connection.close();
+
+                    if (rowsAffected > 0) {
+                        Toast.makeText(ChiTietDonHangNewActivity.this, "Cập nhật trạng thái thành công", Toast.LENGTH_SHORT).show();
+                        // Update button states after successful status update
+                        updateButtonStates();
+                    } else {
+                        Toast.makeText(ChiTietDonHangNewActivity.this, "Không tìm thấy đơn hàng để cập nhật", Toast.LENGTH_SHORT).show();
                     }
-                } else {
-                    Log.e("DB Connection", "Không thể kết nối đến cơ sở dữ liệu");
-                    Toast.makeText(ChiTietDonHangNewActivity.this, "Không thể kết nối đến cơ sở dữ liệu", Toast.LENGTH_SHORT).show();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                    Log.e("SQL Error", e.getMessage());
+                    Toast.makeText(ChiTietDonHangNewActivity.this, "Lỗi khi cập nhật trạng thái đơn hàng", Toast.LENGTH_SHORT).show();
                 }
+            } else {
+                Log.e("DB Connection", "Không thể kết nối đến cơ sở dữ liệu");
+                Toast.makeText(ChiTietDonHangNewActivity.this, "Không thể kết nối đến cơ sở dữ liệu", Toast.LENGTH_SHORT).show();
             }
         }
+    }
 
     // Tính tổng giá đơn hàng thì hệ thống bên người dùng tính hay là nên để hệ thống driver tính tổng giá + phí ship rồi cập nhật database để hiển thị lên đơn hàng
     private void loadOrderDetails(int orderId) {

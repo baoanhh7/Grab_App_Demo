@@ -1,6 +1,5 @@
 package com.example.grab_demo.store_owner.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;

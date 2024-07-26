@@ -7,35 +7,30 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.admin.sales.adapter.QLTaiKhoanAdapter;
 import com.example.grab_demo.database.ConnectionClass;
-import com.example.grab_demo.store_owner.model.Stores;
 import com.example.grab_demo.store_owner.model.User;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class QLTaiKhoanActivity extends AppCompatActivity {
+    private static final long REFRESH_INTERVAL = 1000;
     RecyclerView rv_QLTaiKhoan;
     ImageButton img_back_QLTaiKhoan;
     ArrayList<User> arr;
     QLTaiKhoanAdapter qlTaiKhoanAdapter;
-    private static final long REFRESH_INTERVAL = 1000;
     Connection connection;
     private Handler handler;
     private Runnable refreshRunnable;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -62,6 +57,7 @@ public class QLTaiKhoanActivity extends AppCompatActivity {
     private void startAutoRefresh() {
         handler.postDelayed(refreshRunnable, REFRESH_INTERVAL);
     }
+
     private void loadData() {
         new Thread(new Runnable() {
             @Override
@@ -79,7 +75,7 @@ public class QLTaiKhoanActivity extends AppCompatActivity {
                             String username = resultSet.getString(2);
                             String status = resultSet.getString(3);
                             int VP = resultSet.getInt(4);
-                            tempArr.add(new User(id, username, status,VP ));
+                            tempArr.add(new User(id, username, status, VP));
                         }
                         connection.close();
 
@@ -100,6 +96,7 @@ public class QLTaiKhoanActivity extends AppCompatActivity {
             }
         }).start();
     }
+
     private void addEvents() {
         img_back_QLTaiKhoan.setOnClickListener(new View.OnClickListener() {
             @Override
