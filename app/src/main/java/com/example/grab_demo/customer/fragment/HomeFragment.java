@@ -3,11 +3,13 @@ package com.example.grab_demo.customer.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
@@ -37,6 +39,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class HomeFragment extends Fragment {
+    private static final long REFRESH_INTERVAL = 5000; // 1 giây
+
     Connection connection;
     String query;
     Statement smt;
@@ -52,11 +56,16 @@ public class HomeFragment extends Fragment {
 
     SearchView searchView;
     ImageView img_cart;
+    TextView txtCartBadge;
     private View view;
     private int currentPage = 0;
+    private int count = 0;
     private Timer timer;
     private HomeActivity homeActivity;
     private String userId;
+    private Handler handler;
+    private Runnable refreshRunnable;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -72,14 +81,34 @@ public class HomeFragment extends Fragment {
             homeActivity = (HomeActivity) getActivity();
             userId = homeActivity.getUserId();
         }
-        Log.e("HomeFragment", userId);
+        Log.e("HomeFragment", "userId is null");
 
         if (userId != null) {
             loadingData();
+            getCartItemCountFromDatabase();
         } else {
             Log.e("HomeFragment", "userId is null");
         }
+
+        handler = new Handler(Looper.getMainLooper());
+        refreshRunnable = new Runnable() {
+            @Override
+            public void run() {
+                getCartItemCountFromDatabase();
+                handler.postDelayed(this, REFRESH_INTERVAL);
+            }
+        };
         return view;
+    }
+
+    private void startAutoRefresh() {
+        handler.postDelayed(refreshRunnable, REFRESH_INTERVAL);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
     }
 
     private void startAutoSlide() {
@@ -100,6 +129,40 @@ public class HomeFragment extends Fragment {
                 handler.post(update);
             }
         }, 1000, 3000); // Delay 1 sec, repeat every 3 sec
+    }
+
+
+    private void getCartItemCountFromDatabase() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int cartItemCount = 0;
+                ConnectionClass sql = new ConnectionClass();
+                connection = sql.conClass();
+                if (connection != null) {
+                    try {
+                        query = "SELECT COUNT(*) FROM CartItems WHERE cart_id = 1";
+                        smt = connection.createStatement();
+                        resultSet = smt.executeQuery(query);
+
+                        if (resultSet.next()) {
+                            cartItemCount = resultSet.getInt(1);
+                        }
+                        if (cartItemCount > 0) {
+                            txtCartBadge.setText(String.valueOf(cartItemCount));
+                            txtCartBadge.setVisibility(View.VISIBLE);
+                        } else {
+                            txtCartBadge.setVisibility(View.GONE);
+                        }
+                        connection.close();
+                    } catch (Exception e) {
+                        Log.e("Error: ", e.getMessage());
+                    }
+                } else {
+                    Log.e("Error: ", "Connection null");
+                }
+            }
+        }).start();
     }
 
     private void loadingData() {
@@ -215,6 +278,7 @@ public class HomeFragment extends Fragment {
 
     private void addControls() {
         img_cart = view.findViewById(R.id.img_cart);
+        txtCartBadge = view.findViewById(R.id.txt_cart_badge);
 
         filterCategory = new ArrayList<>();
         categoryList = new ArrayList<>();
@@ -254,10 +318,10 @@ public class HomeFragment extends Fragment {
         rcv_orderAgain.setLayoutManager(linearLayoutManager2);
     }
 
-
     @Override
     public void onResume() {
         super.onResume();
-    }
 
+        startAutoRefresh();
+    }
 }

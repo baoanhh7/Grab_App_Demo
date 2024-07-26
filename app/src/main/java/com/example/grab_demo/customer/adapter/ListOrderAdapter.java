@@ -94,10 +94,13 @@ public class ListOrderAdapter extends RecyclerView.Adapter<ListOrderAdapter.Home
             @Override
             public void onClick(View v) {
                 int count = item.getQuantity();
-                count++;
-                item.setQuantity(count);
-                holder.txt_count.setText(String.valueOf(count));
-                updateItemQuantity(item);
+
+                if (count < 10) {
+                    count++;
+                    item.setQuantity(count);
+                    holder.txt_count.setText(String.valueOf(count));
+                    updateItemQuantity(item);
+                }
             }
         });
 
