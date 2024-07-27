@@ -1,6 +1,7 @@
 package com.example.grab_demo.customer.adapter;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Log;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
@@ -60,7 +62,12 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListAdapter.Home
             @Override
             public void onClick(View v) {
                 if (stClickItem != null) {
-                    stClickItem.onClickItem(String.valueOf(storeList.get(position).getStoreId()));
+                    String storeStatus = store.getStatus();
+                    if (storeStatus.equals("opened")) {
+                        stClickItem.onClickItem(String.valueOf(storeList.get(position).getStoreId()));
+                    } else {
+                        showStoreClosedDialog();
+                    }
                 }
             }
         });
@@ -70,6 +77,19 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListAdapter.Home
         } else if (store.getStatus().equals("pending")) {
             holder.txt_status.setTextColor(context.getResources().getColor(R.color.xamnhe));
         }
+    }
+
+    private void showStoreClosedDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("Thông báo");
+        builder.setMessage("Cửa hàng đã đóng. Vui lòng chọn cửa hàng khác.");
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        builder.show();
     }
 
     @Override

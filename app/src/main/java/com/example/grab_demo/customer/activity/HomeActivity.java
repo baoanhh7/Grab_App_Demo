@@ -1,6 +1,7 @@
 package com.example.grab_demo.customer.activity;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -44,6 +45,12 @@ public class HomeActivity extends AppCompatActivity {
         userId = getIntent().getStringExtra("user_id");
         Log.d("HomeActivity", "Received user_id: " + userId);
 
+        // Lưu user_id vào SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("user_id", Integer.parseInt(userId));
+        editor.apply();
+
 //        addDataToDatabase();
         addEvents();
     }
@@ -56,7 +63,6 @@ public class HomeActivity extends AppCompatActivity {
     public String getUserId() {
         return userId;
     }
-
 
     private void sendDatatoFragment() {
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

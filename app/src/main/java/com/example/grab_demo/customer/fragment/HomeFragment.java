@@ -1,6 +1,9 @@
 package com.example.grab_demo.customer.fragment;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -62,7 +65,7 @@ public class HomeFragment extends Fragment {
     private int count = 0;
     private Timer timer;
     private HomeActivity homeActivity;
-    private String userId;
+    private int userId;
     private Handler handler;
     private Runnable refreshRunnable;
 
@@ -77,13 +80,12 @@ public class HomeFragment extends Fragment {
 
         addEvents();
         startAutoSlide();
-        if (getActivity() instanceof HomeActivity) {
-            homeActivity = (HomeActivity) getActivity();
-            userId = homeActivity.getUserId();
-        }
+
+        SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        int userId = sharedPreferences.getInt("user_id", -1);
         Log.e("HomeFragment", "userId is null");
 
-        if (userId != null) {
+        if (userId != -1) {
             loadingData();
             getCartItemCountFromDatabase();
         } else {
@@ -229,7 +231,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getActivity(), CartActivity.class);
-                intent.putExtra("user_id", userId);
                 startActivity(intent);
             }
         });

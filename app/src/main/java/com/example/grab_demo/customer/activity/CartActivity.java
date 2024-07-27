@@ -1,6 +1,7 @@
 package com.example.grab_demo.customer.activity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
@@ -43,13 +44,13 @@ public class CartActivity extends AppCompatActivity {
     ImageView img_back;
     TextView txt_name_voucher, txt_orderMoney, txt_shipMoney, txt_voucher, txt_totalMoney;
     Button btn_orderNow, btn_getVoucher;
-    int itemId;
-    int voucherId;
-    double orderMoney = 0.0;
-    double shipMoney = 0.0;
-    double voucher = 0.0;
-    double totalMoney = 0.0;
-    String userId;
+    int voucherId = 1;
+    int storeId;
+    double orderMoney = 0;
+    double shipMoney = 0;
+    double voucher = 0;
+    double totalMoney = 0;
+    int userId;
     private Handler handler;
     private Runnable refreshRunnable;
 
@@ -60,17 +61,11 @@ public class CartActivity extends AppCompatActivity {
 
         addControls();
 
-        itemId = getIntent().getIntExtra("item_id", -1);  // Lấy cate_id kiểu int với giá trị mặc định là -1
         voucherId = getIntent().getIntExtra("voucher_id", -1);  // Lấy cate_id kiểu int với giá trị mặc định là -1
 
-        userId = getIntent().getStringExtra("user_id");
-        Log.e("CartActivity", "user_id is null");
-
-        addEvents();
-
-        if (itemId == -1) {
-            Log.e("CartActivity", "item_id is null");
-        }
+        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        userId = sharedPreferences.getInt("user_id", -1);
+        Log.e("CartActivity", "userId is null");
 
         if (voucherId == -1) {
             Log.e("CartActivity", "voucher_id is null");
@@ -87,7 +82,7 @@ public class CartActivity extends AppCompatActivity {
                 handler.postDelayed(this, REFRESH_INTERVAL);
             }
         };
-
+        addEvents();
     }
 
     private void loadVoucherName(int voucherId) {
@@ -142,7 +137,7 @@ public class CartActivity extends AppCompatActivity {
                 resultSet = smt.executeQuery(query);
 
                 itemList.clear();
-                orderMoney = 0.0; // Reset orderMoney
+                orderMoney = 0; // Reset orderMoney
 
                 while (resultSet.next()) {
                     int itemId = resultSet.getInt(1);
@@ -170,7 +165,7 @@ public class CartActivity extends AppCompatActivity {
 
     private void calculateTotalMoney() {
         // Giả sử giá trị shipMoney và voucher
-        shipMoney = 23000;
+        shipMoney = 50000;
 
         // Tính toán Total Money
         totalMoney = orderMoney + shipMoney - voucher;
@@ -249,20 +244,21 @@ public class CartActivity extends AppCompatActivity {
         }
     }
 
-    private void insertDataToOrder(String userId) {
+
+    private void insertDataToOrder(int userId) {
         ConnectionClass sql = new ConnectionClass();
         connection2 = sql.conClass();
 
         if (connection2 != null) {
             try {
                 // Kiểm tra và xử lý userId
-                if (userId == null || userId.isEmpty()) {
+                if (userId == -1) {
                     Log.e("CartActivity", "UserId is null or empty");
                     return;
                 }
                 int customerId;
                 try {
-                    customerId = Integer.parseInt(userId);
+                    customerId = userId;
                 } catch (NumberFormatException e) {
                     Log.e("CartActivity", "Invalid userId format: " + e.getMessage());
                     return;
@@ -288,15 +284,25 @@ public class CartActivity extends AppCompatActivity {
                     return;
                 }
 
+                query2 = "SELECT i.store_id FROM CartItems c JOIN Items i ON c.item_id = i.item_id WHERE c.cart_id = 1";
+                PreparedStatement insertStmt1 = connection2.prepareStatement(query2);
+                ResultSet rs = insertStmt1.executeQuery();
+                if (rs.next()) {
+                    storeId = rs.getInt(1);
+                }
+                rs.close();
+                insertStmt1.close();
+                Log.e("CartActivity", "store_id is null");
+
                 // Chuẩn bị và thực hiện câu lệnh SQL
                 query2 = "INSERT INTO Orders (customer_id, store_id, delivery_price, total_price, payment_method, voucher_id, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
                 PreparedStatement insertStmt = connection2.prepareStatement(query2);
                 insertStmt.setInt(1, customerId);
-                insertStmt.setInt(2, 2);
+                insertStmt.setInt(2, storeId);
                 insertStmt.setDouble(3, deliveryPrice);
                 insertStmt.setDouble(4, totalPrice);
                 insertStmt.setString(5, "cash");
-                insertStmt.setInt(6, 3);
+                insertStmt.setInt(6, voucherId);
                 insertStmt.setString(7, "pending");
 
                 int rowsAffected = insertStmt.executeUpdate();
