@@ -42,9 +42,9 @@ public class VoucherActivity extends AppCompatActivity {
 
         addControls();
 
-        addEvents();
-
         loadData();
+
+        addEvents();
     }
 
     private void loadData() {

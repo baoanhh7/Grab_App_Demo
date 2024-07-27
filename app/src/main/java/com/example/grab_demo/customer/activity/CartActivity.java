@@ -1,5 +1,6 @@
 package com.example.grab_demo.customer.activity;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -195,21 +197,44 @@ public class CartActivity extends AppCompatActivity {
         btn_getVoucher.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(CartActivity.this, VoucherActivity.class);
-                startActivity(intent);
-                finish();
+                if (totalMoney > 50000) {
+                    Intent intent = new Intent(CartActivity.this, VoucherActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
+                    builder.setTitle("Thông báo");
+                    builder.setMessage("Tổng giá trị đơn hàng phải trên 50.000đ");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.show();
+                }
             }
         });
         btn_orderNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                insertDataToOrder(userId);
+                if (orderMoney > 0) {
+                    insertDataToOrder(userId);
 //                clearCartItems(); // Xóa các item trong CartItems
-                Toast.makeText(CartActivity.this, "Order successfully!", Toast.LENGTH_SHORT).show();
-                // Xóa dữ liệu trong CartItems
-//                itemList.clear();
-//                itemAdapter.notifyDataSetChanged();
-                finish();
+                    Toast.makeText(CartActivity.this, "Order successfully!", Toast.LENGTH_SHORT).show();
+                    finish();
+                } else {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CartActivity.this);
+                    builder.setTitle("Thông báo");
+                    builder.setMessage("Giỏ hàng trống!");
+                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    });
+                    builder.show();
+                }
             }
         });
     }
@@ -293,6 +318,7 @@ public class CartActivity extends AppCompatActivity {
                 rs.close();
                 insertStmt1.close();
                 Log.e("CartActivity", "store_id is null");
+
 
                 // Chuẩn bị và thực hiện câu lệnh SQL
                 query2 = "INSERT INTO Orders (customer_id, store_id, delivery_price, total_price, payment_method, voucher_id, status) VALUES (?, ?, ?, ?, ?, ?, ?)";

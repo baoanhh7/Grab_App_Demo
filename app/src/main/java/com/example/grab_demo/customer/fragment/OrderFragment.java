@@ -40,10 +40,9 @@ public class OrderFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_order, container, false);
 
         addControls();
-
+        loadData();
         addEvents();
 
-        loadData();
         return view;
     }
 

@@ -49,23 +49,20 @@ public class HomeFragment extends Fragment {
     Statement smt;
     ResultSet resultSet;
 
-    RecyclerView rcv_header, rcv_second, rcv_voucher, rcv_orderAgain;
-    List<Category> filterCategory, categoryList, categoryList2, categoryListVoucher, categoryListOderAgain;
+    RecyclerView rcv_header, rcv_second, rcv_voucher;
+    List<Category> filterCategory, categoryList, categoryList2, categoryListVoucher;
     List<Store> storeList;
     CategoryHomeAdapter categoryHomeAdapter;
     HomeSecondAdapter homeSecondAdapter;
     HomeVoucherAdapter homeVoucherAdapter;
-    StoreListAdapter storeListAdapter;
 
     SearchView searchView;
     ImageView img_cart;
     TextView txtCartBadge;
     private View view;
     private int currentPage = 0;
-    private int count = 0;
     private Timer timer;
     private HomeActivity homeActivity;
-    private int userId;
     private Handler handler;
     private Runnable refreshRunnable;
 
@@ -212,18 +209,6 @@ public class HomeFragment extends Fragment {
         categoryListVoucher.add(new Category("Voucher 3", "Bao tiết kiệm", R.drawable.voucher2));
         categoryListVoucher.add(new Category("Voucher 4", "Tặng món 0đ", R.drawable.voucher1));
         homeVoucherAdapter.notifyDataSetChanged();
-
-        categoryListOderAgain.clear();
-        categoryListOderAgain.add(new Category("Pizza", "Bột pizza, sốt cà chua, phô mai", R.drawable.pizza, 10000));
-        categoryListOderAgain.add(new Category("Japan noodle", "Bột mì, sup, egg", R.drawable.noodle, 20000));
-        categoryListOderAgain.add(new Category("Kimbap", "Rice, carot, egg", R.drawable.food, 50000));
-        categoryListOderAgain.add(new Category("Salad", "Rau, trái cây, hạt", R.drawable.healthy, 23456));
-        categoryListOderAgain.add(new Category("Pizza", "Bột pizza, sốt cà chua, phô mai", R.drawable.pizza, 10000));
-        categoryListOderAgain.add(new Category("Japan noodle", "Bột mì, sup, egg", R.drawable.noodle, 20000));
-        categoryListOderAgain.add(new Category("Kimbap", "Rice, carot, egg", R.drawable.food, 50000));
-        categoryListOderAgain.add(new Category("Salad", "Rau, trái cây, hạt", R.drawable.healthy, 23456));
-        categoryListOderAgain.add(new Category("Pizza", "Bột pizza, sốt cà chua, phô mai", R.drawable.pizza, 10000));
-        storeListAdapter.notifyDataSetChanged();
     }
 
     private void addEvents() {
@@ -285,23 +270,19 @@ public class HomeFragment extends Fragment {
         categoryList = new ArrayList<>();
         categoryList2 = new ArrayList<>();
         categoryListVoucher = new ArrayList<>();
-        categoryListOderAgain = new ArrayList<>();
         storeList = new ArrayList<>();
 
         rcv_header = view.findViewById(R.id.rcv_header);
         rcv_second = view.findViewById(R.id.rcv_second);
         rcv_voucher = view.findViewById(R.id.rcv_voucher);
-        rcv_orderAgain = view.findViewById(R.id.rcv_orderAgain);
 
         categoryHomeAdapter = new CategoryHomeAdapter(getActivity(), categoryList);
         homeSecondAdapter = new HomeSecondAdapter(getActivity(), categoryList2);
         homeVoucherAdapter = new HomeVoucherAdapter(getActivity(), categoryListVoucher);
-        storeListAdapter = new StoreListAdapter(getActivity(), storeList);
 
         rcv_header.setAdapter(categoryHomeAdapter);
         rcv_second.setAdapter(homeSecondAdapter);
         rcv_voucher.setAdapter(homeVoucherAdapter);
-        rcv_orderAgain.setAdapter(storeListAdapter);
 
         searchView = view.findViewById(R.id.searchView);
         searchView.setIconifiedByDefault(false);
@@ -314,9 +295,6 @@ public class HomeFragment extends Fragment {
 
         LinearLayoutManager linearLayoutManager1 = new LinearLayoutManager(getActivity(), RecyclerView.HORIZONTAL, false);
         rcv_voucher.setLayoutManager(linearLayoutManager1);
-
-        LinearLayoutManager linearLayoutManager2 = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
-        rcv_orderAgain.setLayoutManager(linearLayoutManager2);
     }
 
     @Override
