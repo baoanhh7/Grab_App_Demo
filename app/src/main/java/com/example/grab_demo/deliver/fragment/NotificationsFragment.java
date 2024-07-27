@@ -19,7 +19,7 @@ import com.example.grab_demo.database.ConnectionClass;
 import com.example.grab_demo.database.UserDataSource;
 import com.example.grab_demo.deliver.activity.EditProfileActivity;
 import com.example.grab_demo.deliver.activity.StatisticalActivity;
-import com.example.grab_demo.deliver.adapter.DanhSachDonHangnewAdapter;
+import com.example.grab_demo.deliver.Adapter.DanhSachDonHangnewAdapter;
 import com.example.grab_demo.model.UserModel;
 
 import java.sql.Connection;
