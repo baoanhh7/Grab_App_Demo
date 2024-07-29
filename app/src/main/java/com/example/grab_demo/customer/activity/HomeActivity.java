@@ -10,7 +10,6 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
@@ -134,7 +133,7 @@ public class HomeActivity extends AppCompatActivity {
     private void addControls() {
         viewPager = findViewById(R.id.viewpager_customer);
         bottomNavigationView = findViewById(R.id.bn_customer);
-        ViewPagerCustomerAdapter adapter = new ViewPagerCustomerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        ViewPagerCustomerAdapter adapter = new ViewPagerCustomerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {

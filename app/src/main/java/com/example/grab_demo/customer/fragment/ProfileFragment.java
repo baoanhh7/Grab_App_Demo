@@ -47,6 +47,14 @@ public class ProfileFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (userId != null) {
+            loadData(); // Load data using userId
+        }
+    }
+
     private void loadData() {
         ConnectionClass sql = new ConnectionClass();
         connection = sql.conClass();

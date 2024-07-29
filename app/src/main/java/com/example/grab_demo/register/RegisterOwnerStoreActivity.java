@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.database.ConnectionClass;
-import com.example.grab_demo.deliver.activity.RegisterDeliverActivity;
 import com.example.grab_demo.login.LoginActivity;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -48,6 +47,7 @@ public class RegisterOwnerStoreActivity extends AppCompatActivity {
         img_back_registerOS = findViewById(R.id.img_back_registerOS);
         btn_createAcount_registerOS = findViewById(R.id.btn_createAcount_registerOS);
     }
+
     private void insertData() {
         String name = edt_name_registerOS.getText().toString().trim();
         String email = edt_email_registerOS.getText().toString().trim();
@@ -65,7 +65,7 @@ public class RegisterOwnerStoreActivity extends AppCompatActivity {
             Log.e("RegisterDeliverActivity", "Passwords do not match");
             return;
         }
-        if(phone.length() != 10){
+        if (phone.length() != 10) {
             Toast.makeText(RegisterOwnerStoreActivity.this, "Phone number must be 10 digits", Toast.LENGTH_SHORT).show();
             return;
         }

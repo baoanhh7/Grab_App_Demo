@@ -309,40 +309,105 @@ public class CartActivity extends AppCompatActivity {
                     return;
                 }
 
-                query2 = "SELECT i.store_id FROM CartItems c JOIN Items i ON c.item_id = i.item_id WHERE c.cart_id = 1";
-                PreparedStatement insertStmt1 = connection2.prepareStatement(query2);
+                // Lấy store_id từ CartItems
+                String query1 = "SELECT i.store_id FROM CartItems c JOIN Items i ON c.item_id = i.item_id WHERE c.cart_id = 1";
+                PreparedStatement insertStmt1 = connection2.prepareStatement(query1);
                 ResultSet rs = insertStmt1.executeQuery();
+                int storeId = -1;
                 if (rs.next()) {
                     storeId = rs.getInt(1);
+                } else {
+                    Log.e("CartActivity", "store_id is null");
+                    return;
                 }
                 rs.close();
                 insertStmt1.close();
-                Log.e("CartActivity", "store_id is null");
 
-
-                // Chuẩn bị và thực hiện câu lệnh SQL
-                query2 = "INSERT INTO Orders (customer_id, store_id, delivery_price, total_price, payment_method, voucher_id, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
-                PreparedStatement insertStmt = connection2.prepareStatement(query2);
+                // Chuẩn bị và thực hiện câu lệnh SQL để thêm đơn hàng
+                String query2 = "INSERT INTO Orders (customer_id, store_id, delivery_price, total_price, payment_method, voucher_id, status) VALUES (?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement insertStmt = connection2.prepareStatement(query2, Statement.RETURN_GENERATED_KEYS);
                 insertStmt.setInt(1, customerId);
                 insertStmt.setInt(2, storeId);
                 insertStmt.setDouble(3, deliveryPrice);
                 insertStmt.setDouble(4, totalPrice);
                 insertStmt.setString(5, "cash");
-                insertStmt.setInt(6, voucherId);
+                if (voucherId == -1) { // Kiểm tra nếu voucherId là null
+                    insertStmt.setNull(6, java.sql.Types.INTEGER);
+                } else {
+                    insertStmt.setInt(6, voucherId);
+                }
                 insertStmt.setString(7, "pending");
 
                 int rowsAffected = insertStmt.executeUpdate();
                 if (rowsAffected > 0) {
-                    Log.d("CartActivity", "Insert successfully");
+
+                    //Lấy orderId đơn hàng vua them
+                    ResultSet generatedKeys = insertStmt.getGeneratedKeys();
+                    if (generatedKeys.next()) {
+                        int orderId = generatedKeys.getInt(1);
+
+                        // Truy vấn danh sách item_id và quantity từ CartItems
+                        String query3 = "SELECT cart_id, item_id, quantity FROM CartItems WHERE cart_id = 1";
+                        PreparedStatement stmtDetails = connection2.prepareStatement(query3);
+                        ResultSet rsDetails = stmtDetails.executeQuery();
+
+                        String insertOrderDetailsQuery = "INSERT INTO OrderDetails (order_id, item_id, quantity, price) VALUES (?, ?, ?, ?)";
+                        PreparedStatement insertStmt2 = connection2.prepareStatement(insertOrderDetailsQuery);
+
+                        while (rsDetails.next()) {
+                            int itemId = rsDetails.getInt("item_id");
+                            int quantity = rsDetails.getInt("quantity");
+
+                            // Truy vấn giá của item từ bảng Items
+                            String query4 = "SELECT price FROM Items WHERE item_id = ?";
+                            PreparedStatement stmtItem = connection2.prepareStatement(query4);
+                            stmtItem.setInt(1, itemId);
+                            ResultSet rsItem = stmtItem.executeQuery();
+
+                            if (rsItem.next()) {
+                                double itemPrice = rsItem.getDouble("price");
+                                double price = itemPrice * quantity;
+
+                                insertStmt2.setInt(1, orderId);
+                                insertStmt2.setInt(2, itemId);
+                                insertStmt2.setInt(3, quantity);
+                                insertStmt2.setDouble(4, price);
+
+                                insertStmt2.executeUpdate();
+                            } else {
+                                Log.e("CartActivity", "Item not found with item_id: " + itemId);
+                            }
+
+                            rsItem.close();
+                            stmtItem.close();
+                        }
+
+                        rsDetails.close();
+                        stmtDetails.close();
+                        insertStmt2.close();
+
+                        Log.d("CartActivity", "Insert successfully");
+                    } else {
+                        Log.e("CartActivity", "Failed to retrieve order_id");
+                    }
+                    generatedKeys.close();
+
                 } else {
                     Log.e("CartActivity", "Insert failed");
                 }
+                insertStmt.close();
             } catch (SQLException e) {
                 Log.e("Error: ", Objects.requireNonNull(e.getMessage()));
+                try {
+                    connection2.rollback(); // Rollback nếu có lỗi xảy ra
+                } catch (SQLException ex) {
+                    Log.e("Error: ", Objects.requireNonNull(ex.getMessage()));
+                }
             } finally {
                 try {
                     if (connection2 != null && !connection2.isClosed()) {
-                        connection2.close();
+                        connection2.setAutoCommit(true); // Đặt lại AutoCommit
+                        connection2.close(); // Đóng kết nối
                     }
                 } catch (SQLException e) {
                     Log.e("Error: ", Objects.requireNonNull(e.getMessage()));

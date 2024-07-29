@@ -46,6 +46,12 @@ public class OrderFragment extends Fragment {
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData(); // Gọi để đảm bảo dữ liệu được tải lại khi fragment hiển thị
+    }
+
     private void loadData() {
         ConnectionClass sql = new ConnectionClass();
         connection = sql.conClass();
@@ -73,6 +79,7 @@ public class OrderFragment extends Fragment {
         }
     }
 
+
     private void addEvents() {
 
     }
@@ -85,5 +92,11 @@ public class OrderFragment extends Fragment {
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         rcv_order.setLayoutManager(linearLayoutManager);  // Set LayoutManager cho RecyclerView
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        orderList = new ArrayList<>(); // Khởi tạo orderList ở đây
     }
 }

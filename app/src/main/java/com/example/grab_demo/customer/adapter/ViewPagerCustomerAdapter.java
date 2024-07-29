@@ -13,8 +13,8 @@ import com.example.grab_demo.customer.fragment.ProfileFragment;
 
 public class ViewPagerCustomerAdapter extends FragmentStatePagerAdapter {
 
-    public ViewPagerCustomerAdapter(@NonNull FragmentManager fm, int behavior) {
-        super(fm, behavior);
+    public ViewPagerCustomerAdapter(@NonNull FragmentManager fm) {
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
     }
 
     @NonNull
@@ -38,6 +38,9 @@ public class ViewPagerCustomerAdapter extends FragmentStatePagerAdapter {
 
     @Override
     public int getCount() {
-        return 5;
+        return 5; // Số lượng fragment trong ViewPager
     }
 }
+
+
+

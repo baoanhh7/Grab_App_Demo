@@ -1,5 +1,5 @@
 <!-- badge_background.xml -->
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
-    <solid android:color="#FF4141"/>
-    <corners android:radius="200dp"/>
+    <solid android:color="#FF4141" />
+    <corners android:radius="200dp" />
 </shape>

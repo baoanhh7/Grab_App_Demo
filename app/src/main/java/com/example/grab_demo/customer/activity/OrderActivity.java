@@ -157,7 +157,6 @@ public class OrderActivity extends AppCompatActivity {
         }
     }
 
-
     private void addControls() {
         btn_close = findViewById(R.id.btn_close);
         btn_order = findViewById(R.id.btn_order);

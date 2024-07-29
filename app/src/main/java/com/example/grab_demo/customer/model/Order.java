@@ -7,7 +7,7 @@ public class Order implements Serializable {
     private int orderId;
     private int customerId;
     private int storeId;
-    private int deliveryId;
+    private Integer deliveryId;
     private double deliveryPrice;
     private double totalPrice;
     private String paymentMethod;
@@ -17,7 +17,7 @@ public class Order implements Serializable {
     private Date updatedAt;
 
     // Constructor
-    public Order(int orderId, int customerId, int storeId, int deliveryId, double deliveryPrice,
+    public Order(int orderId, int customerId, int storeId, Integer deliveryId, double deliveryPrice,
                  double totalPrice, String paymentMethod, String status, int voucherId,
                  Date createdAt, Date updatedAt) {
         this.orderId = orderId;
@@ -41,7 +41,7 @@ public class Order implements Serializable {
         this.voucherId = voucherId;
     }
 
-    public Order(int orderId, int deliveryId, double totalPrice, String status) {
+    public Order(int orderId, Integer deliveryId, double totalPrice, String status) {
         this.orderId = orderId;
         this.deliveryId = deliveryId;
         this.totalPrice = totalPrice;
@@ -49,6 +49,7 @@ public class Order implements Serializable {
     }
 
     // Getters and setters
+
     public int getOrderId() {
         return orderId;
     }
@@ -73,11 +74,11 @@ public class Order implements Serializable {
         this.storeId = storeId;
     }
 
-    public int getDeliveryId() {
+    public Integer getDeliveryId() {
         return deliveryId;
     }
 
-    public void setDeliveryId(int deliveryId) {
+    public void setDeliveryId(Integer deliveryId) {
         this.deliveryId = deliveryId;
     }
 

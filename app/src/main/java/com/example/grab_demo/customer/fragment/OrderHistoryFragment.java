@@ -40,11 +40,16 @@ public class OrderHistoryFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_order_history, container, false);
 
         addControls();
-
+        loadData();
         addEvents();
 
-        loadData();
         return view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        loadData(); // Gọi để đảm bảo dữ liệu được tải lại khi fragment hiển thị
     }
 
     private void loadData() {
@@ -79,12 +84,18 @@ public class OrderHistoryFragment extends Fragment {
     }
 
     private void addControls() {
-        rcv_order = view.findViewById(R.id.rcv_order);
+        rcv_order = view.findViewById(R.id.rcv_order_history);
         orderList = new ArrayList<>();
         orderAdapter = new C_OrderAdapter(getActivity(), orderList);
         rcv_order.setAdapter(orderAdapter);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false);
         rcv_order.setLayoutManager(linearLayoutManager);  // Set LayoutManager cho RecyclerView
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        orderList = new ArrayList<>(); // Khởi tạo orderList ở đây
     }
 }

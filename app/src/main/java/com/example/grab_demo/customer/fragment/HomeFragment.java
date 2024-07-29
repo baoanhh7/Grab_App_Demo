@@ -27,7 +27,6 @@ import com.example.grab_demo.customer.activity.StoreListActivity;
 import com.example.grab_demo.customer.adapter.CategoryHomeAdapter;
 import com.example.grab_demo.customer.adapter.HomeSecondAdapter;
 import com.example.grab_demo.customer.adapter.HomeVoucherAdapter;
-import com.example.grab_demo.customer.adapter.StoreListAdapter;
 import com.example.grab_demo.customer.m_interface.StClickItem;
 import com.example.grab_demo.customer.model.Category;
 import com.example.grab_demo.customer.model.Store;
@@ -80,7 +79,6 @@ public class HomeFragment extends Fragment {
 
         SharedPreferences sharedPreferences = getActivity().getSharedPreferences("MyPrefs", MODE_PRIVATE);
         int userId = sharedPreferences.getInt("user_id", -1);
-        Log.e("HomeFragment", "userId is null");
 
         if (userId != -1) {
             loadingData();
@@ -300,7 +298,6 @@ public class HomeFragment extends Fragment {
     @Override
     public void onResume() {
         super.onResume();
-
         startAutoRefresh();
     }
 }
