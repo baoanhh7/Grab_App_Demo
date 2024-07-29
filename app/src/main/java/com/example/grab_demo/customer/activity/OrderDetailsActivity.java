@@ -137,9 +137,68 @@ public class OrderDetailsActivity extends AppCompatActivity {
         btn_cancel_order.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                cancelOrder(orderId);
+                checkOrderStatusAndShowDialog(orderId);
             }
         });
+    }
+
+    private void checkOrderStatusAndShowDialog(final int orderId) {
+        ConnectionClass sql = new ConnectionClass();
+        connection = sql.conClass();
+        if (connection != null) {
+            try {
+                // Truy vấn để kiểm tra trạng thái đơn hàng
+                String query = "SELECT status FROM Orders WHERE order_id = ?";
+                PreparedStatement pstmt = connection.prepareStatement(query);
+                pstmt.setInt(1, orderId);
+                ResultSet resultSet = pstmt.executeQuery();
+
+                if (resultSet.next()) {
+                    String status = resultSet.getString("status");
+
+                    if ("pending".equals(status)) {
+                        // Hiển thị hộp thoại xác nhận nếu trạng thái là 'pending'
+                        showCancelOrderDialog(orderId);
+                    } else {
+                        // Thông báo lỗi nếu trạng thái không phải 'pending'
+                        Toast.makeText(this, "Không thể hủy đơn hàng này.", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    // Thông báo lỗi nếu không tìm thấy đơn hàng
+                    Toast.makeText(this, "Order not found.", Toast.LENGTH_SHORT).show();
+                }
+
+                connection.close();
+
+            } catch (Exception e) {
+                Log.e("Error: ", Objects.requireNonNull(e.getMessage()));
+            }
+        } else {
+            Log.e("Error: ", "Connection null");
+        }
+    }
+
+    private void showCancelOrderDialog(int orderId) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(OrderDetailsActivity.this);
+        builder.setTitle("Thông báo")
+                .setMessage("Xác nhận hủy đơn hàng?")
+                .setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Thực hiện hủy đơn hàng khi người dùng nhấn "Xác nhận"
+                        cancelOrder(orderId);
+                        finish();
+                    }
+                })
+                .setNegativeButton("Không", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // Đóng hộp thoại khi người dùng nhấn "Không"
+                        dialog.dismiss();
+                    }
+                });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     private void cancelOrder(int orderId) {
@@ -156,26 +215,6 @@ public class OrderDetailsActivity extends AppCompatActivity {
 
                 if (rowsAffected > 0) {
                     Log.i("Success: ", "Order status updated to 'canceled'");
-
-                    AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                    builder.setTitle("Thông báo")
-                            .setMessage("Xác nhận hủy đơn hàng?")
-                            .setPositiveButton("Xác nhận", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // Thực hiện hủy đơn hàng khi người dùng nhấn "Xác nhận"
-                                    cancelOrder(orderId);
-                                }
-                            })
-                            .setNegativeButton("Không", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    // Đóng hộp thoại khi người dùng nhấn "Không"
-                                    dialog.dismiss();
-                                }
-                            });
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
                 } else {
                     Log.e("Error: ", "Order update failed");
                     Toast.makeText(this, "Failed to cancel order", Toast.LENGTH_SHORT).show();

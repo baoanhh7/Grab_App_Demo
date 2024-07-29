@@ -10,7 +10,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
-import com.example.grab_demo.customer.m_interface.StClickItem;
 import com.example.grab_demo.customer.m_interface.StClickItem2;
 import com.example.grab_demo.customer.model.Order;
 
