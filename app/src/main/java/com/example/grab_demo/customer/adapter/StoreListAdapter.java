@@ -82,7 +82,7 @@ public class StoreListAdapter extends RecyclerView.Adapter<StoreListAdapter.Home
     private void showStoreClosedDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Thông báo");
-        builder.setMessage("Cửa hàng đã đóng. Vui lòng chọn cửa hàng khác.");
+        builder.setMessage("Cửa hàng đã đóng cửa. Vui lòng chọn cửa hàng khác.");
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

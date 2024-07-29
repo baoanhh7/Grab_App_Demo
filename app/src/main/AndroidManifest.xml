@@ -24,7 +24,7 @@
         android:theme="@style/Theme.Grab_Demo"
         tools:targetApi="31">
         <activity
-            android:name=".customer.activity.CancelOrderActivity"
+            android:name=".customer.activity.OrderDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".admin.sales.activity.QLTaiKhoanActivity"

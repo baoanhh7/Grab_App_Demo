@@ -41,7 +41,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class HomeFragment extends Fragment {
-    private static final long REFRESH_INTERVAL = 5000; // 1 giây
+    private static final long REFRESH_INTERVAL = 5000; // 5 giây
 
     Connection connection;
     String query;

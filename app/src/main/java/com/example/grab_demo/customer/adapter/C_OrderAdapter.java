@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.grab_demo.R;
 import com.example.grab_demo.customer.m_interface.StClickItem;
+import com.example.grab_demo.customer.m_interface.StClickItem2;
 import com.example.grab_demo.customer.model.Order;
 
 import java.util.List;
@@ -18,14 +19,14 @@ import java.util.List;
 public class C_OrderAdapter extends RecyclerView.Adapter<C_OrderAdapter.HomeViewHolder> {
     Context context;
     List<Order> storeList;
-    private StClickItem stClickItem;
+    private StClickItem2 stClickItem;
 
     public C_OrderAdapter(Context context, List<Order> storeList) {
         this.context = context;
         this.storeList = storeList;
     }
 
-    public void setOnClickItemListener(StClickItem stClickItem) {
+    public void setOnClickItemListener(StClickItem2 stClickItem) {
         this.stClickItem = stClickItem;
     }
 
@@ -49,10 +50,13 @@ public class C_OrderAdapter extends RecyclerView.Adapter<C_OrderAdapter.HomeView
             @Override
             public void onClick(View v) {
                 if (stClickItem != null) {
-                    stClickItem.onClickItem(String.valueOf(storeList.get(position).getOrderId()));
+                    String orderId = String.valueOf(storeList.get(position).getOrderId());
+                    String voucherId = String.valueOf(storeList.get(position).getVoucherId());
+                    stClickItem.onClickItem(orderId, voucherId);
                 }
             }
         });
+
     }
 
     @Override

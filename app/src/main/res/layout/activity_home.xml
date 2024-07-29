@@ -23,5 +23,6 @@
         android:background="@color/xam"
         app:itemIconTint="@color/custom_color_navigation_storeowner"
         app:itemTextColor="@color/custom_color_navigation_storeowner"
+        app:labelVisibilityMode="auto"
         app:menu="@menu/menu_customer" />
 </RelativeLayout>

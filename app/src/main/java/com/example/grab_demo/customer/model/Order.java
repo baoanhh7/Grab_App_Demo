@@ -47,6 +47,13 @@ public class Order implements Serializable {
         this.totalPrice = totalPrice;
         this.status = status;
     }
+    public Order(int orderId, Integer deliveryId, double totalPrice, String status, int voucherId) {
+        this.orderId = orderId;
+        this.deliveryId = deliveryId;
+        this.totalPrice = totalPrice;
+        this.status = status;
+        this.voucherId = voucherId;
+    }
 
     // Getters and setters
 

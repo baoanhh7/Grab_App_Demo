@@ -10,6 +10,7 @@ import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
@@ -31,6 +32,7 @@ public class HomeActivity extends AppCompatActivity {
     Statement smt;
     ResultSet resultSet;
     String userId = "";
+
     private ViewPager viewPager;
     private BottomNavigationView bottomNavigationView;
 
@@ -133,13 +135,15 @@ public class HomeActivity extends AppCompatActivity {
     private void addControls() {
         viewPager = findViewById(R.id.viewpager_customer);
         bottomNavigationView = findViewById(R.id.bn_customer);
-        ViewPagerCustomerAdapter adapter = new ViewPagerCustomerAdapter(getSupportFragmentManager());
+
+        ViewPagerCustomerAdapter adapter = new ViewPagerCustomerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(adapter);
+        viewPager.setOffscreenPageLimit(3);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
+                // Do nothing
             }
 
             @Override
@@ -165,7 +169,7 @@ public class HomeActivity extends AppCompatActivity {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-
+                // Do nothing
             }
         });
 

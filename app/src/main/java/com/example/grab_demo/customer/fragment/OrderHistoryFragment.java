@@ -1,6 +1,8 @@
 package com.example.grab_demo.customer.fragment;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,6 +24,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class OrderHistoryFragment extends Fragment {
+    private static final long REFRESH_INTERVAL = 1000; // 2 giây
+
     Connection connection;
     String query;
     Statement smt;
@@ -30,6 +34,8 @@ public class OrderHistoryFragment extends Fragment {
     RecyclerView rcv_order;
     List<Order> orderList;
     C_OrderAdapter orderAdapter;
+    private Handler handler;
+    private Runnable refreshRunnable;
 
     private View view;
 
@@ -42,41 +48,71 @@ public class OrderHistoryFragment extends Fragment {
         addControls();
         loadData();
         addEvents();
-
+        handler = new Handler(Looper.getMainLooper());
+        refreshRunnable = new Runnable() {
+            @Override
+            public void run() {
+                loadData();
+                handler.postDelayed(this, REFRESH_INTERVAL);
+            }
+        };
         return view;
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        loadData(); // Gọi để đảm bảo dữ liệu được tải lại khi fragment hiển thị
+        startAutoRefresh();
+    }
+
+    private void startAutoRefresh() {
+        handler.postDelayed(refreshRunnable, REFRESH_INTERVAL);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+
+            }
+        });
     }
 
     private void loadData() {
-        ConnectionClass sql = new ConnectionClass();
-        connection = sql.conClass();
-        if (connection != null) {
-            try {
-                query = "SELECT order_id, delivery_id, total_price, status FROM Orders WHERE status IN ('delivered', 'cancelled')";
-                smt = connection.createStatement();
-                resultSet = smt.executeQuery(query);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ConnectionClass sql = new ConnectionClass();
+                connection = sql.conClass();
+                if (connection != null) {
+                    try {
+                        query = "SELECT order_id, delivery_id, total_price, status FROM Orders WHERE status IN ('delivered', 'canceled')";
+                        smt = connection.createStatement();
+                        resultSet = smt.executeQuery(query);
+                        final ArrayList<Order> tempArr = new ArrayList<>();
 
-                orderList.clear();
-                while (resultSet.next()) {
-                    int orderId = resultSet.getInt(1);
-                    int deliveryId = resultSet.getInt(2);
-                    double totalPrice = resultSet.getDouble(3);
-                    String status = resultSet.getString(4);
-                    orderList.add(new Order(orderId, deliveryId, totalPrice, status));
+                        while (resultSet.next()) {
+                            int orderId = resultSet.getInt(1);
+                            int deliveryId = resultSet.getInt(2);
+                            double totalPrice = resultSet.getDouble(3);
+                            String status = resultSet.getString(4);
+                            tempArr.add(new Order(orderId, deliveryId, totalPrice, status));
+                        }
+                        connection.close();
+
+                        requireActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                orderList.clear();
+                                orderList.addAll(tempArr);
+                                orderAdapter.notifyDataSetChanged();
+                            }
+                        });
+                    } catch (Exception e) {
+                        Log.e("Error: ", e.getMessage());
+                    }
+                } else {
+                    Log.e("Error: ", "Connection null");
                 }
-                orderAdapter.notifyDataSetChanged();
-                connection.close();
-            } catch (Exception e) {
-                Log.e("Error: ", e.getMessage());
             }
-        } else {
-            Log.e("Error: ", "Connection null");
-        }
+        }).start();
     }
 
     private void addEvents() {
