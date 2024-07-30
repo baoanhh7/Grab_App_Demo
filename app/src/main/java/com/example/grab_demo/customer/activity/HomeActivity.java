@@ -138,7 +138,7 @@ public class HomeActivity extends AppCompatActivity {
 
         ViewPagerCustomerAdapter adapter = new ViewPagerCustomerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
         viewPager.setAdapter(adapter);
-        viewPager.setOffscreenPageLimit(3);
+        viewPager.setOffscreenPageLimit(5);
 
         viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

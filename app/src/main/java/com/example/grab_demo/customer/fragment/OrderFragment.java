@@ -70,12 +70,7 @@ public class OrderFragment extends Fragment {
 
     private void startAutoRefresh() {
         handler.postDelayed(refreshRunnable, REFRESH_INTERVAL);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
 
-            }
-        });
     }
 
     private void loadData() {

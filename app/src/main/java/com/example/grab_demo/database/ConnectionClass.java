@@ -12,10 +12,10 @@ public class ConnectionClass {
 //    private static final String DB_URL = "jdbc:jtds:sqlserver://192.168.1.16:1433;databaseName=FoodOrderingSystem";
 //    private static final String DB_URL = "jdbc:jtds:sqlserver://10.20.1.44:1433;databaseName=FoodOrderingSystem";
     //private static final String DB_URL = "jdbc:jtds:sqlserver://172.31.119.2:1433;databaseName=FoodOrderingSystem";
-    //private static final String DB_URL = "jdbc:jtds:sqlserver://172.31.241.69:1433;databaseName=FoodOrderingSystem";
+    private static final String DB_URL = "jdbc:jtds:sqlserver://172.31.51.180:1433;databaseName=FoodOrderingSystem";
     // 172.31.119.2
     //bao anh
-    private static final String DB_URL = "jdbc:jtds:sqlserver://192.168.1.58:1433;databaseName=FoodOrderingSystem";
+   // private static final String DB_URL = "jdbc:jtds:sqlserver://192.168.1.58:1433;databaseName=FoodOrderingSystem";
 
     private static final String USER = "sa";
     //private static final String PASS = "YourStrong!Passw0rd";
